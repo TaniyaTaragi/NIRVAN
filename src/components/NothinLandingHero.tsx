@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, Trophy, Flame } from 'lucide-react';
+import { ArrowRight, Trophy, Flame } from 'lucide-react';
 
 interface FoamBubble {
   x: number;
@@ -19,13 +19,12 @@ interface FoamBubble {
 
 interface NothinLandingHeroProps {
   isLoaded?: boolean;
-  onOpenRegister: () => void;
+  onOpenRegister?: () => void;
   onExploreEvents: () => void;
 }
 
 export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
   isLoaded = true,
-  onOpenRegister,
   onExploreEvents,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -228,7 +227,7 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
         <div className="absolute inset-0 bg-gradient-to-t from-[#f0f0f2]/80 via-transparent to-[#f0f0f2]/60" />
       </div>
 
-      {/* Top Narrative, Hinglish Tagline & Action Triggers */}
+      {/* Top Narrative, Hinglish Tagline & Action Trigger */}
       <div className="relative z-10 max-w-2xl">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -259,7 +258,7 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
           Where India’s brightest developers, hackers, and creators build the next generation of autonomous intelligence and decentralized systems.
         </motion.p>
 
-        {/* Action Triggers: Primary Register Button & Explore Events Link */}
+        {/* Single Primary Action: Explore Events & Tracks with Register Now Solid Black Style */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -267,27 +266,12 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
           className="flex flex-wrap items-center gap-4"
         >
           <button
-            onClick={onOpenRegister}
-            className="group inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-black text-white text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-800 active:scale-95 transition-all shadow-2xl cursor-pointer"
+            onClick={onExploreEvents}
+            className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-black text-white text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-800 active:scale-95 transition-all shadow-2xl cursor-pointer"
           >
-            <span>REGISTER NOW</span>
+            <span>EXPLORE EVENTS &amp; TRACKS</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
-
-          <button
-            onClick={onExploreEvents}
-            className="px-6 py-3.5 rounded-full border border-black/20 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-black/5 active:scale-95 transition-all cursor-pointer font-semibold backdrop-blur-xs"
-          >
-            EXPLORE EVENTS &amp; TRACKS ↓
-          </button>
-
-          <a
-            href="#carousel-hero"
-            className="inline-flex items-center gap-1.5 text-xs font-mono-code text-zinc-700 hover:text-black uppercase tracking-wider underline underline-offset-4 cursor-pointer ml-2"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-black" />
-            <span>WHO WE ARE &amp; WHAT WE DO</span>
-          </a>
         </motion.div>
       </div>
 

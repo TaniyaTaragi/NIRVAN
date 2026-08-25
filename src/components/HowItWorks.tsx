@@ -71,7 +71,7 @@ export const HowItWorks = ({ onOpenRegister }: { onOpenRegister: () => void }) =
                     <span className="font-mono-code text-4xl font-black text-white/40 group-hover:text-white transition-colors tracking-tighter">
                       {item.step}
                     </span>
-                    <div className="p-3 bg-zinc-900 border border-zinc-800 text-white group-hover:bg-white group-hover:text-black transition-colors">
+                    <div className="how-it-works-icon p-3 bg-zinc-900 border border-zinc-800 text-white group-hover:bg-white group-hover:text-black transition-colors">
                       <Icon className="w-5 h-5" />
                     </div>
                   </div>
@@ -105,7 +105,7 @@ export const HowItWorks = ({ onOpenRegister }: { onOpenRegister: () => void }) =
         </div>
 
         {/* Bottom CTA Banner */}
-        <div className="mt-14 p-6 sm:p-8 bg-zinc-950 border border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="how-it-works-cta mt-14 p-6 sm:p-8 bg-zinc-950 border border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="w-3 h-3 rounded-full bg-emerald-500 animate-ping" />
             <div>

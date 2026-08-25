@@ -77,6 +77,25 @@
   border-color: #e4e4e7 !important;
 }
 
+.theme-light #how-it-works .how-it-works-icon {
+  background-color: #ffffff !important;
+  border-color: #e4e4e7 !important;
+  color: #18181b !important;
+}
+
+.theme-light #how-it-works .how-it-works-cta {
+  background-color: #ffffff !important;
+  border-color: #d4d4d8 !important;
+}
+
+.theme-light #how-it-works .how-it-works-cta .text-white {
+  color: #18181b !important;
+}
+
+.theme-light #how-it-works .how-it-works-cta .text-zinc-400 {
+  color: #52525b !important;
+}
+
 .theme-light #carousel-hero .hero-carousel-panel {
   background-color: #ffffff !important;
   border-color: #d4d4d8 !important;

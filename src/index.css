@@ -106,6 +106,37 @@
   color: #3f3f46 !important;
 }
 
+/* Keep nested dark utility surfaces from becoming dark-on-dark when the
+   presentation theme changes. Modal overlays are outside main and remain dark. */
+.theme-light main .bg-\[\#0a0a0c\],
+.theme-light main .bg-\[\#09090b\],
+.theme-light main .bg-\[\#09090b\],
+.theme-light main .bg-zinc-950,
+.theme-light main .bg-zinc-900,
+.theme-light main .bg-zinc-800 {
+  background-color: #ffffff !important;
+  border-color: #d4d4d8 !important;
+}
+
+.theme-light main .bg-\[\#0a0a0c\] .text-white,
+.theme-light main .bg-\[\#09090b\] .text-white,
+.theme-light main .bg-zinc-950 .text-white,
+.theme-light main .bg-zinc-900 .text-white,
+.theme-light main .bg-zinc-800 .text-white {
+  color: #18181b !important;
+}
+
+.theme-light main .bg-\[\#0a0a0c\] .text-zinc-300,
+.theme-light main .bg-\[\#0a0a0c\] .text-zinc-400,
+.theme-light main .bg-\[\#09090b\] .text-zinc-300,
+.theme-light main .bg-\[\#09090b\] .text-zinc-400,
+.theme-light main .bg-zinc-950 .text-zinc-300,
+.theme-light main .bg-zinc-950 .text-zinc-400,
+.theme-light main .bg-zinc-900 .text-zinc-300,
+.theme-light main .bg-zinc-900 .text-zinc-400 {
+  color: #52525b !important;
+}
+
 .custom-cursor {
   cursor: none;
 }

@@ -107,7 +107,7 @@ export const HeroCarousel = () => {
         </div>
 
         {/* Carousel Narrative Slide Deck */}
-        <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-16 md:p-20 overflow-hidden shadow-2xl">
+        <div className="hero-carousel-panel relative border border-zinc-800 bg-[#080808] p-8 sm:p-16 md:p-20 overflow-hidden shadow-2xl">
           <AnimatePresence mode="wait">
             <motion.div
               key={slide.id}

@@ -77,6 +77,16 @@
   border-color: #e4e4e7 !important;
 }
 
+.theme-light #carousel-hero .hero-carousel-panel {
+  background-color: #ffffff !important;
+  border-color: #d4d4d8 !important;
+}
+
+.theme-light #carousel-hero .hero-carousel-panel .text-zinc-300,
+.theme-light #carousel-hero .hero-carousel-panel .text-zinc-400 {
+  color: #3f3f46 !important;
+}
+
 .custom-cursor {
   cursor: none;
 }

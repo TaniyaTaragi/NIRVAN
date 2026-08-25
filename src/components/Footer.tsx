@@ -93,7 +93,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenRegister, onNavigateNewspa
           </form>
         </div>
 
-        {/* 3. 4-Column Directory Layout */}
+        {/* 3. 4-Column Directory Layout - Pure Static Informational Text (No Clickable Links) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-xs font-mono-code">
           {/* Column 1: Brand & Manifesto */}
           <div className="space-y-4">
@@ -113,142 +113,70 @@ export const Footer: React.FC<FooterProps> = ({ onOpenRegister, onNavigateNewspa
             </div>
           </div>
 
-          {/* Column 2: Event Tracks */}
+          {/* Column 2: Event Tracks (Pure Static Text) */}
           <div className="space-y-3">
             <div className="text-white font-bold tracking-widest uppercase mb-4">
               CRUCIBLE TRACKS
             </div>
             <ul className="space-y-2 text-zinc-400">
-              <li>
-                <button onClick={onNavigateNewspaper} className="hover:text-white transition-colors cursor-pointer">
-                  001 // Web3 &amp; Protocols
-                </button>
-              </li>
-              <li>
-                <button onClick={onNavigateNewspaper} className="hover:text-white transition-colors cursor-pointer">
-                  002 // Generative AI Agents
-                </button>
-              </li>
-              <li>
-                <button onClick={onNavigateNewspaper} className="hover:text-white transition-colors cursor-pointer">
-                  003 // Autonomous Robotics
-                </button>
-              </li>
-              <li>
-                <button onClick={onNavigateNewspaper} className="hover:text-white transition-colors cursor-pointer">
-                  004 // Cyber Defense
-                </button>
-              </li>
-              <li>
-                <button onClick={onNavigateNewspaper} className="hover:text-white transition-colors cursor-pointer">
-                  005 // FinTech &amp; Algorithmic
-                </button>
-              </li>
-              <li>
-                <button onClick={onNavigateNewspaper} className="hover:text-white transition-colors cursor-pointer">
-                  008 // Spatial Computing
-                </button>
-              </li>
+              <li>001 // Web3 &amp; Protocols</li>
+              <li>002 // Generative AI Agents</li>
+              <li>003 // Autonomous Robotics</li>
+              <li>004 // Cyber Defense</li>
+              <li>005 // FinTech &amp; Algorithmic</li>
+              <li>008 // Spatial Computing</li>
             </ul>
           </div>
 
-          {/* Column 3: Organizers & Platform */}
+          {/* Column 3: Organizers & Platform (Pure Static Text) */}
           <div className="space-y-3">
             <div className="text-white font-bold tracking-widest uppercase mb-4">
               ORGANIZERS &amp; CAMPUS
             </div>
             <ul className="space-y-2 text-zinc-400">
-              <li>
-                <a href="#about" className="hover:text-white transition-colors">
-                  About the Crucible
-                </a>
-              </li>
-              <li>
-                <button onClick={onNavigateNewspaper} className="hover:text-white transition-colors cursor-pointer">
-                  Organizing Leadership
-                </button>
-              </li>
-              <li>
-                <a href="#how-it-works" className="hover:text-white transition-colors">
-                  Schedule &amp; Roadmap
-                </a>
-              </li>
-              <li>
-                <a href="#faq" className="hover:text-white transition-colors">
-                  Rules &amp; Code of Conduct
-                </a>
-              </li>
-              <li>
-                <a href="#testimonials" className="hover:text-white transition-colors">
-                  Past Winner Archives
-                </a>
-              </li>
+              <li>About the Crucible</li>
+              <li>Organizing Leadership</li>
+              <li>Schedule &amp; Roadmap</li>
+              <li>Rules &amp; Code of Conduct</li>
+              <li>Past Winner Archives</li>
             </ul>
           </div>
 
-          {/* Column 4: Channels & Socials */}
+          {/* Column 4: Channels & Socials (Pure Static Text) */}
           <div className="space-y-3">
             <div className="text-white font-bold tracking-widest uppercase mb-4">
               CHANNELS &amp; REPO
             </div>
             <ul className="space-y-2 text-zinc-400">
-              <li>
-                <a
-                  href="https://github.com/TaniyaTaragi/NIRVAN.git"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors flex items-center gap-1 font-bold text-white"
-                >
-                  <span>GITHUB // OFFICIAL REPO</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </a>
+              <li className="flex items-center gap-1 font-bold text-white">
+                <span>GITHUB // OFFICIAL REPO</span>
+                <ArrowUpRight className="w-3 h-3 text-zinc-400" />
               </li>
-              <li>
-                <a
-                  href="https://discord.gg"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors flex items-center gap-1"
-                >
-                  <span>DISCORD MATCHMAKING</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </a>
+              <li className="flex items-center gap-1">
+                <span>DISCORD MATCHMAKING</span>
+                <ArrowUpRight className="w-3 h-3 text-zinc-500" />
               </li>
-              <li>
-                <a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors flex items-center gap-1"
-                >
-                  <span>X // TWITTER</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </a>
+              <li className="flex items-center gap-1">
+                <span>X // TWITTER</span>
+                <ArrowUpRight className="w-3 h-3 text-zinc-500" />
               </li>
-              <li>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white transition-colors flex items-center gap-1"
-                >
-                  <span>LINKEDIN // ALLIANCE</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </a>
+              <li className="flex items-center gap-1">
+                <span>LINKEDIN // ALLIANCE</span>
+                <ArrowUpRight className="w-3 h-3 text-zinc-500" />
               </li>
             </ul>
           </div>
         </div>
 
-        {/* 4. Bottom Copyright & Status Bar */}
+        {/* 4. Bottom Copyright & Status Bar (Pure Static Text) */}
         <div className="pt-12 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono-code text-zinc-500">
           <div>
             &copy; 2026 NIRVAN NATIONAL CRUCIBLE &bull; ALL RIGHTS RESERVED.
           </div>
           <div className="flex items-center gap-6">
-            <span className="hover:text-zinc-300 transition-colors">PRIVACY POLICY</span>
+            <span>PRIVACY POLICY</span>
             <span>&bull;</span>
-            <span className="hover:text-zinc-300 transition-colors">TERMS OF ENTRY</span>
+            <span>TERMS OF ENTRY</span>
             <span>&bull;</span>
             <span className="text-white font-bold flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-white animate-pulse" />

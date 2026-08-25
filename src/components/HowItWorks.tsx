@@ -56,7 +56,7 @@ export const HowItWorks = ({ onOpenRegister }: { onOpenRegister: () => void }) =
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
-                className="relative bg-[#0a0a0a] border border-zinc-800 p-8 sm:p-10 flex flex-col justify-between hover:border-zinc-500 transition-all duration-300 group"
+                className="how-it-works-card relative bg-[#0a0a0a] border border-zinc-800 p-8 sm:p-10 flex flex-col justify-between hover:border-zinc-500 transition-all duration-300 group"
               >
                 {/* Connecting Arrow for Step 01 and 02 */}
                 {index < 2 && (

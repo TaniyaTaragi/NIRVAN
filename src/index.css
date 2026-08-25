@@ -57,6 +57,26 @@
   color: #52525b !important;
 }
 
+.theme-light #how-it-works .how-it-works-card {
+  background-color: #ffffff !important;
+  border-color: #d4d4d8 !important;
+}
+
+.theme-light #how-it-works .how-it-works-card .text-zinc-400 {
+  color: #52525b !important;
+}
+
+.theme-light #how-it-works .how-it-works-card .text-zinc-300,
+.theme-light #how-it-works .how-it-works-card .text-zinc-500 {
+  color: #3f3f46 !important;
+}
+
+.theme-light #how-it-works .how-it-works-card .border-zinc-800,
+.theme-light #how-it-works .how-it-works-card .border-zinc-800\/80,
+.theme-light #how-it-works .how-it-works-card .border-zinc-800\/60 {
+  border-color: #e4e4e7 !important;
+}
+
 .custom-cursor {
   cursor: none;
 }

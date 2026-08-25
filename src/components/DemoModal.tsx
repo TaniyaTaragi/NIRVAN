@@ -45,7 +45,7 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, onClose }) => {
             {/* Video Container */}
             <div className="aspect-[16/9] w-full bg-black border border-zinc-800 overflow-hidden relative group">
               <video
-                src="https://noth-in.b-cdn.net/nothin-sharp-high.mp4"
+                src="/assets/HackathonVideo.mp4"
                 autoPlay
                 loop
                 muted

@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { ConstellationOrbitalGallery, ConstellationItem } from '../../components/ConstellationOrbitalGallery';
 import { TeamMember, ScheduleItem } from '../../types';
+import { EventDetailsSummary } from '../../components/EventDetailsSummary';
 
 export const WORKSHOP_CONSTELLATION_ITEMS: ConstellationItem[] = [
   {
@@ -54,7 +55,7 @@ export const WORKSHOP_CONSTELLATION_ITEMS: ConstellationItem[] = [
     brand: 'SPATIAL WEB CRAFT',
     category: 'Three.js',
     year: '2026',
-    image: 'https://images.unsplash.com/photo-1633493763342-998f46ef581f?w=900&h=650&fit=crop&q=80',
+    image: '/assets/workshop-3d-bg.jpg',
     description: 'Build silky 60fps 3D canvas physics, custom GLSL fragment shaders, and GSAP micro-interactions.',
     fullOverview: 'Master modern creative engineering techniques used on top Awwwards-winning web projects.',
     prizePool: 'Creative Tech Pass',
@@ -441,6 +442,7 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
             className="w-full h-full object-cover object-center filter saturate-125 contrast-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#f0f0f2]/85 via-transparent to-[#f0f0f2]/60" />
+          <div className="absolute inset-y-0 left-0 w-full sm:w-[74%] bg-gradient-to-r from-[#f0f0f2]/95 via-[#f0f0f2]/72 to-transparent pointer-events-none" />
         </div>
 
         <div className="relative z-10 max-w-3xl">
@@ -470,7 +472,7 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
             </button>
             <a
               href="#workshop-constellation"
-              className="px-6 py-3.5 rounded-full border border-black/20 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-black/5 active:scale-95 transition-all cursor-pointer font-semibold"
+              className="px-6 py-3.5 rounded-full bg-[#f0f0f2]/78 backdrop-blur-md border border-black/15 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-white/90 active:scale-95 transition-all cursor-pointer font-semibold shadow-sm"
             >
               EXPLORE MASTERCLASSES &amp; SCHEDULE ↓
             </a>
@@ -604,6 +606,8 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
           </div>
         </div>
       </section>
+
+      <EventDetailsSummary eventName="Tech Workshops & Masterclasses" description="Learn from practitioners through hands-on sessions that bridge theory and practical skills across emerging technologies." date="13 October 2026" time="02:00 PM - 07:00 PM" venue="GEHU Campus • Innovation Lab" teamSize="Individual / open" eligibility="Students, developers, and designers" fee="₹0 registration" prize="Certifications + mentorship retainers" rules="Bring a laptop, complete the guided exercises, participate in the practical review, and follow each instructor's workshop safety and conduct guidance." />
 
       {/* 2.5 3D Constellation Orbital Gallery of Workshop Masterclasses */}
       <div id="workshop-constellation">

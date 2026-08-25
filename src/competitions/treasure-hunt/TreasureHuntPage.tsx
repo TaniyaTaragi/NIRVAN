@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { ConstellationOrbitalGallery, ConstellationItem } from '../../components/ConstellationOrbitalGallery';
 import { TeamMember, ScheduleItem } from '../../types';
+import { EventDetailsSummary } from '../../components/EventDetailsSummary';
 
 export const QUEST_CONSTELLATION_ITEMS: ConstellationItem[] = [
   {
@@ -449,6 +450,7 @@ export const TreasureHuntPage: React.FC<TreasureHuntPageProps> = ({
             className="w-full h-full object-cover object-center filter saturate-125 contrast-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#f0f0f2]/85 via-transparent to-[#f0f0f2]/60" />
+          <div className="absolute inset-y-0 left-0 w-full sm:w-[74%] bg-gradient-to-r from-[#f0f0f2]/95 via-[#f0f0f2]/72 to-transparent pointer-events-none" />
         </div>
 
         <div className="relative z-10 max-w-3xl">
@@ -478,7 +480,7 @@ export const TreasureHuntPage: React.FC<TreasureHuntPageProps> = ({
             </button>
             <a
               href="#quest-constellation"
-              className="px-6 py-3.5 rounded-full border border-black/20 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-black/5 active:scale-95 transition-all cursor-pointer font-semibold"
+              className="px-6 py-3.5 rounded-full bg-[#f0f0f2]/78 backdrop-blur-md border border-black/15 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-white/90 active:scale-95 transition-all cursor-pointer font-semibold shadow-sm"
             >
               EXPLORE WAYPOINTS &amp; SCHEDULE ↓
             </a>
@@ -609,6 +611,8 @@ export const TreasureHuntPage: React.FC<TreasureHuntPageProps> = ({
           </div>
         </div>
       </section>
+
+      <EventDetailsSummary eventName="The Cryptic Treasure Hunt" description="Follow clues, decode puzzles, and coordinate across campus waypoints and digital challenges to uncover the final treasure." date="12 October 2026" time="04:00 PM - 10:00 PM" venue="GEHU Campus • Open Ground & Waypoints" teamSize="2-4 members" eligibility="All enrolled students at the campus or virtual hub" fee="₹0 registration" prize="₹50,000 + mystery tech bundles" rules="Solve clues in sequence, respect campus boundaries, do not tamper with other teams' waypoints, and submit each key before moving forward." />
 
       {/* 2.5 3D Constellation Orbital Gallery of Quest Stages */}
       <div id="quest-constellation">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle2, Sparkles, Send } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -10,19 +10,40 @@ interface RegistrationModalProps {
   defaultTrackId?: string;
 }
 
+interface Participant {
+  name: string;
+  email: string;
+  college: string;
+}
+
+const emptyParticipant = (): Participant => ({ name: '', email: '', college: '' });
+
 export const RegistrationModal: React.FC<RegistrationModalProps> = ({
   isOpen,
   onClose,
   defaultTrackId,
 }) => {
   const [teamName, setTeamName] = useState('');
-  const [leadName, setLeadName] = useState('');
-  const [email, setEmail] = useState('');
-  const [college, setCollege] = useState('');
   const [selectedTrack, setSelectedTrack] = useState(defaultTrackId || EVENT_TRACKS[0].id);
   const [teamSize, setTeamSize] = useState('4');
   const [githubUrl, setGithubUrl] = useState('');
+  const [participants, setParticipants] = useState<Participant[]>([
+    emptyParticipant(), emptyParticipant(), emptyParticipant(), emptyParticipant(),
+  ]);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (defaultTrackId) setSelectedTrack(defaultTrackId);
+  }, [defaultTrackId]);
+
+  const participantCount = Number(teamSize);
+  const visibleParticipants = participants.slice(0, participantCount);
+
+  const updateParticipant = (index: number, field: keyof Participant, value: string) => {
+    setParticipants((current) => current.map((participant, participantIndex) => (
+      participantIndex === index ? { ...participant, [field]: value } : participant
+    )));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,7 +70,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[10000] bg-black/90 backdrop-blur-xl flex items-center justify-center p-6 sm:p-10"
+          className="fixed inset-0 z-[10000] bg-black/90 backdrop-blur-xl flex items-start sm:items-center justify-center overflow-y-auto overscroll-contain p-3 sm:p-6"
           onClick={onClose}
         >
           <motion.div
@@ -58,11 +79,11 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
             exit={{ scale: 0.92, opacity: 0, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 28 }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-2xl bg-[#0a0a0c] border border-white/20 p-8 sm:p-12 relative overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.9)]"
+            className="w-full max-w-2xl max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-3rem)] overflow-y-auto overscroll-contain bg-[#0a0a0c] border border-white/20 p-5 sm:p-10 md:p-12 relative shadow-[0_0_80px_rgba(0,0,0,0.9)]"
           >
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 w-10 h-10 border border-white/20 flex items-center justify-center text-zinc-400 hover:text-white hover:border-white transition-colors cursor-pointer z-20"
+              className="absolute top-3 right-3 sm:top-5 sm:right-5 w-9 h-9 sm:w-10 sm:h-10 bg-[#0a0a0c] border border-white/20 flex items-center justify-center text-zinc-400 hover:text-white hover:border-white transition-colors cursor-pointer z-20"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
@@ -78,66 +99,69 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                   Register for NIRVAN 2026
                 </h3>
                 <p className="text-xs sm:text-sm text-zinc-400 mb-8 font-mono-code">
-                  Join India’s top builders for a 48-hour high-stakes crucible.
+                  Join NIRVAN '26 at GEHU Campus for a two-day technical fest. No backend required - this is a frontend registration prototype.
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[11px] font-mono-code text-zinc-400 uppercase mb-1.5">
-                        Team Name / Squad *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={teamName}
-                        onChange={(e) => setTeamName(e.target.value)}
-                        placeholder="e.g. NeuralVanguard"
-                        className="w-full bg-zinc-900 border border-zinc-800 rounded px-4 py-2.5 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:border-white font-mono-code"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-mono-code text-zinc-400 uppercase mb-1.5">
-                        Team Lead Name *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={leadName}
-                        onChange={(e) => setLeadName(e.target.value)}
-                        placeholder="e.g. Tanya Taragi"
-                        className="w-full bg-zinc-900 border border-zinc-800 rounded px-4 py-2.5 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:border-white font-mono-code"
-                      />
-                    </div>
+                  <div>
+                    <label className="block text-[11px] font-mono-code text-zinc-400 uppercase mb-1.5">
+                      Team Name / Squad *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={teamName}
+                      onChange={(e) => setTeamName(e.target.value)}
+                      placeholder="e.g. NeuralVanguard"
+                      className="w-full bg-zinc-900 border border-zinc-800 rounded px-4 py-2.5 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:border-white font-mono-code"
+                    />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[11px] font-mono-code text-zinc-400 uppercase mb-1.5">
-                        Lead Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="lead@developer.org"
-                        className="w-full bg-zinc-900 border border-zinc-800 rounded px-4 py-2.5 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:border-white font-mono-code"
-                      />
+                  <div className="border border-zinc-800 p-4 sm:p-5 space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                      <div>
+                        <p className="text-[11px] font-mono-code text-white uppercase tracking-widest">Participant details</p>
+                        <p className="text-[11px] font-mono-code text-zinc-500 mt-1">Complete one profile for each selected team member.</p>
+                      </div>
+                      <span className="text-[10px] font-mono-code text-zinc-500 uppercase">{participantCount} required</span>
                     </div>
-                    <div>
-                      <label className="block text-[11px] font-mono-code text-zinc-400 uppercase mb-1.5">
-                        College / Organization *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={college}
-                        onChange={(e) => setCollege(e.target.value)}
-                        placeholder="e.g. IIT Delhi"
-                        className="w-full bg-zinc-900 border border-zinc-800 rounded px-4 py-2.5 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:border-white font-mono-code"
-                      />
-                    </div>
+
+                    {visibleParticipants.map((participant, index) => (
+                      <div key={index} className="border-t border-zinc-800 pt-4">
+                        <p className="text-[10px] font-mono-code text-zinc-400 uppercase tracking-widest mb-3">
+                          {index === 0 ? 'Participant 01 // Team Lead' : `Participant ${String(index + 1).padStart(2, '0')}`}
+                        </p>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                          <input
+                            type="text"
+                            required
+                            value={participant.name}
+                            onChange={(e) => updateParticipant(index, 'name', e.target.value)}
+                            placeholder="Full name *"
+                            aria-label={`Participant ${index + 1} full name`}
+                            className="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2.5 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:border-white font-mono-code"
+                          />
+                          <input
+                            type="email"
+                            required
+                            value={participant.email}
+                            onChange={(e) => updateParticipant(index, 'email', e.target.value)}
+                            placeholder="Email address *"
+                            aria-label={`Participant ${index + 1} email`}
+                            className="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2.5 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:border-white font-mono-code"
+                          />
+                          <input
+                            type="text"
+                            required
+                            value={participant.college}
+                            onChange={(e) => updateParticipant(index, 'college', e.target.value)}
+                            placeholder="College / org *"
+                            aria-label={`Participant ${index + 1} college or organization`}
+                            className="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2.5 text-xs text-white placeholder:text-zinc-600 focus:outline-none focus:border-white font-mono-code"
+                          />
+                        </div>
+                      </div>
+                    ))}
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -210,7 +234,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                   Team <strong className="text-white">"{teamName}"</strong> has been successfully registered for NIRVAN 2026.
                 </p>
                 <div className="p-4 bg-zinc-900 border border-zinc-800 text-xs font-mono-code text-zinc-400 mb-8 max-w-md mx-auto">
-                  Confirmation credentials and Discord Lounge invites sent to <strong className="text-white">{email}</strong>.
+                  Frontend demo complete for <strong className="text-white">{participantCount} participant{participantCount === 1 ? '' : 's'}</strong>. No data was sent to a backend.
                 </div>
                 <button
                   onClick={handleReset}

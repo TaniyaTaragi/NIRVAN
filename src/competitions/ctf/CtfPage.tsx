@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { ConstellationOrbitalGallery, ConstellationItem } from '../../components/ConstellationOrbitalGallery';
 import { TeamMember, ScheduleItem } from '../../types';
+import { EventDetailsSummary } from '../../components/EventDetailsSummary';
 
 export const CTF_CONSTELLATION_ITEMS: ConstellationItem[] = [
   {
@@ -457,6 +458,7 @@ export const CtfPage: React.FC<CtfPageProps> = ({
             className="w-full h-full object-cover object-center filter saturate-125 contrast-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#f0f0f2]/85 via-transparent to-[#f0f0f2]/60" />
+          <div className="absolute inset-y-0 left-0 w-full sm:w-[74%] bg-gradient-to-r from-[#f0f0f2]/95 via-[#f0f0f2]/72 to-transparent pointer-events-none" />
         </div>
 
         <div className="relative z-10 max-w-3xl">
@@ -486,7 +488,7 @@ export const CtfPage: React.FC<CtfPageProps> = ({
             </button>
             <a
               href="#ctf-constellation"
-              className="px-6 py-3.5 rounded-full border border-black/20 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-black/5 active:scale-95 transition-all cursor-pointer font-semibold"
+              className="px-6 py-3.5 rounded-full bg-[#f0f0f2]/78 backdrop-blur-md border border-black/15 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-white/90 active:scale-95 transition-all cursor-pointer font-semibold shadow-sm"
             >
               EXPLORE CHALLENGES &amp; SCHEDULE ↓
             </a>
@@ -614,6 +616,8 @@ export const CtfPage: React.FC<CtfPageProps> = ({
           </div>
         </div>
       </section>
+
+      <EventDetailsSummary eventName="CTF // Capture the Flag" description="Test offensive and defensive security skills across cryptography, web security, forensics, reverse engineering, and more." date="12 October 2026" time="12:00 PM - 13 October, 01:00 PM" venue="GEHU Campus • Cyber Lab" teamSize="1-3 members" eligibility="Ethical hackers, students, and security researchers" fee="₹0 registration" prize="₹75,000 + certifications" rules="Do not attack infrastructure outside the challenge environment, never share flags between teams, and submit write-ups for the top three teams." />
 
       {/* 2.5 3D Constellation Orbital Gallery of CTF Arenas */}
       <div id="ctf-constellation">

@@ -30,8 +30,8 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           clearInterval(interval);
           setTimeout(() => {
             setIsFinished(true);
-            setTimeout(onComplete, 1000);
-          }, 400);
+            setTimeout(onComplete, 350);
+          }, 150);
           return 100;
         }
 
@@ -60,7 +60,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       {!isFinished && (
         <motion.div
           initial={{ opacity: 1, y: 0 }}
-          exit={{ y: '-100%', transition: { duration: 1.1, ease: [0.76, 0, 0.24, 1] } }}
+          exit={{ y: '-100%', transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] } }}
           className="fixed inset-0 z-[100000] bg-[#000000] text-white flex flex-col justify-between items-center py-12 px-6 select-none"
         >
           {/* Top Meta */}

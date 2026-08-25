@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { ConstellationOrbitalGallery, ConstellationItem } from '../../components/ConstellationOrbitalGallery';
 import { TeamMember, ScheduleItem } from '../../types';
+import { EventDetailsSummary } from '../../components/EventDetailsSummary';
 
 export const HACKATHON_TRACK_ITEMS: ConstellationItem[] = [
   {
@@ -562,6 +563,7 @@ export const HackathonPage: React.FC<HackathonPageProps> = ({
             className="w-full h-full object-cover object-center filter saturate-125 contrast-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#f0f0f2]/85 via-transparent to-[#f0f0f2]/60" />
+          <div className="absolute inset-y-0 left-0 w-full sm:w-[74%] bg-gradient-to-r from-[#f0f0f2]/95 via-[#f0f0f2]/72 to-transparent pointer-events-none" />
         </div>
 
         {/* Top Narrative & Hinglish Punchline */}
@@ -600,7 +602,7 @@ export const HackathonPage: React.FC<HackathonPageProps> = ({
 
             <a
               href="#hackathon-tracks"
-              className="px-6 py-3.5 rounded-full border border-black/20 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-black/5 active:scale-95 transition-all cursor-pointer font-semibold"
+              className="px-6 py-3.5 rounded-full bg-[#f0f0f2]/78 backdrop-blur-md border border-black/15 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-white/90 active:scale-95 transition-all cursor-pointer font-semibold shadow-sm"
             >
               EXPLORE TRACKS &amp; SCHEDULE ↓
             </a>
@@ -752,6 +754,8 @@ export const HackathonPage: React.FC<HackathonPageProps> = ({
           </div>
         </div>
       </section>
+
+      <EventDetailsSummary eventName="48-Hour National Hackathon" description="Turn a real-world problem into a working prototype through rapid ideation, engineering, mentorship, and a final live pitch." date="12 October 2026" time="10:00 AM - 13 October, 03:30 PM" venue="GEHU Campus • Hacking Hall A & B" teamSize="2-4 members" eligibility="Students, developers, and designers" fee="₹0 registration" prize="₹2,50,000 + $5,000 cloud grants" rules="Build during the sprint, keep the repository public, document the solution, and submit a working demo before the deadline." />
 
       {/* 2.5 3D Constellation Orbital Gallery of Hackathon Tracks */}
       <div id="hackathon-tracks">

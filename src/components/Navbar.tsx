@@ -39,7 +39,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           : 'bg-transparent py-5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-10 flex items-center justify-between gap-6">
         {/* Left: Brand Logo / Name */}
         <button
           onClick={() => onNavigate('landing', 'home')}
@@ -59,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
 
         {/* Center Nav Links */}
-        <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-xs font-mono-code uppercase tracking-wider text-zinc-300">
+        <nav className="hidden xl:flex items-center gap-4 xl:gap-5 whitespace-nowrap text-xs font-mono-code uppercase tracking-wider text-zinc-300">
           <button
             onClick={() => onNavigate('landing', 'home')}
             className={`hover:text-white transition-colors cursor-pointer ${
@@ -102,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* AI Assistant Navigation Item */}
           <button
             onClick={onOpenAI}
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer border border-white/15"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all cursor-pointer border border-white/15 whitespace-nowrap"
           >
             <Bot className="w-3.5 h-3.5 text-white" />
             <span>AI ASSISTANT</span>
@@ -111,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Newspaper View Switcher */}
           <button
             onClick={() => onNavigate(currentView === 'landing' ? 'newspaper' : 'landing')}
-            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full transition-all cursor-pointer border ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full transition-all cursor-pointer border whitespace-nowrap ${
               currentView === 'newspaper'
                 ? 'bg-white text-black border-white font-bold'
                 : 'bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 border-zinc-700'
@@ -123,17 +123,17 @@ export const Navbar: React.FC<NavbarProps> = ({
         </nav>
 
         {/* Right Actions: Demo (Optional) & Register Now CTA */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden xl:flex items-center gap-3 shrink-0">
           <button
             onClick={onOpenDemo}
-            className="px-4 py-2 rounded-full border border-white/30 text-xs font-mono-code uppercase tracking-wider text-zinc-200 hover:text-white hover:border-white transition-all cursor-pointer"
+            className="px-4 py-2 rounded-full border border-white/30 text-xs font-mono-code uppercase tracking-wider text-zinc-200 hover:text-white hover:border-white transition-all cursor-pointer whitespace-nowrap"
           >
             DEMO
           </button>
 
           <button
             onClick={onOpenRegister}
-            className="group inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-lg cursor-pointer"
+            className="group inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-lg cursor-pointer whitespace-nowrap"
           >
             <span>REGISTER NOW</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -141,7 +141,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Mobile Menu Toggle */}
-        <div className="flex sm:hidden items-center gap-2">
+        <div className="flex xl:hidden items-center gap-2 shrink-0">
           <button
             onClick={onOpenRegister}
             className="px-3 py-1.5 rounded-full bg-white text-black text-[11px] font-mono-code font-bold uppercase tracking-wider"
@@ -151,6 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 text-white border border-white/20 rounded-lg"
+            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -159,7 +160,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="sm:hidden bg-black/95 border-b border-white/15 px-6 py-6 flex flex-col gap-4 text-xs font-mono-code uppercase tracking-wider text-zinc-300">
+        <div className="xl:hidden bg-black/95 border-b border-white/15 px-6 py-6 flex flex-col gap-4 text-xs font-mono-code uppercase tracking-wider text-zinc-300">
           <button
             onClick={() => {
               onNavigate('landing', 'home');

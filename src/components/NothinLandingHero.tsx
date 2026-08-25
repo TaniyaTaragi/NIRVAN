@@ -25,6 +25,7 @@ interface NothinLandingHeroProps {
 
 export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
   isLoaded = true,
+  onOpenRegister,
   onExploreEvents,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -225,10 +226,14 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
           className="w-full h-full object-cover object-center filter saturate-125 contrast-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#f0f0f2]/80 via-transparent to-[#f0f0f2]/60" />
+        <div className="absolute inset-y-0 left-0 w-full sm:w-[72%] bg-gradient-to-r from-[#f0f0f2]/95 via-[#f0f0f2]/72 to-transparent pointer-events-none" />
       </div>
 
-      {/* Top Narrative, Hinglish Tagline & Action Trigger */}
+      {/* Top Narrative, Official Tagline & Action Trigger */}
       <div className="relative z-10 max-w-2xl">
+        <p className="text-xs sm:text-sm font-mono-code uppercase tracking-[0.28em] text-zinc-600 mb-4">
+          NIRVAN '26 // WHERE IDEAS BECOME INNOVATION
+        </p>
         {/* Hinglish Main Punchline */}
         <motion.h1
           initial={{ opacity: 0, y: 15 }}
@@ -248,7 +253,7 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
           Where India’s brightest developers, hackers, and creators build the next generation of autonomous intelligence and decentralized systems.
         </motion.p>
 
-        {/* Single Primary Action: Explore Events & Tracks with Register Now Solid Black Style */}
+        {/* Primary and secondary actions required by the competition brief */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -262,7 +267,19 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
             <span>EXPLORE EVENTS &amp; TRACKS</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
+          <button
+            onClick={onOpenRegister}
+            className="inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-[#f0f0f2]/78 backdrop-blur-md border border-black/15 text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-white/90 active:scale-95 transition-all cursor-pointer shadow-sm"
+          >
+            REGISTER NOW
+          </button>
         </motion.div>
+      </div>
+
+      <div className="relative z-10 flex flex-wrap gap-x-6 gap-y-2 w-fit rounded-full border border-black/10 bg-[#f0f0f2]/72 backdrop-blur-sm px-3 py-2 text-[10px] sm:text-xs font-mono-code uppercase tracking-widest text-zinc-700 shadow-sm">
+        <span>12-13 OCTOBER 2026</span>
+        <span>GEHU CAMPUS</span>
+        <span>2-DAY TECHNICAL FEST</span>
       </div>
 
       {/* Giant Central Vector Wordmark: NIRVAN (Full-Bleed Rising Typography) */}

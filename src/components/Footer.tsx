@@ -75,11 +75,24 @@ export const Footer: React.FC<FooterProps> = () => {
               </span>
             </div>
             <p className="text-zinc-400 leading-relaxed font-normal">
-              National hackathon and webathon innovation crucible uniting India’s brightest minds across 12 high-impact tracks.
+              NIRVAN '26 is a two-day GEHU technical fest bringing together developers, innovators, designers, and technology enthusiasts.
             </p>
             <div className="text-[11px] text-zinc-500 uppercase tracking-widest pt-2">
-              DELHI NCR &bull; HYBRID WORLDWIDE
+              12-13 OCTOBER 2026 &bull; GEHU CAMPUS
             </div>
+          </div>
+
+          {/* Contact details required by the competition brief */}
+          <div className="space-y-3">
+            <div className="text-white font-bold tracking-widest uppercase mb-4">
+              CONTACT &amp; VENUE
+            </div>
+            <address className="not-italic space-y-2 text-zinc-400 leading-relaxed">
+              <div>Organizing Team</div>
+              <div>GEHU Campus</div>
+              <a className="block hover:text-white transition-colors" href="mailto:nirvan@gehu.in">nirvan@gehu.in</a>
+              <a className="block hover:text-white transition-colors" href="tel:+911256489632">+91 1256489632</a>
+            </address>
           </div>
 
           {/* Column 2: Event Tracks (Pure Static Text) */}

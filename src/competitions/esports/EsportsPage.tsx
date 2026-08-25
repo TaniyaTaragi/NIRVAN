@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { ConstellationOrbitalGallery, ConstellationItem } from '../../components/ConstellationOrbitalGallery';
 import { TeamMember, ScheduleItem } from '../../types';
+import { EventDetailsSummary } from '../../components/EventDetailsSummary';
 
 export const ESPORTS_CONSTELLATION_ITEMS: ConstellationItem[] = [
   {
@@ -457,6 +458,7 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
             className="w-full h-full object-cover object-center filter saturate-125 contrast-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#f0f0f2]/85 via-transparent to-[#f0f0f2]/60" />
+          <div className="absolute inset-y-0 left-0 w-full sm:w-[74%] bg-gradient-to-r from-[#f0f0f2]/95 via-[#f0f0f2]/72 to-transparent pointer-events-none" />
         </div>
 
         <div className="relative z-10 max-w-3xl">
@@ -486,7 +488,7 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
             </button>
             <a
               href="#esports-constellation"
-              className="px-6 py-3.5 rounded-full border border-black/20 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-black/5 active:scale-95 transition-all cursor-pointer font-semibold"
+              className="px-6 py-3.5 rounded-full bg-[#f0f0f2]/78 backdrop-blur-md border border-black/15 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-white/90 active:scale-95 transition-all cursor-pointer font-semibold shadow-sm"
             >
               EXPLORE TOURNAMENTS &amp; MATCHES ↓
             </a>
@@ -618,6 +620,8 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
           </div>
         </div>
       </section>
+
+      <EventDetailsSummary eventName="Esports Arena Championship" description="A high-energy competitive gaming arena where strategy, teamwork, reflexes, and skill decide the podium." date="12 October 2026" time="10:00 AM - 11:00 PM" venue="GEHU Campus • Esports Arena" teamSize="4-5 members per squad" eligibility="Registered college students and collegiate teams" fee="₹0 registration" prize="₹1,00,000 + gaming gear" rules="Play on audited tournament rigs, follow the published bracket, respect fair-play and anti-cheat rules, and report disputes to the event desk." />
 
       {/* 2.5 3D Constellation Orbital Gallery of Esports Tournaments */}
       <div id="esports-constellation">

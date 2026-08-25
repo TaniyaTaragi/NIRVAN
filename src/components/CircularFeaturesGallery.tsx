@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, X, Sparkles, Users, Shield, ArrowRight } from 'lucide-react';
+import { ArrowUpRight, X, Users, Shield, ArrowRight } from 'lucide-react';
 import { EventTrack } from '../types';
 
 export const EVENT_TRACKS: EventTrack[] = [
@@ -272,16 +272,7 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
         className="absolute inset-0 w-full h-full pointer-events-none opacity-40"
       />
 
-      {/* Top Section Meta (Cipher.tv Style) */}
-      <div className="max-w-7xl mx-auto w-full flex items-center justify-between z-10 pt-4">
-        <div className="text-[11px] font-mono-code uppercase tracking-widest text-zinc-500">
-          EVENT ARENAS // 05 CORE CRUCIBLES
-        </div>
-        <div className="inline-flex items-center gap-2 text-[11px] font-mono-code uppercase tracking-widest text-zinc-400">
-          <Sparkles className="w-3 h-3 text-zinc-300" />
-          <span>DRAG &bull; SCROLL SPIN &bull; CLICK TO PREVIEW</span>
-        </div>
-      </div>
+
 
       {/* 360° Circular Orbital Constellation Canvas with Scaled Cards (320px x 210px) */}
       <div

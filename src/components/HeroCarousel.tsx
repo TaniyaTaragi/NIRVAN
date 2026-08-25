@@ -1,115 +1,43 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  ChevronLeft,
-  ChevronRight,
-  Sparkles,
-  Terminal,
-  Code2,
-  Users,
-  Flame,
-  Award,
-  Trophy,
-  CheckCircle2,
-  Zap,
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
 interface SlideData {
   id: string;
-  badge: string;
   title: string;
   subtitle: string;
   description: string;
   actionText: string;
   actionLink: string;
-  highlights: {
-    icon: typeof Terminal;
-    title: string;
-    description: string;
-  }[];
 }
 
 const HERO_SLIDES: SlideData[] = [
   {
     id: 'what-is-nirvan',
-    badge: '01 // ARCHITECTURE & DEFINITION',
     title: 'What is NIRVAN?',
     subtitle: 'India’s Premier Multi-Disciplinary Technology Crucible',
     description:
       'NIRVAN is a high-velocity innovation ecosystem uniting software architects, AI researchers, hardware engineers, ethical hackers, and product designers. It is not just a hackathon — it is a crucible where bold ideas transform into production-grade systems in 48 hours.',
-    actionText: 'EXPLORE OUR MANIFESTO',
+    actionText: 'EXPLORE OUR ARENAS',
     actionLink: '#features',
-    highlights: [
-      {
-        icon: Users,
-        title: 'Open To All Builders',
-        description: 'Undergrads, postgrads, self-taught coders, and high school prodigies welcome.',
-      },
-      {
-        icon: Code2,
-        title: '5 Specialized Arenas',
-        description: 'Hackathon, Esports Arena, CTF Cyber Siege, Cryptic Treasure Hunt, and Masterclasses.',
-      },
-      {
-        icon: Sparkles,
-        title: 'Decentralized & AI First',
-        description: 'Built for real-world architectures from autonomous agents to ZK-protocols.',
-      },
-    ],
   },
   {
     id: 'why-it-is-organized',
-    badge: '02 // PURPOSE & VISION',
     title: 'Why It Is Organized?',
     subtitle: 'Bridging Academia to Production & Eliminating Corporate Slop',
     description:
       'Traditional tech fests focus on theoretical slide decks and generic presentations. NIRVAN was forged to give genuine builders an uncompromising playground: real problem statements, actual codebase judging, live telemetry, and direct VC & grant opportunities.',
-    actionText: 'VIEW THE 5 ARENAS',
+    actionText: 'VIEW THE 5 TRACKS',
     actionLink: '#features',
-    highlights: [
-      {
-        icon: Flame,
-        title: 'Zero Corporate Slop',
-        description: 'High-stakes bounties sponsored by actual Web3, AI, and cloud protocols.',
-      },
-      {
-        icon: Award,
-        title: 'Direct Seed & Grant Fast-Tracks',
-        description: 'Pitching directly to venture partners, angels, and tier-1 startup incubators.',
-      },
-      {
-        icon: Terminal,
-        title: 'Elite Builder Network',
-        description: 'Cultivating an electric community where lifelong technical co-founders meet.',
-      },
-    ],
   },
   {
     id: 'what-to-expect',
-    badge: '03 // PARTICIPANT EXPERIENCE',
     title: 'What You Can Expect',
     subtitle: '48 Hours of Pure Building, Mentorship & ₹5,00,000+ in Rewards',
     description:
       'Expect an adrenaline-fueled experience: round-the-clock office hours with staff engineers from Google, Polygon & AWS, competitive LAN gaming tournaments, zero registration fees (₹0), 24/7 catering, Red Bull lounges, and an electric live Demo Day.',
     actionText: 'VIEW EVENT SCHEDULE',
     actionLink: '#how-it-works',
-    highlights: [
-      {
-        icon: Trophy,
-        title: '₹5,00,000+ Prize Pool',
-        description: 'Cash rewards, arena bounties, $10,000+ cloud credits, and physical trophies.',
-      },
-      {
-        icon: CheckCircle2,
-        title: '1-on-1 Staff Mentorship',
-        description: 'Continuous architecture reviews and live debugging with senior industry leads.',
-      },
-      {
-        icon: Zap,
-        title: 'All-Inclusive Hospitality',
-        description: 'Free gourmet meals, midnight snacks, Red Bull fuel stations, and custom swag kits.',
-      },
-    ],
   },
 ];
 
@@ -133,21 +61,21 @@ export const HeroCarousel = () => {
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Top Header & Navigation Controls */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 pb-6 border-b border-zinc-800/80">
           <div>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-              Perspective &amp; Architecture
+              About NIRVAN
             </h2>
           </div>
 
           <div className="flex items-center gap-4">
-            {/* Slide Index Tabs / Dots */}
+            {/* Slide Index Tabs */}
             <div className="flex items-center gap-2 mr-2">
               {HERO_SLIDES.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentSlide(idx)}
-                  className={`h-2 transition-all duration-300 rounded-full cursor-pointer flex items-center justify-center text-[10px] font-mono-code font-bold ${
+                  className={`h-2.5 transition-all duration-300 rounded-full cursor-pointer flex items-center justify-center text-[10px] font-mono-code font-bold ${
                     currentSlide === idx
                       ? 'w-10 bg-white text-black'
                       : 'w-6 bg-zinc-800 text-zinc-500 hover:bg-zinc-700 hover:text-white'
@@ -178,7 +106,7 @@ export const HeroCarousel = () => {
         </div>
 
         {/* Carousel Narrative Slide Deck */}
-        <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-14 overflow-hidden shadow-2xl">
+        <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-16 md:p-20 overflow-hidden shadow-2xl">
           <AnimatePresence mode="wait">
             <motion.div
               key={slide.id}
@@ -186,59 +114,27 @@ export const HeroCarousel = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -25 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+              className="max-w-4xl"
             >
-              {/* Left Column: Headline & Manifesto Copy */}
-              <div className="lg:col-span-7">
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-[11px] font-mono-code text-zinc-400 uppercase tracking-widest mb-6">
-                  <Sparkles className="w-3 h-3 text-white" />
-                  <span>{slide.badge}</span>
-                </div>
+              <h3 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                {slide.title}
+              </h3>
 
-                <h3 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
-                  {slide.title}
-                </h3>
+              <h4 className="text-lg sm:text-2xl font-semibold text-zinc-300 mb-6 leading-snug">
+                {slide.subtitle}
+              </h4>
 
-                <h4 className="text-base sm:text-lg font-semibold text-zinc-300 mb-6 leading-snug">
-                  {slide.subtitle}
-                </h4>
+              <p className="text-base sm:text-lg text-zinc-400 leading-relaxed mb-10 font-normal max-w-3xl">
+                {slide.description}
+              </p>
 
-                <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8 max-w-xl font-normal">
-                  {slide.description}
-                </p>
-
-                <a
-                  href={slide.actionLink}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors shadow-lg"
-                >
-                  <span>{slide.actionText}</span>
-                  <span>↗</span>
-                </a>
-              </div>
-
-              {/* Right Column: Key Feature Highlights Bento */}
-              <div className="lg:col-span-5 flex flex-col gap-4">
-                {slide.highlights.map((item, index) => {
-                  const Icon = item.icon;
-                  return (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 15 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.35 }}
-                      className="p-5 border border-zinc-800/80 bg-zinc-900/40 hover:bg-zinc-900/80 hover:border-zinc-700 transition-all duration-300 flex items-start gap-4 shadow-sm"
-                    >
-                      <div className="p-2.5 bg-black border border-zinc-800 text-white shrink-0">
-                        <Icon className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <h5 className="text-sm font-bold text-white mb-1">{item.title}</h5>
-                        <p className="text-xs text-zinc-400 leading-relaxed font-normal">{item.description}</p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
+              <a
+                href={slide.actionLink}
+                className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
+              >
+                <span>{slide.actionText}</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
             </motion.div>
           </AnimatePresence>
         </div>

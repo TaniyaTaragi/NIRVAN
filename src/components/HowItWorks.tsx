@@ -35,23 +35,14 @@ export const HowItWorks = ({ onOpenRegister }: { onOpenRegister: () => void }) =
   return (
     <section
       id="how-it-works"
-      className="relative w-full py-28 sm:py-36 px-6 sm:px-12 bg-[#050505] text-white border-t border-zinc-900 select-none"
+      className="relative w-full py-24 sm:py-32 px-6 sm:px-12 bg-[#050505] text-white border-t border-zinc-900 select-none"
     >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-20 pb-6 border-b border-zinc-900">
-          <div>
-            <div className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
-              ROADMAP // PARTICIPANT JOURNEY
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-              How It Works
-            </h2>
-          </div>
-
-          <p className="text-xs sm:text-sm font-mono-code text-zinc-400 max-w-sm">
-            From squad formation to live demo day in 3 seamless steps.
-          </p>
+        <div className="mb-16 pb-6 border-b border-zinc-900">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            How It Works
+          </h2>
         </div>
 
         {/* 3-Step Milestone Connected Flow Grid */}
@@ -68,41 +59,42 @@ export const HowItWorks = ({ onOpenRegister }: { onOpenRegister: () => void }) =
                 className="relative bg-[#0a0a0a] border border-zinc-800 p-8 sm:p-10 flex flex-col justify-between hover:border-zinc-500 transition-all duration-300 group"
               >
                 {/* Connecting Arrow for Step 01 and 02 */}
-                {index < STEPS.length - 1 && (
-                  <div className="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black border border-zinc-700 items-center justify-center text-zinc-400 group-hover:border-white group-hover:text-white transition-colors">
+                {index < 2 && (
+                  <div className="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-zinc-900 border border-zinc-700 items-center justify-center text-zinc-400 group-hover:border-white group-hover:text-white transition-colors">
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 )}
 
                 <div>
-                  {/* Top Step Counter & Icon */}
-                  <div className="flex items-center justify-between mb-8 pb-4 border-b border-zinc-800">
-                    <span className="text-3xl font-mono-code font-black text-white">
+                  {/* Top Step Number & Icon */}
+                  <div className="flex items-center justify-between mb-8 pb-4 border-b border-zinc-800/80">
+                    <span className="font-mono-code text-4xl font-black text-white/40 group-hover:text-white transition-colors tracking-tighter">
                       {item.step}
                     </span>
-                    <div className="p-3 bg-zinc-900 border border-zinc-800 text-white">
+                    <div className="p-3 bg-zinc-900 border border-zinc-800 text-white group-hover:bg-white group-hover:text-black transition-colors">
                       <Icon className="w-5 h-5" />
                     </div>
                   </div>
 
-                  <div className="text-[10px] font-mono-code text-zinc-500 uppercase tracking-widest mb-2">
+                  {/* Step Title & Subtitle */}
+                  <div className="text-[10px] font-mono-code text-zinc-500 uppercase tracking-widest mb-1.5">
                     {item.subtitle}
                   </div>
-
                   <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 tracking-tight">
                     {item.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-6">
+                  {/* Description */}
+                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-6 font-normal">
                     {item.description}
                   </p>
                 </div>
 
-                {/* Micro Points List */}
-                <div className="space-y-2 pt-6 border-t border-zinc-900">
+                {/* Key Bullet Points */}
+                <div className="pt-4 border-t border-zinc-800/60 space-y-2">
                   {item.points.map((pt, i) => (
-                    <div key={i} className="flex items-center gap-2 text-xs text-zinc-400 font-mono-code">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-zinc-300 shrink-0" />
+                    <div key={i} className="flex items-center gap-2 text-xs font-mono-code text-zinc-300">
+                      <CheckCircle2 className="w-3 h-3 text-zinc-500 shrink-0" />
                       <span>{pt}</span>
                     </div>
                   ))}
@@ -112,14 +104,26 @@ export const HowItWorks = ({ onOpenRegister }: { onOpenRegister: () => void }) =
           })}
         </div>
 
-        {/* Action Prompt */}
-        <div className="mt-16 text-center">
+        {/* Bottom CTA Banner */}
+        <div className="mt-14 p-6 sm:p-8 bg-zinc-950 border border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="w-3 h-3 rounded-full bg-emerald-500 animate-ping" />
+            <div>
+              <h4 className="text-sm font-bold text-white uppercase tracking-wider">
+                Registrations Now Open Globally
+              </h4>
+              <p className="text-xs font-mono-code text-zinc-400">
+                ₹0 entry fee &bull; 100% free participation with food &amp; cloud grants
+              </p>
+            </div>
+          </div>
+
           <button
             onClick={onOpenRegister}
-            className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-2xl cursor-pointer"
+            className="group inline-flex items-center gap-2.5 px-6 py-3 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-lg cursor-pointer"
           >
-            <span>JOIN THE 2026 CRUCIBLE</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <span>JOIN NIRVAN 2026</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>

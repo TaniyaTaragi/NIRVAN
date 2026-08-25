@@ -3,10 +3,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
   Calendar,
+  Clock,
+  MapPin,
   Users,
+  Shield,
+  CheckCircle,
+  Flame,
   ArrowRight,
+  Trophy,
   ChevronLeft,
   ChevronRight,
+  Gamepad2,
+  Tv,
+  Sparkles,
+  Zap,
   Globe,
   ExternalLink,
 } from 'lucide-react';
@@ -111,25 +121,104 @@ interface EsportsPageProps {
 
 const ESPORTS_CAROUSEL_SLIDES = [
   {
-    id: 'esports-tournaments',
-    title: 'Esports Championship Arena',
-    subtitle: 'Valorant, BGMI & EA FC 26 on 240Hz LAN Rigs',
+    id: 'esports-overview',
+    badge: '01 // EVENT & DESCRIPTION',
+    title: 'Event name + description',
+    subtitle: 'NIRVAN Esports Championship Arena 2026',
     description:
-      'Compete in India’s most intense collegiate esports showdown. Play on dedicated low-latency tournament fiber servers with official refereeing, spectator stages, and live YouTube/Twitch casting.',
+      'Compete in India’s most intense collegiate esports showdown featuring Valorant, BGMI, and EA FC 26 on 240Hz low-latency LAN rigs with official referees and live casting.',
+    highlights: [
+      {
+        icon: Gamepad2,
+        title: 'Event Overview',
+        description: 'NIRVAN Flagship Collegiate Esports LAN Tournament.',
+      },
+      {
+        icon: Tv,
+        title: 'Featured Game Titles',
+        description: '5v5 Valorant Tactical, 4-Man Squad BGMI Battle Royale & 1v1 EA FC 26.',
+      },
+      {
+        icon: Sparkles,
+        title: 'Broadcast & Casting',
+        description: 'Auditorium main stage, live caster desks, and spectator audio setup.',
+      },
+    ],
   },
   {
-    id: 'esports-rules',
-    title: 'Double-Elimination Bracket',
-    subtitle: 'Zero Tolerance Anti-Cheat & Certified LAN Hardware',
+    id: 'esports-schedule',
+    badge: '02 // DATE, TIME & VENUE',
+    title: 'Date + time + venue',
+    subtitle: 'October 24 - 25, 2026 • Indoor Sports Complex & Esports Stage',
     description:
-      'All tournament rigs are pre-configured and audited with hardware locks. Teams battle through double-elimination brackets ensuring only the most tactical squads reach the grand finals.',
+      'Brackets kick off Saturday morning with hardware device audits, progressing through double-elimination knockouts to Sunday evening live auditorium grand finals.',
+    highlights: [
+      {
+        icon: Calendar,
+        title: 'Tournament Dates',
+        description: 'October 24 – October 25, 2026 (2-Day Championship)',
+      },
+      {
+        icon: Clock,
+        title: 'Check-in & Audit Time',
+        description: 'Reporting & Device Audits at 10:00 AM • Brackets Live at 12:00 PM',
+      },
+      {
+        icon: MapPin,
+        title: 'Arena Venue',
+        description: 'Indoor Sports Complex & Auditorium Esports Arena, NIRVAN Campus.',
+      },
+    ],
   },
   {
-    id: 'esports-casting',
-    title: 'Grand Finale Showcase',
-    subtitle: 'Live Audience Finals in Front of 1,000+ Cheering Fans',
+    id: 'esports-eligibility',
+    badge: '03 // TEAM SIZE & ELIGIBILITY',
+    title: 'Team size + eligibility',
+    subtitle: '4 to 5 Players Per Squad • Verified Student & Club Rosters',
     description:
-      'The championship culminates on the grand auditorium stage on Sunday evening with live pyrotechnics, trophy presentation, and pro esports scout matchmaking.',
+      'Valorant requires 5 main players + 1 substitute. BGMI requires a 4-player squad. EA FC 26 is 1v1 solo entry. All players must complete identity verification.',
+    highlights: [
+      {
+        icon: Users,
+        title: 'Squad Size Specs',
+        description: 'Valorant (5v5), BGMI (4 Squad), EA FC 26 (1v1 Solo).',
+      },
+      {
+        icon: CheckCircle,
+        title: 'Eligibility Requirements',
+        description: 'Open to all college students, university esports clubs, and verified squads.',
+      },
+      {
+        icon: Shield,
+        title: 'Anti-Cheat & Fair Play',
+        description: 'Riot Vanguard & Krafton anti-cheat enforced on audited 240Hz LAN rigs.',
+      },
+    ],
+  },
+  {
+    id: 'esports-rewards',
+    badge: '04 // REGISTRATION FEE & PRIZE POOL',
+    title: 'Registration fee + prize pool',
+    subtitle: '₹0 Entry Fee (100% Free) • ₹1,00,000+ Prize Pool & Flagship Gaming Gear',
+    description:
+      'Zero entry fee for all student rosters. Compete for immediate cash disbursements, mechanical gaming keyboards, headsets, and custom MVP trophies.',
+    highlights: [
+      {
+        icon: Flame,
+        title: 'Registration Fee',
+        description: '₹0 (Free Squad Entry for all verified rosters)',
+      },
+      {
+        icon: Trophy,
+        title: 'Tournament Prize Pool',
+        description: '₹1,00,000+ Cash Pool + Sponsored Mechanical Keyboards & Headsets',
+      },
+      {
+        icon: Zap,
+        title: 'MVP Honors',
+        description: 'Custom MVP trophies, gaming peripherals, and pro streaming contracts.',
+      },
+    ],
   },
 ];
 
@@ -468,7 +557,7 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
             </div>
           </div>
 
-          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-16 md:p-20 overflow-hidden shadow-2xl">
+          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-14 overflow-hidden shadow-2xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={slide.id}
@@ -476,24 +565,54 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -25 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
-                className="max-w-4xl"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
               >
-                <h3 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
-                  {slide.title}
-                </h3>
-                <h4 className="text-lg sm:text-2xl font-semibold text-zinc-300 mb-6 leading-snug">
-                  {slide.subtitle}
-                </h4>
-                <p className="text-base sm:text-lg text-zinc-400 leading-relaxed mb-10 max-w-3xl font-normal">
-                  {slide.description}
-                </p>
-                <button
-                  onClick={() => onOpenRegister('event-02')}
-                  className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
-                >
-                  <span>JOIN ESPORTS BRACKET</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
+                <div className="lg:col-span-7">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-[11px] font-mono-code text-zinc-400 uppercase tracking-widest mb-6">
+                    <Sparkles className="w-3 h-3 text-white" />
+                    <span>{slide.badge}</span>
+                  </div>
+
+                  <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                    {slide.title}
+                  </h3>
+
+                  <h4 className="text-base sm:text-lg font-semibold text-zinc-300 mb-6 leading-snug">
+                    {slide.subtitle}
+                  </h4>
+
+                  <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8 max-w-xl font-normal">
+                    {slide.description}
+                  </p>
+
+                  <button
+                    onClick={() => onOpenRegister('event-02')}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors shadow-lg cursor-pointer"
+                  >
+                    <span>JOIN ESPORTS BRACKET</span>
+                    <span>↗</span>
+                  </button>
+                </div>
+
+                <div className="lg:col-span-5 flex flex-col gap-4">
+                  {slide.highlights?.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={index}
+                        className="p-5 border border-zinc-800/80 bg-zinc-900/40 hover:bg-zinc-900/80 hover:border-zinc-700 transition-all duration-300 flex items-start gap-4 shadow-sm"
+                      >
+                        <div className="p-2.5 bg-black border border-zinc-800 text-white shrink-0">
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h5 className="text-sm font-bold text-white mb-1">{item.title}</h5>
+                          <p className="text-xs text-zinc-400 leading-relaxed font-normal">{item.description}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>

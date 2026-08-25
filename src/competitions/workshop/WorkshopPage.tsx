@@ -3,10 +3,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
   Calendar,
+  Clock,
+  MapPin,
   Users,
+  Shield,
+  CheckCircle,
+  Flame,
   ArrowRight,
+  Trophy,
   ChevronLeft,
   ChevronRight,
+  BookOpen,
+  Code2,
+  Sparkles,
+  Zap,
   Globe,
   ExternalLink,
 } from 'lucide-react';
@@ -112,17 +122,103 @@ interface WorkshopPageProps {
 const WORKSHOP_CAROUSEL_SLIDES = [
   {
     id: 'workshop-overview',
-    title: 'Tech Workshops & Deep-Dives',
-    subtitle: 'GenAI Agents, ZK-Rollups & Spatial Three.js Systems',
+    badge: '01 // EVENT & DESCRIPTION',
+    title: 'Event name + description',
+    subtitle: 'NIRVAN Technical Masterclasses & Code-Alongs 2026',
     description:
-      'Learn directly from staff researchers and engineering leads. Every attendee receives live cloud compute credits, pre-configured starter repositories, and verified verifiable credentials upon completion.',
+      'Learn directly from staff researchers and engineering leads. Hands-on deep-dives into GenAI Agents, ZK Proofs, Three.js shaders, and Rust concurrency.',
+    highlights: [
+      {
+        icon: BookOpen,
+        title: 'Event Overview',
+        description: 'Hands-on technical masterclasses with zero corporate fluff.',
+      },
+      {
+        icon: Code2,
+        title: 'Code-Along Format',
+        description: 'Pre-configured starter repositories and cloud compute sandboxes.',
+      },
+      {
+        icon: Sparkles,
+        title: 'Industry Mentors',
+        description: 'Guided by senior engineers from Google, Polygon, and AWS.',
+      },
+    ],
   },
   {
-    id: 'workshop-tracks',
-    title: 'Hands-On Code-Along Curriculum',
-    subtitle: 'Interactive 3-Hour Labs with Zero Corporate Slop',
+    id: 'workshop-schedule',
+    badge: '02 // DATE, TIME & VENUE',
+    title: 'Date + time + venue',
+    subtitle: 'October 24 - 25, 2026 • Seminar Halls A, B & C',
     description:
-      'Write real production code with 1-on-1 assistance from instructor mentors. All starter kits and cloud sandbox environments are provided.',
+      '3-hour masterclass sessions running across Saturday and Sunday. Attendees can reserve seats for individual tracks or attend full-day bootcamps.',
+    highlights: [
+      {
+        icon: Calendar,
+        title: 'Masterclass Dates',
+        description: 'October 24 – October 25, 2026 (2-Day Bootcamp)',
+      },
+      {
+        icon: Clock,
+        title: 'Session Timings',
+        description: 'Morning Sessions (10:00 AM) • Afternoon Deep-Dives (02:00 PM)',
+      },
+      {
+        icon: MapPin,
+        title: 'Lab Venue',
+        description: 'Seminar Halls A, B & C, NIRVAN Tech Complex.',
+      },
+    ],
+  },
+  {
+    id: 'workshop-eligibility',
+    badge: '03 // TEAM SIZE & ELIGIBILITY',
+    title: 'Team size + eligibility',
+    subtitle: 'Individual Pass • Open to All Registered Developers & Students',
+    description:
+      'Individual registration. Bring your laptop with Node.js/Docker installed. All API keys and cloud credits provided upon check-in.',
+    highlights: [
+      {
+        icon: Users,
+        title: 'Registration Mode',
+        description: 'Individual participant seat reservations.',
+      },
+      {
+        icon: CheckCircle,
+        title: 'Eligibility Requirements',
+        description: 'Open to all developers, students, and tech enthusiasts.',
+      },
+      {
+        icon: Shield,
+        title: 'Prerequisites',
+        description: 'Basic programming knowledge; all software starter templates provided.',
+      },
+    ],
+  },
+  {
+    id: 'workshop-rewards',
+    badge: '04 // REGISTRATION FEE & PRIZE POOL',
+    title: 'Registration fee + prize pool',
+    subtitle: '₹0 Entry Fee (100% Free) • Verifiable Credentials & $1,000+ API Credits',
+    description:
+      '100% free registration for all attendees. Receive official verifiable certificates of completion, OpenAI/Anthropic API keys, and cloud credit vouchers.',
+    highlights: [
+      {
+        icon: Flame,
+        title: 'Registration Fee',
+        description: '₹0 (Free Admission for all accepted attendees)',
+      },
+      {
+        icon: Trophy,
+        title: 'Verifiable Credentials',
+        description: 'On-chain digital certificates of masterclass completion.',
+      },
+      {
+        icon: Zap,
+        title: 'API & Cloud Credits',
+        description: '$1,000+ cloud credits and AI API access tokens for all attendees.',
+      },
+    ],
   },
 ];
 
@@ -446,7 +542,8 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
             </div>
           </div>
 
-          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-16 md:p-20 overflow-hidden shadow-2xl">
+          {/* Carousel Card */}
+          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-14 overflow-hidden shadow-2xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={slide.id}
@@ -454,24 +551,54 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -25 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
-                className="max-w-4xl"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
               >
-                <h3 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
-                  {slide.title}
-                </h3>
-                <h4 className="text-lg sm:text-2xl font-semibold text-zinc-300 mb-6 leading-snug">
-                  {slide.subtitle}
-                </h4>
-                <p className="text-base sm:text-lg text-zinc-400 leading-relaxed mb-10 max-w-3xl font-normal">
-                  {slide.description}
-                </p>
-                <button
-                  onClick={() => onOpenRegister('event-05')}
-                  className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
-                >
-                  <span>CLAIM WORKSHOP PASS</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
+                <div className="lg:col-span-7">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-[11px] font-mono-code text-zinc-400 uppercase tracking-widest mb-6">
+                    <Sparkles className="w-3 h-3 text-white" />
+                    <span>{slide.badge}</span>
+                  </div>
+
+                  <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                    {slide.title}
+                  </h3>
+
+                  <h4 className="text-base sm:text-lg font-semibold text-zinc-300 mb-6 leading-snug">
+                    {slide.subtitle}
+                  </h4>
+
+                  <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8 max-w-xl font-normal">
+                    {slide.description}
+                  </p>
+
+                  <button
+                    onClick={() => onOpenRegister('event-05')}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors shadow-lg cursor-pointer"
+                  >
+                    <span>CLAIM WORKSHOP PASS</span>
+                    <span>↗</span>
+                  </button>
+                </div>
+
+                <div className="lg:col-span-5 flex flex-col gap-4">
+                  {slide.highlights?.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={index}
+                        className="p-5 border border-zinc-800/80 bg-zinc-900/40 hover:bg-zinc-900/80 hover:border-zinc-700 transition-all duration-300 flex items-start gap-4 shadow-sm"
+                      >
+                        <div className="p-2.5 bg-black border border-zinc-800 text-white shrink-0">
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h5 className="text-sm font-bold text-white mb-1">{item.title}</h5>
+                          <p className="text-xs text-zinc-400 leading-relaxed font-normal">{item.description}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>

@@ -3,12 +3,22 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
   Calendar,
+  Clock,
+  MapPin,
   Users,
+  Shield,
+  CheckCircle,
   ExternalLink,
   Globe,
+  Flame,
   ArrowRight,
+  Trophy,
   ChevronLeft,
   ChevronRight,
+  Code2,
+  Terminal,
+  Sparkles,
+  Zap,
 } from 'lucide-react';
 import { ConstellationOrbitalGallery, ConstellationItem } from '../../components/ConstellationOrbitalGallery';
 import { TeamMember, ScheduleItem } from '../../types';
@@ -112,24 +122,103 @@ interface HackathonPageProps {
 const HACKATHON_CAROUSEL_SLIDES = [
   {
     id: 'hack-overview',
-    title: 'Flagship National Hackathon',
-    subtitle: 'India’s Premier 48-Hour Product & AI Crucible',
+    badge: '01 // EVENT & DESCRIPTION',
+    title: 'Event name + description',
+    subtitle: 'NIRVAN Flagship National Hackathon 2026',
     description:
-      'Assemble a team of 2 to 4 developers, designers, and domain hackers to build functional, production-ready software. Compete for ₹2,50,000+ in bounties, VC fast-tracks, and $5,000+ in cloud credits.',
+      'Assemble a team of 2 to 4 builders to conceive, code, and deploy functional AI agents, Web3 protocols, and fullstack MVPs in a high-octane 48-hour sprint.',
+    highlights: [
+      {
+        icon: Code2,
+        title: 'Event Overview',
+        description: 'India’s premier 48-hour product crucible bringing together 1,000+ top hackers.',
+      },
+      {
+        icon: Terminal,
+        title: 'Core Tracks & Themes',
+        description: 'GenAI Agents, Web3 Protocols, Fullstack DevTools, and Autonomous Robotics.',
+      },
+      {
+        icon: Sparkles,
+        title: 'Demo Showcase',
+        description: 'Culminates in live 5-minute pitch presentations directly to tier-1 VCs & founders.',
+      },
+    ],
   },
   {
-    id: 'hack-mentorship',
-    title: 'Staff Engineer Mentorship',
-    subtitle: '1-on-1 Office Hours with Google, Polygon & AWS Leads',
+    id: 'hack-schedule',
+    badge: '02 // DATE, TIME & VENUE',
+    title: 'Date + time + venue',
+    subtitle: 'October 24 - 26, 2026 • Main Campus Auditorium & Hacking Halls',
     description:
-      'Never get stuck in dependency hell. Senior architects and protocol contributors will be present on-site and in private Discord voice channels for architecture reviews and bug squashes.',
+      'The 48-hour sprint runs continuously from Friday morning to Sunday afternoon. On-site hacking halls feature 10Gbps fiber, 24/7 food, and dedicated resting lounges.',
+    highlights: [
+      {
+        icon: Calendar,
+        title: 'Event Dates',
+        description: 'October 24 – October 26, 2026 (48-Hour Continuous Sprint)',
+      },
+      {
+        icon: Clock,
+        title: 'Reporting & Kickoff Time',
+        description: 'Check-in opens at 09:00 AM • Keynote & Repositories Unlock at 11:00 AM Sharp.',
+      },
+      {
+        icon: MapPin,
+        title: 'Official Venue',
+        description: 'Main Campus Auditorium & Hacking Halls A & B, NIRVAN Tech Complex.',
+      },
+    ],
+  },
+  {
+    id: 'hack-eligibility',
+    badge: '03 // TEAM SIZE & ELIGIBILITY',
+    title: 'Team size + eligibility',
+    subtitle: '2 to 4 Builders Per Squad • Open to All Students & Developers',
+    description:
+      'Form squads of 2 to 4 members. Solo registrants can utilize our Discord matchmaking lounge prior to the keynote to team up with compatible builders.',
+    highlights: [
+      {
+        icon: Users,
+        title: 'Team Size',
+        description: 'Min 2, Max 4 builders per team. Multi-disciplinary teams recommended.',
+      },
+      {
+        icon: CheckCircle,
+        title: 'Eligibility Requirements',
+        description: 'Open to undergraduate, postgraduate students, and independent developer builders.',
+      },
+      {
+        icon: Shield,
+        title: 'Original Code Rule',
+        description: 'All submitted code must be written during the 48-hour window on fresh GitHub repos.',
+      },
+    ],
   },
   {
     id: 'hack-rewards',
-    title: '₹2,50,000+ Bounties & Seed Grants',
-    subtitle: 'Cash, Venture Fast-Tracks & Hiring Offers',
+    badge: '04 // REGISTRATION FEE & PRIZE POOL',
+    title: 'Registration fee + prize pool',
+    subtitle: '₹0 Entry Fee (100% Free) • ₹2,50,000+ Total Cash Pool & Grants',
     description:
-      'Winners receive immediate cash disbursements, hardware kits, fast-track partner interviews, and direct entry into top incubator batches with zero equity taken upfront.',
+      'Zero entry fees for all admitted rosters. Win instant cash disbursements, track bounties, cloud compute credits, and fast-track VC investment interviews.',
+    highlights: [
+      {
+        icon: Flame,
+        title: 'Registration Fee',
+        description: '₹0 (Free Registration for all verified builder squads)',
+      },
+      {
+        icon: Trophy,
+        title: 'Cash Prize Pool',
+        description: '₹2,50,000 Total Cash (₹1,25,000 Grand Winner + ₹40,000 Category Bounties)',
+      },
+      {
+        icon: Zap,
+        title: 'Cloud Grants & Fast-Tracks',
+        description: '$5,000+ AWS/GCP credits, API keys, and closed-room angel fund pitches.',
+      },
+    ],
   },
 ];
 
@@ -602,7 +691,7 @@ export const HackathonPage: React.FC<HackathonPageProps> = ({
           </div>
 
           {/* Carousel Card */}
-          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-16 md:p-20 overflow-hidden shadow-2xl">
+          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-14 overflow-hidden shadow-2xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={slide.id}
@@ -610,27 +699,54 @@ export const HackathonPage: React.FC<HackathonPageProps> = ({
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -25 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
-                className="max-w-4xl"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
               >
-                <h3 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
-                  {slide.title}
-                </h3>
+                <div className="lg:col-span-7">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-[11px] font-mono-code text-zinc-400 uppercase tracking-widest mb-6">
+                    <Sparkles className="w-3 h-3 text-white" />
+                    <span>{slide.badge}</span>
+                  </div>
 
-                <h4 className="text-lg sm:text-2xl font-semibold text-zinc-300 mb-6 leading-snug">
-                  {slide.subtitle}
-                </h4>
+                  <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                    {slide.title}
+                  </h3>
 
-                <p className="text-base sm:text-lg text-zinc-400 leading-relaxed mb-10 max-w-3xl font-normal">
-                  {slide.description}
-                </p>
+                  <h4 className="text-base sm:text-lg font-semibold text-zinc-300 mb-6 leading-snug">
+                    {slide.subtitle}
+                  </h4>
 
-                <button
-                  onClick={() => onOpenRegister('event-01')}
-                  className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
-                >
-                  <span>CLAIM HACKATHON SPOT</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
+                  <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8 max-w-xl font-normal">
+                    {slide.description}
+                  </p>
+
+                  <button
+                    onClick={() => onOpenRegister('event-01')}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors shadow-lg cursor-pointer"
+                  >
+                    <span>CLAIM HACKATHON SPOT</span>
+                    <span>↗</span>
+                  </button>
+                </div>
+
+                <div className="lg:col-span-5 flex flex-col gap-4">
+                  {slide.highlights?.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={index}
+                        className="p-5 border border-zinc-800/80 bg-zinc-900/40 hover:bg-zinc-900/80 hover:border-zinc-700 transition-all duration-300 flex items-start gap-4 shadow-sm"
+                      >
+                        <div className="p-2.5 bg-black border border-zinc-800 text-white shrink-0">
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h5 className="text-sm font-bold text-white mb-1">{item.title}</h5>
+                          <p className="text-xs text-zinc-400 leading-relaxed font-normal">{item.description}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>

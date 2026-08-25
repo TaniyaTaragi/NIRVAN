@@ -3,10 +3,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
   Calendar,
+  Clock,
+  MapPin,
   Users,
+  Shield,
+  CheckCircle,
+  Flame,
   ArrowRight,
+  Trophy,
   ChevronLeft,
   ChevronRight,
+  Compass,
+  Key,
+  Sparkles,
+  Zap,
   Globe,
   ExternalLink,
 } from 'lucide-react';
@@ -112,24 +122,103 @@ interface TreasureHuntPageProps {
 const QUEST_CAROUSEL_SLIDES = [
   {
     id: 'quest-overview',
-    title: 'The Cryptic Treasure Hunt',
-    subtitle: 'Cross-Campus Augmented Reality & Cryptographic Clues',
+    badge: '01 // EVENT & DESCRIPTION',
+    title: 'Event name + description',
+    subtitle: 'NIRVAN Cryptic Cross-Campus Treasure Hunt 2026',
     description:
-      'A thrilling race against time. Decode cryptographic riddles, terminal lockboxes, physical QR waypoints, and augmented-reality audio clues scattered across the campus and digital metaverse.',
+      'A high-speed race across campus. Decode cryptographic ciphers, terminal lockboxes, physical QR markers, and WebAR clues to unlock the master vault.',
+    highlights: [
+      {
+        icon: Compass,
+        title: 'Event Overview',
+        description: 'Cross-Campus Alternate Reality & Cipher Hunt.',
+      },
+      {
+        icon: Key,
+        title: 'Puzzle Mechanics',
+        description: 'WebAR Overlays, Radio Frequency SDR Beacons & Physical Micro-Dots.',
+      },
+      {
+        icon: Sparkles,
+        title: 'Master Vault Sprint',
+        description: 'First squad to crack the final combination wins the grand trophy.',
+      },
+    ],
   },
   {
-    id: 'quest-mechanics',
-    title: 'Progressive Lock & Gate System',
-    subtitle: 'Solve Sequential Checkpoints to Unlock GPS Coordinates',
+    id: 'quest-schedule',
+    badge: '02 // DATE, TIME & VENUE',
+    title: 'Date + time + venue',
+    subtitle: 'October 25, 2026 • Campus Quadrangle & WebAR Portal',
     description:
-      'Each solved riddle unlocks encrypted coordinates and digital tokens leading to physical campus checkpoints with live bot hints on Discord.',
+      'The hunt begins Sunday morning at 10:00 AM with the release of Gate 1 ciphers, concluding at 04:00 PM with the auditorium master lock ceremony.',
+    highlights: [
+      {
+        icon: Calendar,
+        title: 'Event Date',
+        description: 'Sunday, October 25, 2026 (Single-Day Quest)',
+      },
+      {
+        icon: Clock,
+        title: 'Flagoff & Vault Lock',
+        description: 'Briefing at 09:30 AM • Cipher Release at 10:00 AM • Vault Closes at 04:00 PM',
+      },
+      {
+        icon: MapPin,
+        title: 'Starting Checkpoint',
+        description: 'Main Campus Quadrangle & Interactive WebAR Portal.',
+      },
+    ],
+  },
+  {
+    id: 'quest-eligibility',
+    badge: '03 // TEAM SIZE & ELIGIBILITY',
+    title: 'Team size + eligibility',
+    subtitle: '2 to 4 Explorers Per Squad • Open to All Registered Participants',
+    description:
+      'Form a squad of 2 to 4 members. Each team requires at least one mobile device with a camera and internet connectivity for WebAR portal access.',
+    highlights: [
+      {
+        icon: Users,
+        title: 'Squad Size',
+        description: 'Min 2, Max 4 members per team.',
+      },
+      {
+        icon: CheckCircle,
+        title: 'Eligibility Requirements',
+        description: 'Open to all NIRVAN festival attendees and college students.',
+      },
+      {
+        icon: Shield,
+        title: 'Fair Play Rules',
+        description: 'No damaging physical campus infrastructure or sharing cipher keys.',
+      },
+    ],
   },
   {
     id: 'quest-rewards',
-    title: '₹50,000 Bounties & Mystery Hardware Kits',
-    subtitle: 'Hardware Bundles, Mystery Tech Gifts & Champion Trophies',
+    badge: '04 // REGISTRATION FEE & PRIZE POOL',
+    title: 'Registration fee + prize pool',
+    subtitle: '₹0 Entry Fee (100% Free) • ₹50,000 Cash Bounties & Mystery Hardware Kits',
     description:
-      'The first squad to unlock the final vault wins the grand bounty and mystery flagship developer gear packages.',
+      'Zero entry fees for all teams. Compete for immediate cash rewards, flagship tech gadget mystery boxes, smart accessories, and champion trophies.',
+    highlights: [
+      {
+        icon: Flame,
+        title: 'Registration Fee',
+        description: '₹0 (Free Squad Entry for all participants)',
+      },
+      {
+        icon: Trophy,
+        title: 'Cash Prize Pool',
+        description: '₹50,000 Cash Pool (₹25,000 Grand Champion + Category Bounties)',
+      },
+      {
+        icon: Zap,
+        title: 'Mystery Hardware Bundles',
+        description: 'Developer smart gadgets, custom gear boxes, and champion plaques.',
+      },
+    ],
   },
 ];
 
@@ -458,7 +547,8 @@ export const TreasureHuntPage: React.FC<TreasureHuntPageProps> = ({
             </div>
           </div>
 
-          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-16 md:p-20 overflow-hidden shadow-2xl">
+          {/* Carousel Card */}
+          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-14 overflow-hidden shadow-2xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={slide.id}
@@ -466,24 +556,54 @@ export const TreasureHuntPage: React.FC<TreasureHuntPageProps> = ({
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -25 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
-                className="max-w-4xl"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
               >
-                <h3 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
-                  {slide.title}
-                </h3>
-                <h4 className="text-lg sm:text-2xl font-semibold text-zinc-300 mb-6 leading-snug">
-                  {slide.subtitle}
-                </h4>
-                <p className="text-base sm:text-lg text-zinc-400 leading-relaxed mb-10 max-w-3xl font-normal">
-                  {slide.description}
-                </p>
-                <button
-                  onClick={() => onOpenRegister('event-04')}
-                  className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
-                >
-                  <span>ENTER TREASURE HUNT</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
+                <div className="lg:col-span-7">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-[11px] font-mono-code text-zinc-400 uppercase tracking-widest mb-6">
+                    <Sparkles className="w-3 h-3 text-white" />
+                    <span>{slide.badge}</span>
+                  </div>
+
+                  <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                    {slide.title}
+                  </h3>
+
+                  <h4 className="text-base sm:text-lg font-semibold text-zinc-300 mb-6 leading-snug">
+                    {slide.subtitle}
+                  </h4>
+
+                  <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8 max-w-xl font-normal">
+                    {slide.description}
+                  </p>
+
+                  <button
+                    onClick={() => onOpenRegister('event-04')}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors shadow-lg cursor-pointer"
+                  >
+                    <span>ENTER TREASURE HUNT</span>
+                    <span>↗</span>
+                  </button>
+                </div>
+
+                <div className="lg:col-span-5 flex flex-col gap-4">
+                  {slide.highlights?.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={index}
+                        className="p-5 border border-zinc-800/80 bg-zinc-900/40 hover:bg-zinc-900/80 hover:border-zinc-700 transition-all duration-300 flex items-start gap-4 shadow-sm"
+                      >
+                        <div className="p-2.5 bg-black border border-zinc-800 text-white shrink-0">
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h5 className="text-sm font-bold text-white mb-1">{item.title}</h5>
+                          <p className="text-xs text-zinc-400 leading-relaxed font-normal">{item.description}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>

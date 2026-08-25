@@ -14,11 +14,25 @@ import { NewspaperEventPage } from './components/NewspaperEventPage';
 import { AIAssistantDrawer } from './components/AIAssistantDrawer';
 import { RegistrationModal } from './components/RegistrationModal';
 import { DemoModal } from './components/DemoModal';
+import { HackathonPage } from './competitions/hackathon/HackathonPage';
+import { EsportsPage } from './competitions/esports/EsportsPage';
+import { CtfPage } from './competitions/ctf/CtfPage';
+import { TreasureHuntPage } from './competitions/treasure-hunt/TreasureHuntPage';
+import { WorkshopPage } from './competitions/workshop/WorkshopPage';
 import { EventTrack } from './types';
+
+export type ViewType =
+  | 'landing'
+  | 'newspaper'
+  | 'hackathon'
+  | 'esports'
+  | 'ctf'
+  | 'treasure-hunt'
+  | 'workshop';
 
 export function App() {
   const [isPreloaderComplete, setIsPreloaderComplete] = useState(false);
-  const [currentView, setCurrentView] = useState<'landing' | 'newspaper'>('landing');
+  const [currentView, setCurrentView] = useState<ViewType>('landing');
   const [selectedTrackForNewspaper, setSelectedTrackForNewspaper] = useState<EventTrack | null>(null);
 
   const [isAIOpen, setIsAIOpen] = useState(false);
@@ -45,7 +59,7 @@ export function App() {
     };
   }, []);
 
-  const handleNavigate = (view: 'landing' | 'newspaper', sectionId?: string) => {
+  const handleNavigate = (view: ViewType, sectionId?: string) => {
     setCurrentView(view);
     if (view === 'landing' && sectionId) {
       setTimeout(() => {
@@ -61,7 +75,29 @@ export function App() {
 
   const handleSelectTrackForNewspaper = (track: EventTrack) => {
     setSelectedTrackForNewspaper(track);
-    setCurrentView('newspaper');
+    if (track.category === 'Hackathon') {
+      setCurrentView('hackathon');
+    } else if (track.category === 'Esports') {
+      setCurrentView('esports');
+    } else if (track.category === 'CTF') {
+      setCurrentView('ctf');
+    } else if (track.category === 'Treasure Hunt') {
+      setCurrentView('treasure-hunt');
+    } else if (track.category === 'Workshop') {
+      setCurrentView('workshop');
+    } else {
+      setCurrentView('newspaper');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectCompetitionByName = (arena: string) => {
+    if (arena === 'Hackathon') setCurrentView('hackathon');
+    else if (arena === 'Esports') setCurrentView('esports');
+    else if (arena === 'CTF') setCurrentView('ctf');
+    else if (arena === 'Treasure Hunt') setCurrentView('treasure-hunt');
+    else if (arena === 'Workshop') setCurrentView('workshop');
+    else setCurrentView('newspaper');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -70,26 +106,32 @@ export function App() {
     setIsRegisterOpen(true);
   };
 
+  const isNavActiveNewspaper =
+    currentView === 'newspaper' ||
+    currentView === 'hackathon' ||
+    currentView === 'esports' ||
+    currentView === 'ctf' ||
+    currentView === 'treasure-hunt' ||
+    currentView === 'workshop';
+
   return (
     <div className="relative min-h-screen bg-black text-white selection:bg-white selection:text-black">
-      {/* 0. Authentic NIRVAN Preloader (000 -> 100 with 3D cycling assets) */}
+      {/* 0. Preloader */}
       <Preloader onComplete={() => setIsPreloaderComplete(true)} />
 
       {/* Top Navbar */}
       <Navbar
-        currentView={currentView}
-        onNavigate={handleNavigate}
+        currentView={isNavActiveNewspaper ? 'newspaper' : 'landing'}
+        onNavigate={(view, sectionId) => handleNavigate(view as ViewType, sectionId)}
         onOpenAI={() => setIsAIOpen(true)}
         onOpenRegister={() => handleOpenRegister()}
         onOpenDemo={() => setIsDemoOpen(true)}
       />
 
-      {/* Main Experience Flow */}
+      {/* Main Experience Router */}
       <main className="w-full flex flex-col">
-        {currentView === 'landing' ? (
+        {currentView === 'landing' && (
           <>
-            {/* Page 1: Landing Page */}
-            {/* 1. Hero with NIRVAN vector typography, Hinglish punchline, and dynamic foam canvas */}
             <NothinLandingHero
               isLoaded={isPreloaderComplete}
               onOpenRegister={() => handleOpenRegister()}
@@ -99,35 +141,69 @@ export function App() {
               }}
             />
 
-            {/* 2. Hero Section 2-Slide Narrative Carousel ("Who We Are" / "What We Are Doing") */}
             <HeroCarousel />
 
-            {/* 3. 360° Circular Orbital Constellation Gallery with Modal-to-Page Action Bridge */}
             <CircularFeaturesGallery
               onSelectTrackForNewspaper={handleSelectTrackForNewspaper}
               onOpenRegister={handleOpenRegister}
             />
 
-            {/* 4. How It Works: 3-step structured participant flow (01 -> 02 -> 03) */}
             <HowItWorks onOpenRegister={() => handleOpenRegister()} />
 
-            {/* 5. Corporate Sponsors & Campus Alliances Logo Grid */}
             <SponsorsStrip />
 
-            {/* 6. Social Proof & Testimonials Gallery */}
             <TestimonialsGallery />
 
-            {/* 7. FAQ Accordion */}
             <FAQSection />
 
-            {/* 8. Pre-Footer Banner, Newsletter & 4-Column Directory */}
             <Footer
               onOpenRegister={() => handleOpenRegister()}
-              onNavigateNewspaper={() => handleNavigate('newspaper')}
+              onNavigateNewspaper={() => handleNavigate('hackathon')}
             />
           </>
-        ) : (
-          /* Page 2: Dedicated Event Page (Newspaper Editorial Style) */
+        )}
+
+        {currentView === 'hackathon' && (
+          <HackathonPage
+            onBackToLanding={() => handleNavigate('landing', 'features')}
+            onOpenRegister={handleOpenRegister}
+            onSelectOtherCompetition={handleSelectCompetitionByName}
+          />
+        )}
+
+        {currentView === 'esports' && (
+          <EsportsPage
+            onBackToLanding={() => handleNavigate('landing', 'features')}
+            onOpenRegister={handleOpenRegister}
+            onSelectOtherCompetition={handleSelectCompetitionByName}
+          />
+        )}
+
+        {currentView === 'ctf' && (
+          <CtfPage
+            onBackToLanding={() => handleNavigate('landing', 'features')}
+            onOpenRegister={handleOpenRegister}
+            onSelectOtherCompetition={handleSelectCompetitionByName}
+          />
+        )}
+
+        {currentView === 'treasure-hunt' && (
+          <TreasureHuntPage
+            onBackToLanding={() => handleNavigate('landing', 'features')}
+            onOpenRegister={handleOpenRegister}
+            onSelectOtherCompetition={handleSelectCompetitionByName}
+          />
+        )}
+
+        {currentView === 'workshop' && (
+          <WorkshopPage
+            onBackToLanding={() => handleNavigate('landing', 'features')}
+            onOpenRegister={handleOpenRegister}
+            onSelectOtherCompetition={handleSelectCompetitionByName}
+          />
+        )}
+
+        {currentView === 'newspaper' && (
           <NewspaperEventPage
             initialTrack={selectedTrackForNewspaper}
             onBackToLanding={() => handleNavigate('landing', 'features')}
@@ -142,7 +218,7 @@ export function App() {
         onClose={() => setIsAIOpen(false)}
         onSelectTrack={() => {
           setIsAIOpen(false);
-          handleNavigate('newspaper');
+          handleNavigate('hackathon');
         }}
       />
 

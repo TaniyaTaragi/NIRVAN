@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
   Calendar,
@@ -12,9 +12,14 @@ import {
   Flame,
   ArrowRight,
   Trophy,
+  ChevronLeft,
+  ChevronRight,
+  Code2,
+  Terminal,
+  Sparkles,
+  Zap,
 } from 'lucide-react';
-import { EventTrack, TeamMember, ScheduleItem } from '../types';
-import { EVENT_TRACKS } from './CircularFeaturesGallery';
+import { TeamMember, ScheduleItem } from '../../types';
 
 interface FoamBubble {
   x: number;
@@ -31,82 +36,152 @@ interface FoamBubble {
   wobbleSpeed: number;
 }
 
-interface NewspaperEventPageProps {
-  initialTrack?: EventTrack | null;
+interface HackathonPageProps {
   onBackToLanding: () => void;
   onOpenRegister: (trackId?: string) => void;
+  onSelectOtherCompetition: (compId: string) => void;
 }
+
+const HACKATHON_CAROUSEL_SLIDES = [
+  {
+    id: 'hack-overview',
+    badge: '01 // THE 48-HOUR SPRINT',
+    title: 'Flagship National Hackathon',
+    subtitle: 'India’s Premier 48-Hour Product & AI Crucible',
+    description:
+      'Assemble a team of 2 to 4 developers, designers, and domain hackers to build functional, production-ready software. Compete for ₹2,50,000+ in bounties, VC fast-tracks, and $5,000+ in cloud credits.',
+    highlights: [
+      {
+        icon: Users,
+        title: 'Squad Formation',
+        description: '2 to 4 builders per team. Solo developers can use the Discord matchmaking hub.',
+      },
+      {
+        icon: Code2,
+        title: 'Open Problem Statements',
+        description: 'Build in GenAI Agents, Web3 Protocols, Fullstack DevTools, or Autonomous Robotics.',
+      },
+      {
+        icon: Sparkles,
+        title: 'Live Pitch Demo Day',
+        description: '5-minute live presentations directly in front of tier-1 VCs and tech founders.',
+      },
+    ],
+  },
+  {
+    id: 'hack-mentorship',
+    badge: '02 // ARCHITECTURE & GUIDANCE',
+    title: 'Staff Engineer Mentorship',
+    subtitle: '1-on-1 Office Hours with Google, Polygon & AWS Leads',
+    description:
+      'Never get stuck in dependency hell. Senior architects and protocol contributors will be present on-site and in private Discord voice channels for architecture reviews and bug squashes.',
+    highlights: [
+      {
+        icon: Terminal,
+        title: 'Architecture Clinics',
+        description: 'Scheduled code reviews at 08:00 PM and midnight to refine scalability.',
+      },
+      {
+        icon: Zap,
+        title: 'Free API Keys & Cloud Compute',
+        description: 'Instant sandbox credits for OpenAI, Anthropic, Google Cloud Vertex, and Polygon.',
+      },
+      {
+        icon: Flame,
+        title: 'Zero Corporate Slop',
+        description: 'Evaluated by actual lines of code, commit history, and functional demos.',
+      },
+    ],
+  },
+  {
+    id: 'hack-rewards',
+    badge: '03 // BOUNTIES & GRANTS',
+    title: '₹2,50,000+ Bounties & Seed Grants',
+    subtitle: 'Cash, Venture Fast-Tracks & Hiring Offers',
+    description:
+      'Winners receive immediate cash disbursements, hardware kits, fast-track partner interviews, and direct entry into top incubator batches with zero equity taken upfront.',
+    highlights: [
+      {
+        icon: Trophy,
+        title: 'Grand Champion: ₹1,25,000',
+        description: 'Top overall project across all criteria + $3,000 AWS credits.',
+      },
+      {
+        icon: Shield,
+        title: 'Track Winner Bounties',
+        description: '₹40,000 each for Best AI Agent, Best Web3 dApp, and Best UI/UX Polish.',
+      },
+      {
+        icon: CheckCircle,
+        title: 'Direct VC Intros',
+        description: 'Top 5 teams receive closed-room pitch sessions with seed-stage angel funds.',
+      },
+    ],
+  },
+];
 
 const SCHEDULE_ITEMS: ScheduleItem[] = [
   {
     id: 's1',
     time: '09:00 AM',
-    title: 'Check-in, Badging & Breakfast',
-    subtitle: 'CAMPUS FOYER & DISCORD REGISTRATION DESK',
+    title: 'Check-in, Badging & Squad Breakfast',
+    subtitle: 'MAIN CAMPUS FOYER & REGISTRATION DESK',
     stage: 'ONBOARDING',
     status: 'completed',
   },
   {
     id: 's2',
     time: '11:00 AM',
-    title: 'Opening Ceremony & 5 Arena Kickoffs',
-    subtitle: 'MAIN AUDITORIUM & LIVE STREAM',
+    title: 'Opening Keynote & Track Reveal',
+    subtitle: 'MAIN AUDITORIUM & LIVE BROADCAST',
     stage: 'KICKOFF',
     status: 'completed',
   },
   {
     id: 's3',
     time: '01:00 PM',
-    title: 'Hackathon Sprint & CTF Siege Begins',
-    subtitle: 'HACKING HALLS & CTF ARENA SERVERS',
-    stage: 'BUILD & DEFEND',
+    title: 'Hackathon Kickoff: Repositories Unlocked',
+    subtitle: 'HACKING HALL A & B // 48-HOUR TIMER STARTS',
+    stage: 'BUILD SPRINT',
     status: 'live',
   },
   {
     id: 's4',
-    time: '03:30 PM',
-    title: 'GenAI & Web3 Interactive Workshops',
-    subtitle: 'SEMINAR HALL A // STARTER CODE REPOSITORIES',
-    stage: 'WORKSHOP',
+    time: '08:30 PM',
+    title: 'Midpoint Architecture Review & Dinner',
+    subtitle: 'MENTOR AUDIT CLINICS // CATERED DINNER',
+    stage: 'MENTORSHIP',
     status: 'upcoming',
   },
   {
     id: 's5',
-    time: '06:00 PM',
-    title: 'Cryptic Treasure Hunt Checkpoint Round',
-    subtitle: 'CAMPUS WAYPOINTS & DISCORD ARG BOTS',
-    stage: 'ARG QUEST',
+    time: '12:00 AM',
+    title: 'Midnight Energy Fuel & Mini-Games',
+    subtitle: 'RED BULL LOUNGE // ESPORTS ARENA',
+    stage: 'MIDNIGHT FUEL',
     status: 'upcoming',
   },
   {
     id: 's6',
-    time: '10:00 PM',
-    title: 'Esports Championship Knockout Battles',
-    subtitle: 'LAN GAMING LOUNGE // VALORANT & BGMI CASTING',
-    stage: 'ESPORTS ARENA',
-    status: 'upcoming',
-  },
-  {
-    id: 's7',
     time: '09:00 AM',
     title: 'Code Freeze & GitHub Submissions Due',
-    subtitle: 'DEVFOLIO SUBMISSION PORTAL CLOSES',
+    subtitle: 'DEVFOLIO SUBMISSION PORTAL LOCKS',
     stage: 'DEADLINE',
     status: 'upcoming',
   },
   {
-    id: 's8',
+    id: 's7',
     time: '11:30 AM',
     title: 'Grand Demo Day & Jury Pitch Battles',
-    subtitle: 'LIVE 5-MIN PRODUCT DEMONSTRATIONS',
+    subtitle: 'STAGE 1 // 5-MIN LIVE DEMO PER TEAM',
     stage: 'PITCH STAGE',
     status: 'upcoming',
   },
   {
-    id: 's9',
+    id: 's8',
     time: '03:30 PM',
     title: 'Award Ceremony & VC Grant Distribution',
-    subtitle: 'STAGE 1 // ₹5,00,000+ CASH & INCUBATION',
+    subtitle: '₹2,50,000+ CASH & CERTIFICATION DISPATCH',
     stage: 'FINALE',
     status: 'upcoming',
   },
@@ -164,21 +239,16 @@ const ORGANIZERS: TeamMember[] = [
   },
 ];
 
-export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
-  initialTrack,
+export const HackathonPage: React.FC<HackathonPageProps> = ({
   onBackToLanding,
   onOpenRegister,
+  onSelectOtherCompetition,
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All Events');
-  const [activeTrack, setActiveTrack] = useState<EventTrack>(
-    initialTrack || EVENT_TRACKS[0]
-  );
-
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const bubblesRef = useRef<FoamBubble[]>([]);
   const lastMousePos = useRef<{ x: number; y: number } | null>(null);
 
-  // Live Countdown Timer
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [timeLeft, setTimeLeft] = useState({
     days: '04',
     hours: '18',
@@ -186,6 +256,7 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
     seconds: '30',
   });
 
+  // Countdown timer
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date().getTime();
@@ -208,13 +279,7 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    if (initialTrack) {
-      setActiveTrack(initialTrack);
-    }
-  }, [initialTrack]);
-
-  // Interactive Fluid Foam & Ink Brush Engine over the Event Hero
+  // Foam & Ink brush canvas engine
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -305,6 +370,15 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
 
     window.addEventListener('mousemove', handleMouseMove);
 
+    // Initial ambient foam splash
+    setTimeout(() => {
+      if (width > 0 && height > 0) {
+        for (let i = 0; i < 4; i++) {
+          spawnFoamCluster(width * (0.3 + i * 0.15), height * 0.6, 15);
+        }
+      }
+    }, 500);
+
     const render = () => {
       ctx.clearRect(0, 0, width, height);
       const remaining: FoamBubble[] = [];
@@ -373,40 +447,7 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
     };
   }, []);
 
-  const categories = ['All Events', 'Hackathon', 'Esports', 'CTF', 'Treasure Hunt', 'Workshop'];
-
-  const filteredTracks =
-    selectedCategory === 'All Events'
-      ? EVENT_TRACKS
-      : EVENT_TRACKS.filter((t) => t.category === selectedCategory);
-
-  // Background 3D Inflatable Image Asset mapping (Defaults to Hackathon 3D)
-  const bg3DImage =
-    activeTrack.category === 'Hackathon'
-      ? '/assets/hackathon-3d-bg.jpg'
-      : '/assets/nirvan-3d-bg.jpg';
-
-  const trackHeadlineHinglish =
-    activeTrack.category === 'Hackathon'
-      ? '48 Ghante, 1000+ Hackers, Ek Ultimate Champion.'
-      : activeTrack.category === 'Esports'
-      ? 'LAN Arena, Low Latency, Full Clutch Action.'
-      : activeTrack.category === 'CTF'
-      ? 'Reversing, Pwnage & Zero-Day Exploit Siege.'
-      : activeTrack.category === 'Treasure Hunt'
-      ? 'Cryptic Ciphers, Campus ARG & Mystery Bounties.'
-      : 'Hands-on Code, Staff Mentorship & Certifications.';
-
-  const trackVectorWord =
-    activeTrack.category === 'Hackathon'
-      ? 'HACKATHON'
-      : activeTrack.category === 'Esports'
-      ? 'ESPORTS'
-      : activeTrack.category === 'CTF'
-      ? 'CTF SIEGE'
-      : activeTrack.category === 'Treasure Hunt'
-      ? 'ARG QUEST'
-      : 'WORKSHOP';
+  const slide = HACKATHON_CAROUSEL_SLIDES[currentSlide];
 
   return (
     <div className="w-full min-h-screen bg-[#070709] text-white selection:bg-white selection:text-black select-none">
@@ -422,19 +463,18 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
           </button>
 
           <div className="text-xs font-mono-code text-zinc-500 uppercase tracking-widest hidden sm:block">
-            NIRVAN CHRONICLE // {activeTrack.category.toUpperCase()} ARENA
+            NIRVAN 2026 // 001 HACKATHON ARENA
           </div>
         </div>
       </div>
 
-      {/* 1. Dedicated Event Hero Section with 3D Inflatable Balloon Background & Fluid Foam Canvas (1:1 with Main) */}
-      <section className="relative min-h-[90vh] w-full flex flex-col justify-between p-6 sm:p-12 pt-16 overflow-hidden bg-[#f0f0f2] text-[#121212] my-6 select-none border-y border-zinc-300">
-        {/* 3D Iridescent Inflatable Balloon Background for the Event */}
+      {/* 1. Dedicated HACKATHON Hero with 3D Inflatable Background & Fluid Foam Canvas (1:1 with Main Landing) */}
+      <section className="relative min-h-[92vh] w-full flex flex-col justify-between p-6 sm:p-12 pt-16 overflow-hidden bg-[#f0f0f2] text-[#121212] my-6 select-none border-y border-zinc-300">
+        {/* 3D Iridescent Inflatable Balloon Background for HACKATHON */}
         <div className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none overflow-hidden">
           <motion.img
-            key={bg3DImage}
-            src={bg3DImage}
-            alt={trackVectorWord}
+            src="/assets/hackathon-3d-bg.jpg"
+            alt="HACKATHON 3D Balloons"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{
               opacity: 0.6,
@@ -460,9 +500,7 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 border border-black/10 text-xs font-mono-code text-zinc-800 mb-4 shadow-sm backdrop-blur-sm"
           >
             <Flame className="w-3.5 h-3.5 text-black animate-pulse" />
-            <span>
-              {activeTrack.code} // {activeTrack.category.toUpperCase()} ARENA &bull; {activeTrack.prizePool}
-            </span>
+            <span>001 // NATIONAL HACKATHON &bull; ₹2,50,000+ PRIZE CRUCIBLE</span>
           </motion.div>
 
           <motion.h1
@@ -471,7 +509,7 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-4 text-[#121212]"
           >
-            {trackHeadlineHinglish}
+            48 Ghante, 1000+ Hackers, Ek Ultimate Champion.
           </motion.h1>
 
           <motion.p
@@ -480,7 +518,7 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
             transition={{ duration: 0.8, delay: 0.25 }}
             className="text-base sm:text-lg text-zinc-700 font-medium leading-relaxed mb-8 max-w-2xl"
           >
-            {activeTrack.description}
+            Assemble your team of 2-4 builders to architect, code, and deploy high-impact AI, Web3, and full-stack solutions within 48 continuous hours.
           </motion.p>
 
           <motion.div
@@ -490,18 +528,18 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
             className="flex flex-wrap items-center gap-4"
           >
             <button
-              onClick={() => onOpenRegister(activeTrack.id)}
+              onClick={() => onOpenRegister('event-01')}
               className="group inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-black text-white text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-800 active:scale-95 transition-all shadow-2xl cursor-pointer"
             >
-              <span>REGISTER FOR {activeTrack.category.toUpperCase()}</span>
+              <span>REGISTER FOR HACKATHON</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
 
             <a
-              href="#newspaper-broadsheet"
+              href="#hackathon-perspective"
               className="px-6 py-3.5 rounded-full border border-black/20 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-black/5 active:scale-95 transition-all cursor-pointer font-semibold"
             >
-              READ BROADSHEET &amp; RULES ↓
+              EXPLORE CRUCIBLE PERSPECTIVE ↓
             </a>
           </motion.div>
         </div>
@@ -515,9 +553,15 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
             className="relative w-full flex items-center justify-center select-none"
           >
             <div className="w-full flex items-center justify-between font-black tracking-tighter text-[11vw] sm:text-[12vw] md:text-[13vw] leading-none text-[#121212] drop-shadow-sm select-none">
-              {trackVectorWord.split('').map((char, i) => (
-                <span key={i}>{char}</span>
-              ))}
+              <span>H</span>
+              <span>A</span>
+              <span>C</span>
+              <span>K</span>
+              <span>A</span>
+              <span>T</span>
+              <span>H</span>
+              <span>O</span>
+              <span>N</span>
             </div>
 
             {/* Dynamic Interactive Foam & Ink Canvas Overlay */}
@@ -533,101 +577,225 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5 text-black font-bold">
               <Trophy className="w-3.5 h-3.5 text-black" />
-              {activeTrack.prizePool}
+              ₹2,50,000 + $5,000 CLOUD GRANTS
             </span>
             <span>&bull;</span>
-            <span>ENTRY FEE: {activeTrack.entryFee}</span>
+            <span>ENTRY FEE: ₹0 (FREE)</span>
             <span>&bull;</span>
-            <span>SQUAD: {activeTrack.teamSize}</span>
+            <span>SQUAD: 2 - 4 MEMBERS</span>
           </div>
 
           <div className="flex items-center gap-6">
             <span className="px-2.5 py-0.5 rounded bg-black text-white font-bold text-[10px]">
-              OCTOBER 2026 // HYBRID
+              OCTOBER 2026 // 48-HOUR CRUCIBLE
             </span>
           </div>
         </div>
       </section>
 
-      {/* 2. Newspaper Broadsheet Section */}
-      <div id="newspaper-broadsheet" className="max-w-7xl mx-auto px-6 sm:px-12 py-16">
-        {/* Broadsheet Masthead Header */}
+      {/* 2. Dedicated 3-Slide Narrative Perspective Carousel for HACKATHON */}
+      <section
+        id="hackathon-perspective"
+        className="relative w-full py-24 px-6 sm:px-12 bg-black text-white border-t border-zinc-900 select-none"
+      >
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+            <div>
+              <div className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
+                HACKATHON DEEP-DIVE // PERSPECTIVE &bull; 03 PILLARS
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                Crucible Architecture
+              </h2>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 mr-2">
+                {HACKATHON_CAROUSEL_SLIDES.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentSlide(idx)}
+                    className={`h-2 transition-all duration-300 rounded-full cursor-pointer flex items-center justify-center text-[10px] font-mono-code font-bold ${
+                      currentSlide === idx
+                        ? 'w-10 bg-white text-black'
+                        : 'w-6 bg-zinc-800 text-zinc-500 hover:bg-zinc-700 hover:text-white'
+                    }`}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  >
+                    0{idx + 1}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() =>
+                  setCurrentSlide((prev) =>
+                    prev === 0 ? HACKATHON_CAROUSEL_SLIDES.length - 1 : prev - 1
+                  )
+                }
+                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() =>
+                  setCurrentSlide((prev) => (prev + 1) % HACKATHON_CAROUSEL_SLIDES.length)
+                }
+                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                aria-label="Next slide"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Carousel Card */}
+          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-14 overflow-hidden shadow-2xl">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={slide.id}
+                initial={{ opacity: 0, x: 25 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -25 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+              >
+                <div className="lg:col-span-7">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-[11px] font-mono-code text-zinc-400 uppercase tracking-widest mb-6">
+                    <Sparkles className="w-3 h-3 text-white" />
+                    <span>{slide.badge}</span>
+                  </div>
+
+                  <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                    {slide.title}
+                  </h3>
+
+                  <h4 className="text-base sm:text-lg font-semibold text-zinc-300 mb-6 leading-snug">
+                    {slide.subtitle}
+                  </h4>
+
+                  <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8 max-w-xl font-normal">
+                    {slide.description}
+                  </p>
+
+                  <button
+                    onClick={() => onOpenRegister('event-01')}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors shadow-lg cursor-pointer"
+                  >
+                    <span>CLAIM HACKATHON SPOT</span>
+                    <span>↗</span>
+                  </button>
+                </div>
+
+                <div className="lg:col-span-5 flex flex-col gap-4">
+                  {slide.highlights.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1, duration: 0.35 }}
+                        className="p-5 border border-zinc-800/80 bg-zinc-900/40 hover:bg-zinc-900/80 hover:border-zinc-700 transition-all duration-300 flex items-start gap-4 shadow-sm"
+                      >
+                        <div className="p-2.5 bg-black border border-zinc-800 text-white shrink-0">
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h5 className="text-sm font-bold text-white mb-1">{item.title}</h5>
+                          <p className="text-xs text-zinc-400 leading-relaxed font-normal">{item.description}</p>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Newspaper Broadsheet & Rules Breakdown Section */}
+      <div id="hackathon-broadsheet" className="max-w-7xl mx-auto px-6 sm:px-12 py-16">
+        {/* Broadsheet Masthead */}
         <div className="text-center pb-8 mb-10 border-b-2 border-white/20">
           <div className="flex items-center justify-between text-[10px] font-mono-code uppercase tracking-widest text-zinc-400 pb-2 border-b border-zinc-800 mb-6">
-            <span>VOL. XXVI // NO. 05</span>
+            <span>VOL. XXVI // NO. 01</span>
             <span className="font-bold text-white">THE NIRVAN HACKATHON GAZETTE</span>
-            <span>OCTOBER 2026 // EDITION</span>
+            <span>OCTOBER 2026 // HACKATHON EDITION</span>
           </div>
 
           <h2 className="font-newspaper-serif text-5xl sm:text-7xl md:text-8xl font-black tracking-tight text-white uppercase mb-3">
-            The Nirvan Chronicle
+            The Hackathon Dispatch
           </h2>
 
           <p className="text-xs sm:text-sm font-mono-code uppercase tracking-widest text-zinc-400 max-w-2xl mx-auto">
-            OFFICIAL BLUEPRINT &bull; 5 CORE EVENT ARENAS &bull; ₹5,00,000+ IN PRIZES &bull; FREE PARTICIPATION
+            OFFICIAL BLUEPRINT &bull; 48-HOUR SPRINT &bull; ₹2,50,000+ IN CASH &amp; GRANTS &bull; FREE ENTRY
           </p>
         </div>
 
-        {/* Category Filter Tabs */}
+        {/* Competition Switcher Pills */}
         <div className="flex flex-wrap items-center gap-2 mb-12 pb-4 border-b border-zinc-800/80">
           <span className="text-xs font-mono-code uppercase tracking-wider text-zinc-500 mr-2">
-            FILTER ARENAS:
+            SWITCH ARENA:
           </span>
-          {categories.map((cat) => (
+          {['Hackathon', 'Esports', 'CTF', 'Treasure Hunt', 'Workshop'].map((arena) => (
             <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
+              key={arena}
+              onClick={() => onSelectOtherCompetition(arena)}
               className={`px-4 py-1.5 text-xs font-mono-code uppercase tracking-wider transition-all cursor-pointer border ${
-                selectedCategory === cat
+                arena === 'Hackathon'
                   ? 'bg-white text-black border-white font-bold'
                   : 'bg-zinc-900/90 text-zinc-400 border-zinc-800 hover:border-zinc-600 hover:text-white'
               }`}
             >
-              {cat}
+              {arena}
             </button>
           ))}
         </div>
 
-        {/* 3. Newspaper-Style Main Grid */}
+        {/* 2-Column Broadsheet Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-24">
-          {/* Left Main Editorial & Rules Breakdown */}
           <div className="lg:col-span-8 space-y-10">
-            {/* Active Track Banner & Headline */}
+            {/* Overview & Photo */}
             <div className="bg-[#0c0c0e] border border-zinc-800 p-8 sm:p-10 relative">
               <div className="flex items-center gap-3 mb-4">
                 <span className="px-2 py-0.5 bg-white text-black text-xs font-mono-code font-bold uppercase">
-                  {activeTrack.code} // {activeTrack.category}
+                  001 // HACKATHON
                 </span>
                 <span className="text-xs font-mono-code text-zinc-500 uppercase tracking-widest">
-                  FEATURED DISPATCH
+                  SPECIAL FEATURE
                 </span>
               </div>
 
               <h3 className="font-newspaper-serif text-3xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-                {activeTrack.title}
+                48-Hour National Hackathon
               </h3>
 
               <p className="text-sm font-mono-code uppercase tracking-wider text-zinc-300 mb-6">
-                {activeTrack.subtitle}
+                FLAGSHIP INNOVATION CRUCIBLE &amp; PRODUCT SPRINT
               </p>
 
-              {/* Photo Banner */}
               <div className="aspect-[16/9] w-full bg-zinc-900 border border-zinc-800 overflow-hidden mb-8 shadow-2xl">
                 <img
-                  src={activeTrack.image}
-                  alt={activeTrack.title}
+                  src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&h=650&fit=crop&q=80"
+                  alt="Hackathon Arena"
                   className="w-full h-full object-cover"
                 />
               </div>
 
               <div className="space-y-4 text-zinc-300 leading-relaxed text-sm sm:text-base border-t border-zinc-800 pt-6">
-                <p>{activeTrack.fullOverview}</p>
-                <p className="text-zinc-400">{activeTrack.description}</p>
+                <p>
+                  The flagship event of NIRVAN 2026. Teams conceive, build, and pitch functional software and hardware MVPs. Backed by 1-on-1 industry mentorship from Google, Polygon, and AWS staff engineers, leading to a live pitch demo day.
+                </p>
+                <p className="text-zinc-400">
+                  Assemble your team of 2-4 builders to architect, code, and deploy high-impact AI, Web3, and full-stack solutions within 48 continuous hours.
+                </p>
               </div>
 
-              {/* Tags */}
               <div className="flex flex-wrap gap-2 pt-6 mt-6 border-t border-zinc-800">
-                {activeTrack.tags.map((tag) => (
+                {['GENAI', 'WEB3', 'FULLSTACK', 'HARDWARE', 'DEVFOLIO'].map((tag) => (
                   <span
                     key={tag}
                     className="px-2.5 py-1 bg-zinc-900 border border-zinc-800 text-[10px] font-mono-code text-zinc-400 uppercase"
@@ -638,7 +806,7 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
               </div>
             </div>
 
-            {/* Rules & Eligibility Broadsheet Columns */}
+            {/* Rules & Eligibility */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 sm:p-8 bg-[#0a0a0c] border border-zinc-800">
                 <div className="flex items-center gap-2 text-xs font-mono-code text-zinc-400 uppercase tracking-wider mb-4 pb-2 border-b border-zinc-800">
@@ -646,15 +814,17 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
                   <span>RULES &amp; CODE OF CONDUCT</span>
                 </div>
                 <ul className="space-y-3 text-xs sm:text-sm text-zinc-300">
-                  {activeTrack.rules.map((rule, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5">
-                      <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                      <span>{rule}</span>
-                    </li>
-                  ))}
                   <li className="flex items-start gap-2.5">
                     <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                    <span>Fair play &amp; anti-cheat guidelines strictly enforced.</span>
+                    <span>Original code authored during the 48-hour sprint only.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
+                    <span>Public GitHub repository with commits logged from kickoff.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
+                    <span>Live functional product demonstration required at Demo Day.</span>
                   </li>
                 </ul>
               </div>
@@ -662,66 +832,38 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
               <div className="p-6 sm:p-8 bg-[#0a0a0c] border border-zinc-800">
                 <div className="flex items-center gap-2 text-xs font-mono-code text-zinc-400 uppercase tracking-wider mb-4 pb-2 border-b border-zinc-800">
                   <Users className="w-4 h-4 text-white" />
-                  <span>ELIGIBILITY &amp; TEAM SPECS</span>
+                  <span>ELIGIBILITY &amp; SQUAD SPECS</span>
                 </div>
                 <ul className="space-y-3 text-xs sm:text-sm text-zinc-300">
-                  {activeTrack.eligibility.map((el, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5">
-                      <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                      <span>{el}</span>
-                    </li>
-                  ))}
                   <li className="flex items-start gap-2.5">
                     <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                    <span>Team specs: {activeTrack.teamSize}.</span>
+                    <span>Open to undergraduate &amp; postgraduate students globally.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
+                    <span>Squad size: 2 to 4 registered members.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
+                    <span>Individual registrations matched via Discord matchmaking.</span>
                   </li>
                 </ul>
               </div>
             </div>
-
-            {/* Quick Track Switcher */}
-            <div>
-              <div className="text-xs font-mono-code text-zinc-500 uppercase tracking-widest mb-4">
-                EXPLORE ALL 5 CRUCIBLE ARENAS:
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {filteredTracks.map((t) => (
-                  <button
-                    key={t.id}
-                    onClick={() => {
-                      setActiveTrack(t);
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    className={`p-4 text-left border transition-all cursor-pointer ${
-                      activeTrack.id === t.id
-                        ? 'bg-white text-black border-white shadow-lg'
-                        : 'bg-[#09090b] text-zinc-300 border-zinc-800 hover:border-zinc-600'
-                    }`}
-                  >
-                    <div className="text-[10px] font-mono-code uppercase opacity-70 mb-1">
-                      {t.code} // {t.category}
-                    </div>
-                    <div className="text-xs font-bold leading-snug line-clamp-2">
-                      {t.title}
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
 
-          {/* Right Sticky Summary Panel */}
+          {/* Right Sticky Summary Box */}
           <div className="lg:col-span-4 space-y-6">
             <div className="sticky top-28 bg-[#0a0a0c] border-2 border-white/20 p-6 sm:p-8 space-y-6 shadow-2xl">
               <div className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 pb-3 border-b border-zinc-800">
-                CRUCIBLE SUMMARY // DISPATCH
+                HACKATHON SUMMARY // DISPATCH
               </div>
 
               {/* Countdown Timer */}
               <div>
                 <div className="flex items-center gap-2 text-[10px] font-mono-code text-zinc-400 uppercase tracking-widest mb-2">
                   <Clock className="w-3 h-3 text-white" />
-                  <span>KICKOFF COUNTDOWN</span>
+                  <span>HACKATHON COUNTDOWN</span>
                 </div>
                 <div className="grid grid-cols-4 gap-2 text-center">
                   <div className="p-2.5 bg-black border border-zinc-800">
@@ -755,30 +897,25 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
               <div className="space-y-3 pt-2">
                 <div className="p-3.5 bg-black border border-zinc-800 flex items-center justify-between">
                   <span className="text-xs font-mono-code text-zinc-400">ENTRY FEE</span>
+                  <span className="text-sm font-bold text-white font-mono-code">₹0 (Free)</span>
+                </div>
+                <div className="p-3.5 bg-black border border-zinc-800 flex items-center justify-between">
+                  <span className="text-xs font-mono-code text-zinc-400">TRACK BOUNTY</span>
                   <span className="text-sm font-bold text-white font-mono-code">
-                    {activeTrack.entryFee}
+                    ₹2,50,000 + $5K Grants
                   </span>
                 </div>
                 <div className="p-3.5 bg-black border border-zinc-800 flex items-center justify-between">
-                  <span className="text-xs font-mono-code text-zinc-400">ARENA PRIZE</span>
-                  <span className="text-sm font-bold text-white font-mono-code">
-                    {activeTrack.prizePool}
-                  </span>
-                </div>
-                <div className="p-3.5 bg-black border border-zinc-800 flex items-center justify-between">
-                  <span className="text-xs font-mono-code text-zinc-400">TEAM CAPACITY</span>
-                  <span className="text-sm font-bold text-white font-mono-code">
-                    {activeTrack.teamSize}
-                  </span>
+                  <span className="text-xs font-mono-code text-zinc-400">SQUAD SIZE</span>
+                  <span className="text-sm font-bold text-white font-mono-code">2 - 4 Members</span>
                 </div>
               </div>
 
-              {/* Action Button */}
               <button
-                onClick={() => onOpenRegister(activeTrack.id)}
+                onClick={() => onOpenRegister('event-01')}
                 className="w-full py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
               >
-                REGISTER FOR THIS ARENA ↗
+                REGISTER SQUAD NOW ↗
               </button>
 
               <div className="text-center pt-2">
@@ -795,12 +932,12 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
           </div>
         </div>
 
-        {/* 4. Interactive Schedule Timeline */}
+        {/* 4. Schedule Flowchart */}
         <div className="mb-24 pt-12 border-t-2 border-zinc-800">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
               <Calendar className="w-3.5 h-3.5 text-zinc-400" />
-              <span>CHRONOLOGY // 48-HOUR MILESTONES</span>
+              <span>CHRONOLOGY // 48-HOUR HACKATHON TIMELINE</span>
             </div>
             <h3 className="font-newspaper-serif text-4xl sm:text-6xl font-bold text-white uppercase">
               Schedule of Events
@@ -849,12 +986,12 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
           </div>
         </div>
 
-        {/* 5. Team & Organizer Spotlight */}
+        {/* 5. Organizers Spotlight */}
         <div className="pt-12 border-t-2 border-zinc-800">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
               <Users className="w-3.5 h-3.5 text-zinc-400" />
-              <span>LEADERSHIP // ORGANIZERS &amp; JURY</span>
+              <span>LEADERSHIP // HACKATHON JURY &amp; CONVENERS</span>
             </div>
             <h3 className="font-newspaper-serif text-4xl sm:text-6xl font-bold text-white uppercase">
               Meet The Organizers

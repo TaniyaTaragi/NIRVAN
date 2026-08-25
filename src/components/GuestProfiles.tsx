@@ -31,7 +31,7 @@ export const GuestProfiles: React.FC = () => (
       <div className="text-center max-w-2xl mx-auto mb-14">
         <div className="inline-flex items-center gap-2 text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-3">
           <Mic2 className="w-3.5 h-3.5" />
-          <span>STAGE PROGRAMME // 03 PROFILES</span>
+          <span>03B // SPEAKERS &amp; GUESTS // 03 PROFILES</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-3">Speakers &amp; Guests</h2>
         <p className="text-sm sm:text-base text-zinc-400">Meet the people bringing the brief, the craft, and the competitive spirit to GEHU Campus.</p>

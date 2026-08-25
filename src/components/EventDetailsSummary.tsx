@@ -30,7 +30,7 @@ export const EventDetailsSummary: React.FC<EventDetailsSummaryProps> = ({
   <section className="relative w-full bg-black text-white px-6 sm:px-12 py-16 border-y border-zinc-900">
     <div className="max-w-7xl mx-auto">
       <div className="max-w-3xl mb-10">
-        <p className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-3">EVENT BRIEF // QUICK READ</p>
+        <p className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-3">04 // EVENT DETAILS // QUICK READ</p>
         <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight mb-4">{eventName}</h2>
         <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">{description}</p>
       </div>

@@ -16,6 +16,7 @@ import { RegistrationModal } from './components/RegistrationModal';
 import { DemoModal } from './components/DemoModal';
 import { ArchiveGallery } from './components/ArchiveGallery';
 import { GuestProfiles } from './components/GuestProfiles';
+import { FestSchedule } from './components/FestSchedule';
 import { HackathonPage } from './competitions/hackathon/HackathonPage';
 import { EsportsPage } from './competitions/esports/EsportsPage';
 import { CtfPage } from './competitions/ctf/CtfPage';
@@ -200,6 +201,8 @@ export function App() {
             />
 
             <HowItWorks onOpenRegister={() => handleOpenRegister()} />
+
+            <FestSchedule />
 
             <SponsorsStrip />
 

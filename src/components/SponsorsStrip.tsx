@@ -42,6 +42,7 @@ export const SponsorsStrip: React.FC = () => {
         {/* Section Header */}
         <div className="mb-14 pb-6 border-b border-zinc-900 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
+            <p className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-3">05 // SPONSORS &amp; GALLERY</p>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
               SPONSOR WALL
             </h2>

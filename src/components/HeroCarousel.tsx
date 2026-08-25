@@ -17,7 +17,7 @@ const HERO_SLIDES: SlideData[] = [
     title: 'What is NIRVAN?',
     subtitle: 'India’s Premier Multi-Disciplinary Technology Crucible',
     description:
-      'NIRVAN is a high-velocity innovation ecosystem uniting software architects, AI researchers, hardware engineers, ethical hackers, and product designers. It is not just a hackathon — it is a crucible where bold ideas transform into production-grade systems in 48 hours.',
+      'NIRVAN ’26 brings together developers, innovators, designers, and technology enthusiasts for two days of challenges, competitions, workshops, and collaboration. It is a high-velocity innovation ecosystem where bold ideas become working systems.',
     actionText: 'EXPLORE OUR ARENAS',
     actionLink: '#features',
   },
@@ -63,6 +63,7 @@ export const HeroCarousel = () => {
         {/* Section Top Header & Navigation Controls */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 pb-6 border-b border-zinc-800/80">
           <div>
+            <p className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-3">01 // ABOUT THE FEST</p>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
               About NIRVAN
             </h2>

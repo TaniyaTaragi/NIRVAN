@@ -85,7 +85,7 @@ export const Footer: React.FC<FooterProps> = () => {
           {/* Contact details required by the competition brief */}
           <div className="space-y-3">
             <div className="text-white font-bold tracking-widest uppercase mb-4">
-              CONTACT &amp; VENUE
+              06 // REGISTRATION &amp; CONTACT
             </div>
             <address className="not-italic space-y-2 text-zinc-400 leading-relaxed">
               <div>Organizing Team</div>

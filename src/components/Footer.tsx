@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, Check, Send, Sparkles } from 'lucide-react';
+import { ArrowUpRight, Check, Send } from 'lucide-react';
 
 interface FooterProps {
-  onOpenRegister: () => void;
-  onNavigateNewspaper: () => void;
+  onOpenRegister?: () => void;
+  onNavigateNewspaper?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenRegister, onNavigateNewspaper }) => {
+export const Footer: React.FC<FooterProps> = () => {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
 
@@ -20,40 +20,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenRegister, onNavigateNewspa
   };
 
   return (
-    <footer id="contact" className="w-full bg-black text-white pt-24 pb-12 px-6 sm:px-12 border-t border-zinc-900 select-none">
-      <div className="max-w-7xl mx-auto space-y-24">
-        {/* 1. Pre-Footer Call to Action Banner */}
-        <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 overflow-hidden group">
-          <div className="max-w-xl">
-            <div className="text-[11px] font-mono-code uppercase tracking-widest text-zinc-500 mb-3 flex items-center gap-2">
-              <Sparkles className="w-3.5 h-3.5 text-white" />
-              <span>INITIATE COLLABORATION &bull; FREE ENTRY (₹0)</span>
-            </div>
-            <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
-              Ready to Build the Future?
-            </h3>
-            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-normal">
-              Join 1,000+ top developers, hardware hackers, and designers in India’s premier innovation crucible. Compete for ₹5,00,000+ in cash prizes and grants.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-4 shrink-0">
-            <button
-              onClick={onOpenRegister}
-              className="px-8 py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-2xl cursor-pointer"
-            >
-              REGISTER SQUAD NOW ↗
-            </button>
-            <button
-              onClick={onNavigateNewspaper}
-              className="px-6 py-4 border border-zinc-800 hover:border-white text-xs font-mono-code text-zinc-300 hover:text-white uppercase tracking-wider transition-colors cursor-pointer"
-            >
-              READ CHRONICLE
-            </button>
-          </div>
-        </div>
-
-        {/* 2. Newsletter Subscription Box */}
+    <footer id="contact" className="w-full bg-black text-white pt-20 pb-12 px-6 sm:px-12 border-t border-zinc-900 select-none">
+      <div className="max-w-7xl mx-auto space-y-20">
+        {/* 1. Newsletter Subscription Box */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-16 border-b border-zinc-900">
           <div className="max-w-md">
             <h4 className="text-2xl font-extrabold text-white tracking-tight mb-2">
@@ -93,7 +62,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenRegister, onNavigateNewspa
           </form>
         </div>
 
-        {/* 3. 4-Column Directory Layout - Pure Static Informational Text (No Clickable Links) */}
+        {/* 2. 4-Column Directory Layout - Pure Static Informational Text (No Clickable Links) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-xs font-mono-code">
           {/* Column 1: Brand & Manifesto */}
           <div className="space-y-4">
@@ -168,7 +137,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenRegister, onNavigateNewspa
           </div>
         </div>
 
-        {/* 4. Bottom Copyright & Status Bar (Pure Static Text) */}
+        {/* 3. Bottom Copyright & Status Bar (Pure Static Text) */}
         <div className="pt-12 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono-code text-zinc-500">
           <div>
             &copy; 2026 NIRVAN NATIONAL CRUCIBLE &bull; ALL RIGHTS RESERVED.

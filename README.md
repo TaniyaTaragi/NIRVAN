@@ -1,5 +1,6 @@
 # NIRVAN
 
+
 NIRVAN is an advanced digital platform and spatial web experience engineered for India's premier annual technical festival and hackathon. The platform unifies five flagship competition arenas—Hackathon, Esports Championship, Capture The Flag (CTF), Cryptic Treasure Hunt, and Tech Masterclasses—into an interactive, high-performance web interface.
 
 Built with a focus on editorial typography, 3D spatial physics, low-latency client-side interaction, and responsive design, NIRVAN serves as the central hub for event discovery, participant registration, rule verification, real-time query resolution, and live tournament coordination.

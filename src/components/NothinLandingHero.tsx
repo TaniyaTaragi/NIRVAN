@@ -205,17 +205,28 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full flex flex-col justify-between p-6 sm:p-12 pt-28 sm:pt-32 overflow-hidden bg-white text-[#121212] select-none"
+      className="relative min-h-screen w-full flex flex-col justify-between p-6 sm:p-12 pt-28 sm:pt-32 overflow-hidden bg-[#f0f0f2] text-[#121212] select-none"
     >
-      {/* Background Ambient High-Resolution Video Loop */}
-      <video
-        src="https://noth-in.b-cdn.net/nothin-sharp-high.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"
-      />
+      {/* 3D Iridescent Inflatable Balloon "NIRVAN" Floating Background with Gentle Bobbing Physics */}
+      <div className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none overflow-hidden">
+        <motion.img
+          src="/assets/nirvan-3d-bg.jpg"
+          alt="NIRVAN 3D Balloons"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{
+            opacity: 0.55,
+            scale: [1, 1.02, 1],
+            y: [-8, 8, -8],
+          }}
+          transition={{
+            opacity: { duration: 1.2 },
+            scale: { duration: 6, repeat: Infinity, ease: 'easeInOut' },
+            y: { duration: 5, repeat: Infinity, ease: 'easeInOut' },
+          }}
+          className="w-full h-full object-cover object-center filter saturate-125 contrast-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#f0f0f2]/80 via-transparent to-[#f0f0f2]/60" />
+      </div>
 
       {/* Top Narrative, Hinglish Tagline & Action Triggers */}
       <div className="relative z-10 max-w-2xl">
@@ -223,7 +234,7 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 border border-black/10 text-xs font-mono-code text-zinc-800 mb-4 shadow-sm"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 border border-black/10 text-xs font-mono-code text-zinc-800 mb-4 shadow-sm backdrop-blur-sm"
         >
           <Flame className="w-3.5 h-3.5 text-black animate-pulse" />
           <span>NATIONAL HACKATHON &bull; ₹5,00,000+ PRIZE CRUCIBLE</span>
@@ -265,14 +276,14 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
 
           <button
             onClick={onExploreEvents}
-            className="px-6 py-3.5 rounded-full border border-black/20 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-black/5 active:scale-95 transition-all cursor-pointer font-semibold"
+            className="px-6 py-3.5 rounded-full border border-black/20 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-black/5 active:scale-95 transition-all cursor-pointer font-semibold backdrop-blur-xs"
           >
             EXPLORE EVENTS &amp; TRACKS ↓
           </button>
 
           <a
             href="#carousel-hero"
-            className="inline-flex items-center gap-1.5 text-xs font-mono-code text-zinc-600 hover:text-black uppercase tracking-wider underline underline-offset-4 cursor-pointer ml-2"
+            className="inline-flex items-center gap-1.5 text-xs font-mono-code text-zinc-700 hover:text-black uppercase tracking-wider underline underline-offset-4 cursor-pointer ml-2"
           >
             <Sparkles className="w-3.5 h-3.5 text-black" />
             <span>WHO WE ARE &amp; WHAT WE DO</span>
@@ -307,7 +318,7 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
       </div>
 
       {/* Bottom Coordinates & Live Stats Strip */}
-      <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 text-xs font-mono-code text-zinc-600 uppercase tracking-widest pt-6 border-t border-zinc-200">
+      <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 text-xs font-mono-code text-zinc-600 uppercase tracking-widest pt-6 border-t border-zinc-300">
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1.5 text-black font-bold">
             <Trophy className="w-3.5 h-3.5 text-black" />

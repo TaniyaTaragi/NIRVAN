@@ -5,196 +5,103 @@ import { EventTrack } from '../types';
 
 export const EVENT_TRACKS: EventTrack[] = [
   {
-    id: 'track-01',
+    id: 'event-01',
     code: '001',
-    title: 'WEB3 & DECENTRALIZED PROTOCOLS',
+    title: '48-HOUR NATIONAL HACKATHON',
     category: 'Hackathon',
-    subtitle: 'SMART CONTRACTS & ZERO-KNOWLEDGE PROOFS',
-    description: 'Engineer unstoppable dApps, account abstraction protocols, and decentralized compute networks.',
-    fullOverview: 'Build next-generation decentralized infrastructure using EVM, Solana, or ZK-rollups. Projects should address real liquidity, privacy, or verifiable credential challenges.',
-    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=600&fit=crop&q=80',
-    prizePool: '₹1,25,000 + $2,000 Grants',
+    subtitle: 'FLAGSHIP INNOVATION CRUCIBLE & PRODUCT SPRINT',
+    description: 'Assemble your team of 2-4 builders to architect, code, and deploy high-impact AI, Web3, and full-stack solutions within 48 continuous hours.',
+    fullOverview: 'The flagship event of NIRVAN 2026. Teams conceive, build, and pitch functional software and hardware MVPs. Backed by 1-on-1 industry mentorship from Google, Polygon, and AWS staff engineers, leading to a live pitch demo day.',
+    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900&h=650&fit=crop&q=80',
+    prizePool: '₹2,50,000 + $5,000 Cloud Grants',
     entryFee: '₹0 (Free)',
     teamSize: '2 - 4 Members',
-    tags: ['ETHEREUM', 'POLYGON', 'ZK-SNARKS', 'DEFI'],
-    rules: ['Must deploy on public testnet/mainnet', 'Smart contracts must be verified on block explorer', 'Original repository initialized at kickoff'],
-    eligibility: ['Open to all students & independent builders worldwide'],
+    tags: ['GENAI', 'WEB3', 'FULLSTACK', 'HARDWARE'],
+    rules: [
+      'Original code authored during the 48-hour sprint only',
+      'Public GitHub repository with commits logged from kickoff',
+      'Live functional product demonstration required at Demo Day',
+    ],
+    eligibility: ['Open to undergraduate & postgraduate students globally'],
   },
   {
-    id: 'track-02',
+    id: 'event-02',
     code: '002',
-    title: 'GENERATIVE AI & AUTONOMOUS AGENTS',
-    category: 'Hackathon',
-    subtitle: 'MULTI-AGENT ORCHESTRATION & LLM SYSTEMS',
-    description: 'Deploy self-healing autonomous agent swarms, context-aware reasoning engines, and multimodal pipelines.',
-    fullOverview: 'Create multi-agent architectures that autonomously plan, execute tools, and verify complex domain tasks. Focus on agent collaboration, memory persistence, and sub-second latency.',
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=600&fit=crop&q=80',
-    prizePool: '₹1,50,000 + GPU Cloud Compute',
-    entryFee: '₹0 (Free)',
-    teamSize: '2 - 4 Members',
-    tags: ['AGENTIC AI', 'LANGCHAIN', 'RAG', 'OPENAI'],
-    rules: ['Must feature live working demo with interactive prompt loop', 'No wrapper apps without unique orchestration logic', 'Open-source on GitHub'],
-    eligibility: ['All enrolled students and recent graduates'],
-  },
-  {
-    id: 'track-03',
-    code: '003',
-    title: 'AUTONOMOUS ROBOTICS & EMBEDDED IOT',
-    category: 'Hackathon',
-    subtitle: 'EDGE COMPUTING & REAL-TIME HARDWARE',
-    description: 'Integrate computer vision with physical microcontrollers, drones, and autonomous rover teleoperation.',
-    fullOverview: 'Bridge physical hardware with real-time telemetry pipelines. Hardware kits (Raspberry Pi / ESP32) will be available on-campus for shortlisted teams.',
-    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=600&fit=crop&q=80',
-    prizePool: '₹1,00,000 + Hardware Bounties',
-    entryFee: '₹0 (Free)',
-    teamSize: '2 - 4 Members',
-    tags: ['ROS2', 'ESP32', 'COMPUTER VISION', 'TELEMETRY'],
-    rules: ['Physical hardware or Gazebo simulator demonstration required', 'Live telemetry dashboard must stream data in real time'],
-    eligibility: ['Engineering & science students'],
-  },
-  {
-    id: 'track-04',
-    code: '004',
-    title: 'CYBER DEFENSE & ZERO-TRUST SECURITY',
-    category: 'Hackathon',
-    subtitle: 'CRYPTOGRAPHIC AUDITING & RED-TEAM PROTOCOLS',
-    description: 'Build predictive threat intelligence systems, post-quantum encryption vaults, and automated vulnerability scanners.',
-    fullOverview: 'Tackle high-impact security challenges: supply-chain security, automated AST parsing for zero-day detection, and cryptographic access control for cloud clusters.',
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop&q=80',
-    prizePool: '₹90,000 + Certifications',
-    entryFee: '₹0 (Free)',
-    teamSize: '2 - 4 Members',
-    tags: ['ZERO-TRUST', 'EBPF', 'CRYPTOGRAPHY', 'SIEM'],
-    rules: ['Ethical hacking and security tooling only', 'Detailed threat model document required'],
-    eligibility: ['Open globally to undergraduate & postgraduate students'],
-  },
-  {
-    id: 'track-05',
-    code: '005',
-    title: 'FINTECH & ALGORITHMIC INTELLIGENCE',
-    category: 'Hackathon',
-    subtitle: 'HIGH-FREQUENCY DATA & FRAUD DEFENSE',
-    description: 'Architect low-latency financial settlement engines, synthetic asset trading bots, and anti-money laundering telemetry.',
-    fullOverview: 'Revolutionize modern finance with sub-millisecond execution, AI-driven credit scoring, and open banking protocols connecting Indian and global rails.',
-    image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600&fit=crop&q=80',
-    prizePool: '₹1,00,000 + Fast-track Interviews',
-    entryFee: '₹0 (Free)',
-    teamSize: '2 - 4 Members',
-    tags: ['FINTECH', 'UPI', 'ALGO-TRADING', 'RISK ENGINES'],
-    rules: ['Must integrate with sandbox banking APIs or real-time market feeds', 'Compliance & security rubric applies'],
-    eligibility: ['All college students'],
-  },
-  {
-    id: 'track-06',
-    code: '006',
-    title: 'CLIMATE TECH & RENEWABLE ENERGY',
-    category: 'Hackathon',
-    subtitle: 'CARBON AUDITING & GRID OPTIMIZATION',
-    description: 'Develop intelligent power dispatch algorithms, carbon credit verification protocols, and urban sustainability models.',
-    fullOverview: 'Deploy data-driven solutions for renewable microgrids, battery health forecasting, and satellite-based deforestation and carbon sequestration monitoring.',
-    image: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?w=800&h=600&fit=crop&q=80',
-    prizePool: '₹80,000 + Sustainability Grant',
-    entryFee: '₹0 (Free)',
-    teamSize: '2 - 4 Members',
-    tags: ['GREEN TECH', 'GIS', 'SOLAR IOT', 'CARBON DATA'],
-    rules: ['Must cite verified ecological or energy data sources', 'Measurable sustainability impact score'],
-    eligibility: ['Open to all students & researchers'],
-  },
-  {
-    id: 'track-07',
-    code: '007',
-    title: 'HEALTHCARE & BIOMEDICAL INTELLIGENCE',
-    category: 'Hackathon',
-    subtitle: 'DIAGNOSTIC TELEMETRY & GENOMIC COMPUTATION',
-    description: 'Build privacy-preserving federated health models, real-time vital telemetry monitors, and clinical workflow accelerators.',
-    fullOverview: 'Transform patient outcomes with offline-first rural clinic tools, diagnostic image segmentation, and EHR interoperability systems compliant with ABDM standards.',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop&q=80',
-    prizePool: '₹90,000 + MedTech Incubator',
-    entryFee: '₹0 (Free)',
-    teamSize: '2 - 4 Members',
-    tags: ['MEDTECH', 'HIPAA/ABDM', 'FEDERATED AI', 'DICOM'],
-    rules: ['Synthetic or anonymized clinical datasets only', 'Clear safety & verification documentation'],
-    eligibility: ['Open globally'],
-  },
-  {
-    id: 'track-08',
-    code: '008',
-    title: 'SPATIAL COMPUTING & AR/VR WORLDS',
-    category: 'Workshop',
-    subtitle: '3D WEBGL & IMMERSIVE ENVIRONMENTS',
-    description: 'Design weightless spatial web experiences, WebXR simulations, and physical interaction choreography.',
-    fullOverview: 'Hands-on masterclass and 24-hour sprint in spatial computing using Three.js, WebGL shaders, GSAP, and Apple Vision Pro / Quest WebXR frameworks.',
-    image: 'https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=800&h=600&fit=crop&q=80',
-    prizePool: '₹75,000 + VR Hardware Kits',
-    entryFee: '₹0 (Free)',
-    teamSize: '1 - 3 Members',
-    tags: ['THREE.JS', 'WEBXR', 'GLSL', 'SPATIAL UI'],
-    rules: ['Interactive 3D browser or headset experience', 'Target 60fps performance on standard browsers'],
-    eligibility: ['All creative coders & 3D artists'],
-  },
-  {
-    id: 'track-09',
-    code: '009',
-    title: 'GAME DEV & MULTIMEDIA BLITZ',
+    title: 'ESPORTS ARENA CHAMPIONSHIP',
     category: 'Esports',
-    subtitle: 'PROCEDURAL GENERATION & LIVE NETWORKING',
-    description: 'Develop fast-paced multiplayer web games, physics-driven platformers, and audio-reactive worlds.',
-    fullOverview: 'Ship a complete multiplayer or indie game in 48 hours using Unity, Godot, or Phaser. Focus on fluid gameplay feel, dynamic shaders, and low-ping netcode.',
-    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=600&fit=crop&q=80',
-    prizePool: '₹80,000 + Gaming Gear',
+    subtitle: 'TACTICAL TOURNAMENTS & LIVE STREAM BATTLES',
+    description: 'Compete in high-octane Valorant, BGMI, and EA FC tournaments on ultra-low latency LAN servers with broadcast live casting.',
+    fullOverview: 'An adrenaline-fueled competitive gaming showdown featuring multi-bracket knockout rounds, custom spectator stages, and top gaming gear prizes for winning squads.',
+    image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=900&h=650&fit=crop&q=80',
+    prizePool: '₹1,00,000 + Gaming Gear',
     entryFee: '₹0 (Free)',
-    teamSize: '2 - 4 Members',
-    tags: ['UNITY', 'GODOT', 'WEBSOCKETS', 'SHADERS'],
-    rules: ['Playable build must be submitted on itch.io or web link', 'Custom audio and game mechanics evaluated'],
-    eligibility: ['Students & indie game devs'],
+    teamSize: '4 - 5 Members (Per Squad)',
+    tags: ['VALORANT', 'BGMI', 'LAN ARENA', 'CASTING'],
+    rules: [
+      'Standard anti-cheat and tournament fair-play regulations apply',
+      'Official squad captains must be present for check-in 30 mins prior',
+      'Double-elimination bracket format for semifinals and finals',
+    ],
+    eligibility: ['Open to all registered college students & collegiate esports teams'],
   },
   {
-    id: 'track-10',
-    code: '010',
-    title: 'CLOUD NATIVE & DEVOPS ORCHESTRATION',
-    category: 'Hackathon',
-    subtitle: 'KUBERNETES & DISTRIBUTED EDGE SYSTEMS',
-    description: 'Build zero-downtime deployment pipelines, ephemeral dev environments, and self-healing cloud clusters.',
-    fullOverview: 'Design developer infrastructure that cuts cloud costs, speeds up CI/CD build times by 10x, or enables sovereign local edge cloud deployments.',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop&q=80',
-    prizePool: '₹75,000 + Cloud Credits',
+    id: 'event-03',
+    code: '003',
+    title: 'CTF // CAPTURE THE FLAG',
+    category: 'CTF',
+    subtitle: 'CYBER SIEGE, REVERSING & CRYPTOGRAPHIC EXPLOITS',
+    description: 'Solve jeopardy-style cyber security challenges across web exploitation, binary reversing, cryptography, and digital forensics.',
+    fullOverview: 'Test your offensive and defensive hacking mettle. A 24-hour intense cyber siege with real-time dynamic scoreboards, hidden zero-day challenges, and industry recruiting bounties.',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&h=650&fit=crop&q=80',
+    prizePool: '₹75,000 + Certifications',
     entryFee: '₹0 (Free)',
-    teamSize: '2 - 4 Members',
-    tags: ['KUBERNETES', 'DOCKER', 'TERRAFORM', 'EDGE'],
-    rules: ['Reproducible Dockerfile / helm charts provided', 'Live deployment benchmark demonstration'],
-    eligibility: ['College students & cloud enthusiasts'],
+    teamSize: '1 - 3 Members',
+    tags: ['REVERSING', 'PWN', 'CRYPTO', 'FORENSICS'],
+    rules: [
+      'No DDoS or attacks against CTF infrastructure allowed',
+      'Flag sharing between distinct teams leads to instant disqualification',
+      'Write-ups required for top 3 teams post-event',
+    ],
+    eligibility: ['Open to ethical hackers, students, and independent security researchers'],
   },
   {
-    id: 'track-11',
-    code: '011',
-    title: 'QUANTUM ALGORITHMS & FUTURE TECH',
+    id: 'event-04',
+    code: '004',
+    title: 'THE CRYPTIC TREASURE HUNT',
+    category: 'Treasure Hunt',
+    subtitle: 'CAMPUS ARG QUEST & LOGICAL CIPHERS',
+    description: 'Decode multi-layered ciphers, geolocation puzzles, and augmented-reality clues scattered across physical and digital realms.',
+    fullOverview: 'An immersive alternate-reality game (ARG) combining cryptographic riddles, terminal puzzle boxes, campus waypoints, and fast-paced team coordination.',
+    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=900&h=650&fit=crop&q=80',
+    prizePool: '₹50,000 + Mystery Tech Bundles',
+    entryFee: '₹0 (Free)',
+    teamSize: '2 - 4 Members',
+    tags: ['CIPHERS', 'ARG QUEST', 'LOGIC', 'GEOLOCATION'],
+    rules: [
+      'Teams must solve clues in sequential lock order',
+      'Smartphone required with Discord connection for bot hints',
+      'Fastest verified checkpoint completions determine leaderboard winners',
+    ],
+    eligibility: ['All enrolled students attending on-campus or virtual hub'],
+  },
+  {
+    id: 'event-05',
+    code: '005',
+    title: 'TECH WORKSHOPS & MASTERCLASSES',
     category: 'Workshop',
-    subtitle: 'CIRCUIT SYNTHESIS & QISKIT WORKFLOWS',
-    description: 'Simulate quantum annealing, variational quantum eigensolvers, and quantum encryption protocols.',
-    fullOverview: 'Explore the computational paradigm of qubits and superposition. Mentored workshop with IBM Qiskit and PennyLane researchers.',
-    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=600&fit=crop&q=80',
-    prizePool: '₹60,000 + Quantum Research Fellowship',
+    subtitle: 'HANDS-ON GENAI, WEB3 & SYSTEMS ENGINEERING',
+    description: 'Deep-dive masterclasses led by staff engineers and researchers covering Autonomous Agent swarms, Zero-Knowledge proofs, and Spatial 3D UI.',
+    fullOverview: 'Interactive 3-hour code-along workshops with starter kits, cloud compute tokens, and verified certifications for all attending developers.',
+    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=900&h=650&fit=crop&q=80',
+    prizePool: 'Certifications + Mentorship Retainers',
     entryFee: '₹0 (Free)',
-    teamSize: '1 - 3 Members',
-    tags: ['QISKIT', 'PENNYLANE', 'QUBITS', 'ALGORITHMS'],
-    rules: ['Simulations and algorithm proofs verified by academic panel'],
-    eligibility: ['Open to all students interested in physics & CS'],
-  },
-  {
-    id: 'track-12',
-    code: '012',
-    title: 'PRODUCT DESIGN & TACTILE CRAFT',
-    category: 'Fest',
-    subtitle: 'EDITORIAL TYPOGRAPHY & DESIGN SYSTEMS',
-    description: 'Create museum-grade design systems, micro-interactions, and accessible web experiences.',
-    fullOverview: 'Craft an end-to-end digital product design with bespoke typographic rhythm, fluid micro-interactions, Figma component architecture, and live front-end prototype.',
-    image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&h=600&fit=crop&q=80',
-    prizePool: '₹70,000 + Design Agency Retainer',
-    entryFee: '₹0 (Free)',
-    teamSize: '1 - 3 Members',
-    tags: ['FIGMA', 'TAILWIND', 'AWWWARDS CRAFT', 'ACCESSIBILITY'],
-    rules: ['Figma file with autolayout + interactive web prototype required'],
-    eligibility: ['Design students, self-taught UI/UX creators'],
+    teamSize: 'Individual / Open',
+    tags: ['GENAI AGENTS', 'ZK-PROOFS', 'THREE.JS', 'DEV TOOLS'],
+    rules: [
+      'Bring your laptop with Node.js / Python installed',
+      'Starter repositories provided prior to each masterclass session',
+    ],
+    eligibility: ['Open to all students, developers, and designers'],
   },
 ];
 
@@ -217,7 +124,7 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
 
   // Physics momentum refs
   const angleRef = useRef(0);
-  const velocityRef = useRef(0.2);
+  const velocityRef = useRef(0.25);
   const isDraggingRef = useRef(false);
   const lastMouseX = useRef(0);
   const hoveredItemRef = useRef<EventTrack | null>(null);
@@ -242,7 +149,7 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
     let animId: number;
     const updatePhysics = () => {
       if (!isDraggingRef.current) {
-        const cruiseVelocity = hoveredItemRef.current ? 0.06 : 0.22;
+        const cruiseVelocity = hoveredItemRef.current ? 0.05 : 0.22;
         velocityRef.current = velocityRef.current * 0.96 + cruiseVelocity * 0.04;
         angleRef.current = (angleRef.current + velocityRef.current) % 360;
         setRotationAngle(angleRef.current);
@@ -313,7 +220,7 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
     };
   }, []);
 
-  // Drag interaction with velocity injection
+  // Drag interaction
   const handleMouseDown = (e: React.MouseEvent) => {
     if (selectedItem !== null) return;
     isDraggingRef.current = true;
@@ -337,7 +244,7 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
     setIsDragging(false);
   };
 
-  // Wheel event adds impulse velocity
+  // Wheel impulse
   const handleWheel = (e: React.WheelEvent) => {
     if (selectedItem !== null) return;
     e.preventDefault();
@@ -368,7 +275,7 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
       {/* Top Section Meta (Cipher.tv Style) */}
       <div className="max-w-7xl mx-auto w-full flex items-center justify-between z-10 pt-4">
         <div className="text-[11px] font-mono-code uppercase tracking-widest text-zinc-500">
-          EVENT TRACKS // 012 CRUCIBLES
+          EVENT ARENAS // 05 CORE CRUCIBLES
         </div>
         <div className="inline-flex items-center gap-2 text-[11px] font-mono-code uppercase tracking-widest text-zinc-400">
           <Sparkles className="w-3 h-3 text-zinc-300" />
@@ -376,7 +283,7 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
         </div>
       </div>
 
-      {/* 360° Circular Orbital Constellation Canvas */}
+      {/* 360° Circular Orbital Constellation Canvas with Scaled Cards (320px x 210px) */}
       <div
         ref={containerRef}
         onMouseDown={handleMouseDown}
@@ -384,17 +291,17 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
         onWheel={handleWheel}
-        className={`relative w-full max-w-6xl h-[620px] sm:h-[700px] mx-auto flex items-center justify-center my-auto overflow-visible ${
+        className={`relative w-full max-w-6xl h-[650px] sm:h-[720px] mx-auto flex items-center justify-center my-auto overflow-visible ${
           isDragging ? 'cursor-grabbing' : 'cursor-grab'
         }`}
       >
-        {/* Central Cipher Line-Art Emblem */}
+        {/* Central Emblem */}
         <div className="absolute z-20 pointer-events-none flex items-center justify-center">
           <svg
             viewBox="0 0 100 40"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-16 h-8 text-white opacity-85 drop-shadow-md"
+            className="w-20 h-10 text-white opacity-90 drop-shadow-lg"
           >
             <ellipse cx="50" cy="20" rx="45" ry="16" stroke="currentColor" strokeWidth="1.2" />
             <ellipse cx="50" cy="20" rx="32" ry="12" stroke="currentColor" strokeWidth="1.2" />
@@ -403,15 +310,16 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
           </svg>
         </div>
 
-        {/* Orbit Ring of 12 Event Cards */}
+        {/* Orbit Ring of the 5 Core Events (Properly Spaced & Resized) */}
         {EVENT_TRACKS.map((item, idx) => {
           const count = EVENT_TRACKS.length;
           const baseAngle = idx * (360 / count);
           const currentTotalAngle = (baseAngle + rotationAngle) % 360;
           const radians = (currentTotalAngle * Math.PI) / 180;
 
-          const radiusX = 390;
-          const radiusY = 165;
+          // Calibrated Orbit for 5 large cards
+          const radiusX = 420;
+          const radiusY = 175;
           const x = Math.cos(radians) * radiusX;
           const y = Math.sin(radians) * radiusY;
 
@@ -419,19 +327,19 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
           const isHovered = selectedItem === null && hoveredItem?.id === item.id;
           const isAnyHovered = selectedItem === null && hoveredItem !== null;
 
-          const scale = isHovered ? 1.15 : 0.74 + normalizedDepth * 0.36;
+          const scale = isHovered ? 1.18 : 0.82 + normalizedDepth * 0.35;
           const zIndex = isHovered ? 40 : Math.round(normalizedDepth * 30);
 
-          let opacity = 0.45 + normalizedDepth * 0.55;
+          let opacity = 0.5 + normalizedDepth * 0.5;
           let filter = 'grayscale(0%)';
 
           if (isAnyHovered) {
             if (isHovered) {
               opacity = 1;
-              filter = 'grayscale(0%) brightness(1.15)';
+              filter = 'grayscale(0%) brightness(1.2)';
             } else {
-              opacity = 0.22;
-              filter = 'grayscale(100%) brightness(0.55)';
+              opacity = 0.25;
+              filter = 'grayscale(100%) brightness(0.6)';
             }
           }
 
@@ -455,23 +363,33 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
                 opacity,
                 filter,
               }}
-              className="absolute w-[200px] sm:w-[240px] h-[135px] sm:h-[160px] bg-zinc-900 border border-white/20 hover:border-white transition-all duration-200 cursor-pointer overflow-hidden shadow-2xl"
+              className="absolute w-[280px] sm:w-[340px] md:w-[360px] h-[190px] sm:h-[225px] md:h-[240px] bg-zinc-900 border-2 border-white/20 hover:border-white transition-all duration-200 cursor-pointer overflow-hidden shadow-2xl group"
             >
               <img
                 src={item.image}
                 alt={item.title}
-                className="w-full h-full object-cover select-none pointer-events-none"
+                className="w-full h-full object-cover select-none pointer-events-none group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-black/30 hover:bg-transparent transition-colors" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity" />
 
-              {/* Minimalist Top Code & Category Badge */}
-              <div className="absolute top-2 left-2 flex items-center gap-1">
-                <span className="px-1.5 py-0.5 bg-black/85 text-[9px] font-mono-code uppercase tracking-wider text-white border border-white/10">
+              {/* Top Code & Category Badge */}
+              <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                <span className="px-2 py-0.5 bg-black/90 text-[10px] font-mono-code font-bold uppercase tracking-wider text-white border border-white/20">
                   {item.code}
                 </span>
-                <span className="px-1.5 py-0.5 bg-white/20 backdrop-blur-md text-[8px] font-mono-code uppercase tracking-wider text-zinc-200">
+                <span className="px-2 py-0.5 bg-white text-black text-[9px] font-mono-code font-extrabold uppercase tracking-wider shadow-md">
                   {item.category}
                 </span>
+              </div>
+
+              {/* Bottom Card Title Overlay */}
+              <div className="absolute bottom-3 left-3 right-3">
+                <h4 className="text-sm sm:text-base font-extrabold text-white tracking-tight drop-shadow-md line-clamp-1">
+                  {item.title}
+                </h4>
+                <p className="text-[10px] font-mono-code text-zinc-300 uppercase tracking-wider drop-shadow-sm">
+                  {item.prizePool}
+                </p>
               </div>
             </motion.div>
           );
@@ -519,7 +437,7 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
               onClick={(e) => e.stopPropagation()}
               className="w-full max-w-4xl bg-[#09090b] border border-white/20 p-8 sm:p-12 relative overflow-hidden shadow-[0_0_80px_rgba(0,0,0,0.9)]"
             >
-              {/* Top Close Button (Step 2: Modal Dismissal) */}
+              {/* Close Button */}
               <button
                 onClick={() => setSelectedItem(null)}
                 className="absolute top-6 right-6 w-10 h-10 border border-white/20 flex items-center justify-center text-zinc-400 hover:text-white hover:border-white transition-colors cursor-pointer z-20"
@@ -538,7 +456,7 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
                   />
                 </div>
 
-                {/* Track Details & Quick Summary */}
+                {/* Track Details & Summary */}
                 <div className="lg:col-span-7 flex flex-col justify-between h-full">
                   <div>
                     <div className="flex items-center gap-3 mb-3">
@@ -579,7 +497,7 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
                     </div>
                   </div>
 
-                  {/* Modal Action Bridge (Step 3: Page Redirection to Page 2 Newspaper View) */}
+                  {/* Modal Action Bridge */}
                   <div className="pt-6 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <button
                       onClick={() => {

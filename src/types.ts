@@ -2,7 +2,7 @@ export interface EventTrack {
   id: string;
   code: string;
   title: string;
-  category: 'Hackathon' | 'Workshop' | 'Esports' | 'Fest';
+  category: 'Hackathon' | 'Esports' | 'CTF' | 'Treasure Hunt' | 'Workshop';
   subtitle: string;
   description: string;
   fullOverview: string;

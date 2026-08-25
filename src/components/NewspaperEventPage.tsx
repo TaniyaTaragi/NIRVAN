@@ -31,7 +31,7 @@ const SCHEDULE_ITEMS: ScheduleItem[] = [
   {
     id: 's2',
     time: '11:00 AM',
-    title: 'Opening Keynote & Track Problem Reveal',
+    title: 'Opening Ceremony & 5 Arena Kickoffs',
     subtitle: 'MAIN AUDITORIUM & LIVE STREAM',
     stage: 'KICKOFF',
     status: 'completed',
@@ -39,29 +39,37 @@ const SCHEDULE_ITEMS: ScheduleItem[] = [
   {
     id: 's3',
     time: '01:00 PM',
-    title: 'Hacking Commences & Mentor Round 1',
-    subtitle: 'HACKING HALLS & VIRTUAL BREAKOUT ROOMS',
-    stage: 'BUILD PHASE',
+    title: 'Hackathon Sprint & CTF Siege Begins',
+    subtitle: 'HACKING HALLS & CTF ARENA SERVERS',
+    stage: 'BUILD & DEFEND',
     status: 'live',
   },
   {
     id: 's4',
-    time: '08:30 PM',
-    title: 'Mid-Sprint Architecture Review',
-    subtitle: 'TECHNICAL JURY MENTORSHIP AUDIT',
-    stage: 'CHECKPOINT',
+    time: '03:30 PM',
+    title: 'GenAI & Web3 Interactive Workshops',
+    subtitle: 'SEMINAR HALL A // STARTER CODE REPOSITORIES',
+    stage: 'WORKSHOP',
     status: 'upcoming',
   },
   {
     id: 's5',
-    time: '12:00 AM',
-    title: 'Midnight Esports Blitz & Red Bull Fuel Break',
-    subtitle: 'GAMING ARENA & SNACK STATION',
-    stage: 'ENERGY & PLAY',
+    time: '06:00 PM',
+    title: 'Cryptic Treasure Hunt Checkpoint Round',
+    subtitle: 'CAMPUS WAYPOINTS & DISCORD ARG BOTS',
+    stage: 'ARG QUEST',
     status: 'upcoming',
   },
   {
     id: 's6',
+    time: '10:00 PM',
+    title: 'Esports Championship Knockout Battles',
+    subtitle: 'LAN GAMING LOUNGE // VALORANT & BGMI CASTING',
+    stage: 'ESPORTS ARENA',
+    status: 'upcoming',
+  },
+  {
+    id: 's7',
     time: '09:00 AM',
     title: 'Code Freeze & GitHub Submissions Due',
     subtitle: 'DEVFOLIO SUBMISSION PORTAL CLOSES',
@@ -69,7 +77,7 @@ const SCHEDULE_ITEMS: ScheduleItem[] = [
     status: 'upcoming',
   },
   {
-    id: 's7',
+    id: 's8',
     time: '11:30 AM',
     title: 'Grand Demo Day & Jury Pitch Battles',
     subtitle: 'LIVE 5-MIN PRODUCT DEMONSTRATIONS',
@@ -77,8 +85,8 @@ const SCHEDULE_ITEMS: ScheduleItem[] = [
     status: 'upcoming',
   },
   {
-    id: 's8',
-    time: '03:00 PM',
+    id: 's9',
+    time: '03:30 PM',
     title: 'Award Ceremony & VC Grant Distribution',
     subtitle: 'STAGE 1 // ₹5,00,000+ CASH & INCUBATION',
     stage: 'FINALE',
@@ -115,9 +123,9 @@ const ORGANIZERS: TeamMember[] = [
   {
     id: 't3',
     name: 'Ananya Roy',
-    role: 'Web3 & Security Lead',
+    role: 'Web3 & Cyber Security Lead',
     organization: 'Polygon Core Contributor',
-    bio: 'ZK-rollups researcher and smart contract security auditor. Mentoring decentralized finance tracks.',
+    bio: 'ZK-rollups researcher and smart contract security auditor. Mentoring CTF & blockchain arenas.',
     photo: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&h=500&fit=crop&q=80',
     socials: {
       github: 'https://github.com',
@@ -127,9 +135,9 @@ const ORGANIZERS: TeamMember[] = [
   {
     id: 't4',
     name: 'Devansh Mehta',
-    role: 'Director of Hackathon Operations',
+    role: 'Director of Hackathon & Esports Operations',
     organization: 'Devfolio Community Fellow',
-    bio: 'Organized 15+ national hackathons. Ensuring zero friction, 24/7 food, red bull, and live streaming.',
+    bio: 'Organized 15+ national hackathons and LAN tournaments. Ensuring zero friction, 24/7 food & Red Bull.',
     photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&h=500&fit=crop&q=80',
     socials: {
       linkedin: 'https://linkedin.com',
@@ -143,7 +151,7 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
   onBackToLanding,
   onOpenRegister,
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All Tracks');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All Events');
   const [activeTrack, setActiveTrack] = useState<EventTrack>(
     initialTrack || EVENT_TRACKS[0]
   );
@@ -183,10 +191,10 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
     }
   }, [initialTrack]);
 
-  const categories = ['All Tracks', 'Hackathon', 'Workshop', 'Esports', 'Fest'];
+  const categories = ['All Events', 'Hackathon', 'Esports', 'CTF', 'Treasure Hunt', 'Workshop'];
 
   const filteredTracks =
-    selectedCategory === 'All Tracks'
+    selectedCategory === 'All Events'
       ? EVENT_TRACKS
       : EVENT_TRACKS.filter((t) => t.category === selectedCategory);
 
@@ -204,14 +212,14 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
           </button>
 
           <div className="text-xs font-mono-code text-zinc-500 uppercase tracking-widest hidden sm:block">
-            NIRVAN CHRONICLE // SPECIAL BROADSHEET EDITION
+            NIRVAN CHRONICLE // 5 CORE CRUCIBLES EDITION
           </div>
         </div>
 
         {/* 1. Broadsheet Masthead Header */}
         <div className="text-center pb-8 mb-10 border-b-2 border-white/20">
           <div className="flex items-center justify-between text-[10px] font-mono-code uppercase tracking-widest text-zinc-400 pb-2 border-b border-zinc-800 mb-6">
-            <span>VOL. XXVI // NO. 04</span>
+            <span>VOL. XXVI // NO. 05</span>
             <span className="font-bold text-white">THE NIRVAN HACKATHON GAZETTE</span>
             <span>OCTOBER 2026 // EDITION</span>
           </div>
@@ -221,14 +229,14 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
           </h1>
 
           <p className="text-xs sm:text-sm font-mono-code uppercase tracking-widest text-zinc-400 max-w-2xl mx-auto">
-            OFFICIAL BLUEPRINT &bull; CRUCIBLE RULES &bull; 12 EVENT TRACKS &bull; ₹5,00,000+ IN PRIZES
+            OFFICIAL BLUEPRINT &bull; 5 CORE EVENT ARENAS &bull; ₹5,00,000+ IN PRIZES &bull; FREE PARTICIPATION
           </p>
         </div>
 
         {/* 2. Category Selection Filter Tabs */}
         <div className="flex flex-wrap items-center gap-2 mb-12 pb-4 border-b border-zinc-800/80">
           <span className="text-xs font-mono-code uppercase tracking-wider text-zinc-500 mr-2">
-            FILTER CATEGORIES:
+            FILTER ARENAS:
           </span>
           {categories.map((cat) => (
             <button
@@ -311,7 +319,7 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
                   ))}
                   <li className="flex items-start gap-2.5">
                     <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                    <span>Plagiarism or pre-built projects result in immediate disqualification.</span>
+                    <span>Fair play &amp; anti-cheat guidelines strictly enforced.</span>
                   </li>
                 </ul>
               </div>
@@ -330,18 +338,18 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
                   ))}
                   <li className="flex items-start gap-2.5">
                     <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                    <span>Teams must consist of 2 to 4 registered members.</span>
+                    <span>Team specs: {activeTrack.teamSize}.</span>
                   </li>
                 </ul>
               </div>
             </div>
 
-            {/* Quick Track Switcher */}
+            {/* Quick Track Switcher (5 Core Arenas) */}
             <div>
               <div className="text-xs font-mono-code text-zinc-500 uppercase tracking-widest mb-4">
-                EXPLORE OTHER CRUCIBLE TRACKS:
+                EXPLORE ALL 5 CRUCIBLE ARENAS:
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {filteredTracks.map((t) => (
                   <button
                     key={t.id}
@@ -414,14 +422,16 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
                   </span>
                 </div>
                 <div className="p-3.5 bg-black border border-zinc-800 flex items-center justify-between">
-                  <span className="text-xs font-mono-code text-zinc-400">TRACK PRIZE</span>
+                  <span className="text-xs font-mono-code text-zinc-400">ARENA PRIZE</span>
                   <span className="text-sm font-bold text-white font-mono-code">
                     {activeTrack.prizePool}
                   </span>
                 </div>
                 <div className="p-3.5 bg-black border border-zinc-800 flex items-center justify-between">
-                  <span className="text-xs font-mono-code text-zinc-400">TOTAL BOUNTIES</span>
-                  <span className="text-sm font-bold text-white font-mono-code">₹5,00,000+</span>
+                  <span className="text-xs font-mono-code text-zinc-400">TEAM CAPACITY</span>
+                  <span className="text-sm font-bold text-white font-mono-code">
+                    {activeTrack.teamSize}
+                  </span>
                 </div>
               </div>
 
@@ -430,7 +440,7 @@ export const NewspaperEventPage: React.FC<NewspaperEventPageProps> = ({
                 onClick={() => onOpenRegister(activeTrack.id)}
                 className="w-full py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
               >
-                REGISTER FOR THIS TRACK ↗
+                REGISTER FOR THIS ARENA ↗
               </button>
 
               <div className="text-center pt-2">

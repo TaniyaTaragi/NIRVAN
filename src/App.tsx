@@ -16,6 +16,8 @@ import { DemoModal } from './components/DemoModal';
 import { ArchiveGallery } from './components/ArchiveGallery';
 import { GuestProfiles } from './components/GuestProfiles';
 import { FestSchedule } from './components/FestSchedule';
+import { CountdownTimer } from './components/CountdownTimer';
+import { CustomCursor } from './components/CustomCursor';
 import { HackathonPage } from './competitions/hackathon/HackathonPage';
 import { EsportsPage } from './competitions/esports/EsportsPage';
 import { CtfPage } from './competitions/ctf/CtfPage';
@@ -71,6 +73,8 @@ export function App() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [registerDefaultTrack, setRegisterDefaultTrack] = useState<string | undefined>(undefined);
   const [isDemoOpen, setIsDemoOpen] = useState(false);
+  const [isLightMode, setIsLightMode] = useState(false);
+  const [customCursorEnabled, setCustomCursorEnabled] = useState(false);
 
   // Synchronize browser history and popstate for back/forward buttons
   useEffect(() => {
@@ -154,7 +158,7 @@ export function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-black text-white selection:bg-white selection:text-black">
+    <div className={`relative min-h-screen bg-black text-white selection:bg-white selection:text-black ${isLightMode ? 'theme-light' : ''} ${customCursorEnabled ? 'custom-cursor' : ''}`}>
       {/* 0. Preloader */}
       <Preloader onComplete={() => setIsPreloaderComplete(true)} />
 
@@ -164,6 +168,10 @@ export function App() {
         onOpenAI={() => setIsAIOpen(true)}
         onOpenRegister={() => handleOpenRegister()}
         onOpenDemo={() => setIsDemoOpen(true)}
+        isLightMode={isLightMode}
+        onToggleTheme={() => setIsLightMode((current) => !current)}
+        customCursorEnabled={customCursorEnabled}
+        onToggleCursor={() => setCustomCursorEnabled((current) => !current)}
       />
 
       {/* Main Experience Router */}
@@ -177,6 +185,7 @@ export function App() {
                 const el = document.getElementById('features');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
+              countdown={<CountdownTimer />}
             />
 
             <HeroCarousel />
@@ -270,6 +279,8 @@ export function App() {
         isOpen={isDemoOpen}
         onClose={() => setIsDemoOpen(false)}
       />
+
+      {customCursorEnabled && <CustomCursor />}
     </div>
   );
 }

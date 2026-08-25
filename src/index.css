@@ -33,6 +33,75 @@
   font-family: 'Playfair Display', Georgia, serif;
 }
 
+/* Bonus presentation modes: keep the strong dark navigation and cards while
+   giving the main editorial sections a readable light alternative. */
+.theme-light main section.bg-black,
+.theme-light main section.bg-\[\#050505\],
+.theme-light main section.bg-\[\#080808\],
+.theme-light main footer.bg-black {
+  background-color: #f0f0f2 !important;
+  color: #121212 !important;
+}
+
+.theme-light main section.bg-black .text-white,
+.theme-light main section.bg-\[\#050505\] .text-white,
+.theme-light main section.bg-\[\#080808\] .text-white,
+.theme-light main footer.bg-black .text-white {
+  color: #121212 !important;
+}
+
+.theme-light main section.bg-black .text-zinc-400,
+.theme-light main section.bg-\[\#050505\] .text-zinc-400,
+.theme-light main section.bg-\[\#080808\] .text-zinc-400,
+.theme-light main footer.bg-black .text-zinc-400 {
+  color: #52525b !important;
+}
+
+.custom-cursor {
+  cursor: none;
+}
+
+.custom-cursor-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.custom-cursor-dot,
+.custom-cursor-ring {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  pointer-events: none;
+  transition: width 180ms ease, height 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.custom-cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: white;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor-ring {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  mix-blend-mode: difference;
+}
+
+.custom-cursor-dot.is-hovering {
+  width: 10px;
+  height: 10px;
+}
+
+.custom-cursor-ring.is-hovering {
+  width: 44px;
+  height: 44px;
+  border-color: white;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

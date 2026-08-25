@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Bot, ArrowRight, Menu, X } from 'lucide-react';
+import { Bot, ArrowRight, Menu, X, Moon, Sun, MousePointer2 } from 'lucide-react';
 
 interface NavbarProps {
   onNavigate: (view: 'landing', sectionId?: string) => void;
   onOpenAI: () => void;
   onOpenRegister: () => void;
   onOpenDemo: () => void;
+  isLightMode: boolean;
+  onToggleTheme: () => void;
+  customCursorEnabled: boolean;
+  onToggleCursor: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -13,6 +17,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenAI,
   onOpenRegister,
   onOpenDemo,
+  isLightMode,
+  onToggleTheme,
+  customCursorEnabled,
+  onToggleCursor,
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -107,6 +115,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right Actions: Demo (Optional) & Register Now CTA */}
         <div className="hidden xl:flex items-center gap-3 shrink-0">
+          <button onClick={onToggleTheme} aria-label={isLightMode ? 'Switch to dark mode' : 'Switch to light mode'} className="p-2 rounded-full border border-white/20 text-zinc-200 hover:text-white hover:border-white transition-colors cursor-pointer">
+            {isLightMode ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+          </button>
+          <button onClick={onToggleCursor} aria-label={customCursorEnabled ? 'Disable custom cursor' : 'Enable custom cursor'} className={`p-2 rounded-full border transition-colors cursor-pointer ${customCursorEnabled ? 'border-white text-white' : 'border-white/20 text-zinc-400 hover:text-white'}`}>
+            <MousePointer2 className="w-4 h-4" />
+          </button>
           <button
             onClick={onOpenDemo}
             className="px-4 py-2 rounded-full border border-white/30 text-xs font-mono-code uppercase tracking-wider text-zinc-200 hover:text-white hover:border-white transition-all cursor-pointer whitespace-nowrap"
@@ -198,6 +212,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Bot className="w-4 h-4" />
             AI Assistant
+          </button>
+          <button onClick={onToggleTheme} className="text-left py-2 hover:text-white flex items-center gap-2" aria-label={isLightMode ? 'Switch to dark mode' : 'Switch to light mode'}>
+            {isLightMode ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+            {isLightMode ? 'Dark mode' : 'Light mode'}
+          </button>
+          <button onClick={onToggleCursor} className="text-left py-2 hover:text-white flex items-center gap-2">
+            <MousePointer2 className="w-4 h-4" />
+            {customCursorEnabled ? 'Disable cursor' : 'Custom cursor'}
           </button>
           <button
             onClick={() => {

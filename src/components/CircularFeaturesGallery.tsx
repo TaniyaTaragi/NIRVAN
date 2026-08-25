@@ -118,6 +118,7 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
   const [isDragging, setIsDragging] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<EventTrack | null>(null);
   const [selectedItem, setSelectedItem] = useState<EventTrack | null>(null);
+  const [categoryFilter, setCategoryFilter] = useState<'ALL' | EventTrack['category']>('ALL');
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -128,6 +129,9 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
   const isDraggingRef = useRef(false);
   const lastMouseX = useRef(0);
   const hoveredItemRef = useRef<EventTrack | null>(null);
+  const visibleTracks = categoryFilter === 'ALL'
+    ? EVENT_TRACKS
+    : EVENT_TRACKS.filter((track) => track.category === categoryFilter);
 
   useEffect(() => {
     hoveredItemRef.current = hoveredItem;
@@ -255,11 +259,11 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
 
   const activeItem =
     hoveredItem ||
-    EVENT_TRACKS[
-      Math.floor((((rotationAngle % 360) + 360) % 360) / (360 / EVENT_TRACKS.length)) %
-        EVENT_TRACKS.length
+    visibleTracks[
+      Math.floor((((rotationAngle % 360) + 360) % 360) / (360 / visibleTracks.length)) %
+        visibleTracks.length
     ] ||
-    EVENT_TRACKS[0];
+    visibleTracks[0];
 
   return (
     <section
@@ -271,6 +275,30 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
         ref={canvasRef}
         className="absolute inset-0 w-full h-full pointer-events-none opacity-40"
       />
+
+      <div className="relative z-30 max-w-7xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+        <div>
+          <p className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">02 // EVENT ARENA // FILTER BY TRACK</p>
+          <p className="text-sm text-zinc-400">Focus the explorer on the competition you want to enter.</p>
+        </div>
+        <div className="flex flex-wrap gap-2" role="group" aria-label="Filter events by category">
+          {(['ALL', 'Hackathon', 'Esports', 'CTF', 'Treasure Hunt', 'Workshop'] as const).map((category) => (
+            <button
+              key={category}
+              type="button"
+              onClick={() => {
+                setCategoryFilter(category);
+                setHoveredItem(null);
+                setSelectedItem(null);
+              }}
+              aria-pressed={categoryFilter === category}
+              className={`px-3 py-2 text-[10px] font-mono-code uppercase tracking-wider border transition-colors ${categoryFilter === category ? 'bg-white text-black border-white' : 'border-zinc-700 text-zinc-400 hover:border-white hover:text-white'}`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
 
 
 
@@ -302,8 +330,8 @@ export const CircularFeaturesGallery: React.FC<CircularFeaturesGalleryProps> = (
         </div>
 
         {/* Orbit Ring of the 5 Core Events (Properly Spaced & Resized) */}
-        {EVENT_TRACKS.map((item, idx) => {
-          const count = EVENT_TRACKS.length;
+        {visibleTracks.map((item, idx) => {
+          const count = visibleTracks.length;
           const baseAngle = idx * (360 / count);
           const currentTotalAngle = (baseAngle + rotationAngle) % 360;
           const radians = (currentTotalAngle * Math.PI) / 180;

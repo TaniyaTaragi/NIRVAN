@@ -219,6 +219,18 @@ npm run preview
 
 ---
 
+## Bonus Features and Interaction Details
+
+- Dark/light mode toggle with accessible labels.
+- Live countdown to the NIRVAN 2026 opening ceremony.
+- Filterable event explorer for all five competition arenas.
+- Optional desktop custom cursor with hover feedback; mobile layouts retain the native touch interaction.
+- Frontend-only dynamic registration form that renders participant fields from the selected team size.
+- Modal wheel and touch scrolling contained inside the registration form so the page behind remains stationary.
+- Local event galleries, centralized fest schedule, speaker profiles, sponsors, and previous-edition archive.
+
+---
+
 ## License
 
 This project is released under the MIT License.

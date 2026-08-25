@@ -70,7 +70,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[10000] bg-black/90 backdrop-blur-xl flex items-start sm:items-center justify-center overflow-y-auto overscroll-contain p-3 sm:p-6"
+          className="fixed inset-0 z-[10000] bg-black/90 backdrop-blur-xl flex items-start sm:items-center justify-center overflow-hidden overscroll-contain p-3 sm:p-6"
           onClick={onClose}
         >
           <motion.div
@@ -79,6 +79,9 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
             exit={{ scale: 0.92, opacity: 0, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 28 }}
             onClick={(e) => e.stopPropagation()}
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+            data-lenis-prevent
             className="w-full max-w-2xl max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-3rem)] overflow-y-auto overscroll-contain bg-[#0a0a0c] border border-white/20 p-5 sm:p-10 md:p-12 relative shadow-[0_0_80px_rgba(0,0,0,0.9)]"
           >
             <button

@@ -21,12 +21,14 @@ interface NothinLandingHeroProps {
   isLoaded?: boolean;
   onOpenRegister?: () => void;
   onExploreEvents: () => void;
+  countdown?: React.ReactNode;
 }
 
 export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
   isLoaded = true,
   onOpenRegister,
   onExploreEvents,
+  countdown,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const bubblesRef = useRef<FoamBubble[]>([]);
@@ -280,6 +282,8 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
         <span>GEHU CAMPUS</span>
         <span>2-DAY TECHNICAL FEST</span>
       </div>
+
+      <div className="relative z-10 mt-3">{countdown}</div>
 
       {/* Giant Central Vector Wordmark: NIRVAN (Full-Bleed Rising Typography) */}
       <div className="relative z-10 w-full my-auto py-8">

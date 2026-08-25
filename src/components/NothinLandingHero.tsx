@@ -232,16 +232,15 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
       {/* Top Narrative, Official Tagline & Action Trigger */}
       <div className="relative z-10 max-w-2xl">
         <p className="text-xs sm:text-sm font-mono-code uppercase tracking-[0.28em] text-zinc-600 mb-4">
-          NIRVAN '26 // WHERE IDEAS BECOME INNOVATION
+          NIRVAN '26 // NATIONAL TECH CRUCIBLE
         </p>
-        {/* Hinglish Main Punchline */}
         <motion.h1
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15 }}
           className="text-2xl sm:text-4xl md:text-[44px] font-extrabold tracking-tight leading-tight mb-4 text-[#121212]"
         >
-          Code Karo, Innovate Karo, Sab Kuch Jeeto.
+          Where Ideas Become Innovation.
         </motion.h1>
 
         <motion.p

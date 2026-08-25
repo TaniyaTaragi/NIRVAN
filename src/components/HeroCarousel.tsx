@@ -1,6 +1,18 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Sparkles, Terminal, Code2, Users, Flame, Award } from 'lucide-react';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Sparkles,
+  Terminal,
+  Code2,
+  Users,
+  Flame,
+  Award,
+  Trophy,
+  CheckCircle2,
+  Zap,
+} from 'lucide-react';
 
 interface SlideData {
   id: string;
@@ -19,12 +31,12 @@ interface SlideData {
 
 const HERO_SLIDES: SlideData[] = [
   {
-    id: 'who-we-are',
-    badge: '01 // IDENTITY & PHILOSOPHY',
-    title: 'Who We Are',
-    subtitle: 'India’s Premier Innovation Crucible for Builders & Hackers',
+    id: 'what-is-nirvan',
+    badge: '01 // ARCHITECTURE & DEFINITION',
+    title: 'What is NIRVAN?',
+    subtitle: 'India’s Premier Multi-Disciplinary Technology Crucible',
     description:
-      'NIRVAN is a multi-disciplinary technology ecosystem born out of raw developer passion. We unite software architects, AI researchers, hardware engineers, and UI/UX designers to push the boundaries of what is possible in 48 hours.',
+      'NIRVAN is a high-velocity innovation ecosystem uniting software architects, AI researchers, hardware engineers, ethical hackers, and product designers. It is not just a hackathon — it is a crucible where bold ideas transform into production-grade systems in 48 hours.',
     actionText: 'EXPLORE OUR MANIFESTO',
     actionLink: '#features',
     highlights: [
@@ -34,41 +46,68 @@ const HERO_SLIDES: SlideData[] = [
         description: 'Undergrads, postgrads, self-taught coders, and high school prodigies welcome.',
       },
       {
-        icon: Flame,
-        title: 'Zero Corporate Slop',
-        description: 'Real problem statements backed by leading Web3, AI, and fintech protocols.',
+        icon: Code2,
+        title: '5 Specialized Arenas',
+        description: 'Hackathon, Esports Arena, CTF Cyber Siege, Cryptic Treasure Hunt, and Masterclasses.',
       },
       {
-        icon: Code2,
-        title: 'Fluid Collaboration',
-        description: 'Smart matchmaking algorithms to help solo builders find complementary teammates.',
+        icon: Sparkles,
+        title: 'Decentralized & AI First',
+        description: 'Built for real-world architectures from autonomous agents to ZK-protocols.',
       },
     ],
   },
   {
-    id: 'what-we-do',
-    badge: '02 // MISSION & EXECUTION',
-    title: 'What We Are Doing',
-    subtitle: '48-Hour High-Stakes Build Sprint with ₹5L+ in Grants & Prizes',
+    id: 'why-it-is-organized',
+    badge: '02 // PURPOSE & VISION',
+    title: 'Why It Is Organized?',
+    subtitle: 'Bridging Academia to Production & Eliminating Corporate Slop',
     description:
-      'We are engineering an adrenaline-fueled platform where teams conceive, prototype, test, and ship complete products. Backed by industry mentors, top-tier venture capitalists, and open-source bounties.',
+      'Traditional tech fests focus on theoretical slide decks and generic presentations. NIRVAN was forged to give genuine builders an uncompromising playground: real problem statements, actual codebase judging, live telemetry, and direct VC & grant opportunities.',
+    actionText: 'VIEW THE 5 ARENAS',
+    actionLink: '#features',
+    highlights: [
+      {
+        icon: Flame,
+        title: 'Zero Corporate Slop',
+        description: 'High-stakes bounties sponsored by actual Web3, AI, and cloud protocols.',
+      },
+      {
+        icon: Award,
+        title: 'Direct Seed & Grant Fast-Tracks',
+        description: 'Pitching directly to venture partners, angels, and tier-1 startup incubators.',
+      },
+      {
+        icon: Terminal,
+        title: 'Elite Builder Network',
+        description: 'Cultivating an electric community where lifelong technical co-founders meet.',
+      },
+    ],
+  },
+  {
+    id: 'what-to-expect',
+    badge: '03 // PARTICIPANT EXPERIENCE',
+    title: 'What You Can Expect',
+    subtitle: '48 Hours of Pure Building, Mentorship & ₹5,00,000+ in Rewards',
+    description:
+      'Expect an adrenaline-fueled experience: round-the-clock office hours with staff engineers from Google, Polygon & AWS, competitive LAN gaming tournaments, zero registration fees (₹0), 24/7 catering, Red Bull lounges, and an electric live Demo Day.',
     actionText: 'VIEW EVENT SCHEDULE',
     actionLink: '#how-it-works',
     highlights: [
       {
-        icon: Award,
+        icon: Trophy,
         title: '₹5,00,000+ Prize Pool',
-        description: 'Cash rewards, track bounties, cloud credits, and direct incubator fast-tracks.',
+        description: 'Cash rewards, arena bounties, $10,000+ cloud credits, and physical trophies.',
       },
       {
-        icon: Terminal,
-        title: 'Tier-1 Mentorship',
-        description: '1-on-1 office hours with staff engineers from Google, Polygon, Intel & Vercel.',
+        icon: CheckCircle2,
+        title: '1-on-1 Staff Mentorship',
+        description: 'Continuous architecture reviews and live debugging with senior industry leads.',
       },
       {
-        icon: Sparkles,
-        title: 'Live Pitch & Demo Day',
-        description: 'Pitch to an esteemed jury panel with instant feedback and investment interest.',
+        icon: Zap,
+        title: 'All-Inclusive Hospitality',
+        description: 'Free gourmet meals, midnight snacks, Red Bull fuel stations, and custom swag kits.',
       },
     ],
   },
@@ -97,7 +136,7 @@ export const HeroCarousel = () => {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
             <div className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
-              DISCOVER NIRVAN // PERSPECTIVE
+              DISCOVER NIRVAN // PERSPECTIVE &bull; 03 PILLARS
             </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
               Perspective &amp; Mission
@@ -105,17 +144,21 @@ export const HeroCarousel = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            {/* Slide Index Dots */}
+            {/* Slide Index Tabs / Dots */}
             <div className="flex items-center gap-2 mr-2">
               {HERO_SLIDES.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentSlide(idx)}
-                  className={`h-1.5 transition-all duration-300 rounded-full cursor-pointer ${
-                    currentSlide === idx ? 'w-8 bg-white' : 'w-2 bg-zinc-700 hover:bg-zinc-500'
+                  className={`h-2 transition-all duration-300 rounded-full cursor-pointer flex items-center justify-center text-[10px] font-mono-code font-bold ${
+                    currentSlide === idx
+                      ? 'w-10 bg-white text-black'
+                      : 'w-6 bg-zinc-800 text-zinc-500 hover:bg-zinc-700 hover:text-white'
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}
-                />
+                >
+                  0{idx + 1}
+                </button>
               ))}
             </div>
 
@@ -138,14 +181,14 @@ export const HeroCarousel = () => {
         </div>
 
         {/* Carousel Narrative Slide Deck */}
-        <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-14 overflow-hidden">
+        <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-14 overflow-hidden shadow-2xl">
           <AnimatePresence mode="wait">
             <motion.div
               key={slide.id}
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 25 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.45, ease: 'easeOut' }}
+              exit={{ opacity: 0, x: -25 }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
               className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
             >
               {/* Left Column: Headline & Manifesto Copy */}
@@ -155,15 +198,15 @@ export const HeroCarousel = () => {
                   <span>{slide.badge}</span>
                 </div>
 
-                <h3 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-4">
+                <h3 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
                   {slide.title}
                 </h3>
 
-                <h4 className="text-base sm:text-lg font-semibold text-zinc-300 mb-6">
+                <h4 className="text-base sm:text-lg font-semibold text-zinc-300 mb-6 leading-snug">
                   {slide.subtitle}
                 </h4>
 
-                <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8 max-w-xl">
+                <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8 max-w-xl font-normal">
                   {slide.description}
                 </p>
 
@@ -185,15 +228,15 @@ export const HeroCarousel = () => {
                       key={index}
                       initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.4 }}
-                      className="p-5 border border-zinc-800/80 bg-zinc-900/40 hover:bg-zinc-900/80 hover:border-zinc-700 transition-all duration-300 flex items-start gap-4"
+                      transition={{ delay: index * 0.1, duration: 0.35 }}
+                      className="p-5 border border-zinc-800/80 bg-zinc-900/40 hover:bg-zinc-900/80 hover:border-zinc-700 transition-all duration-300 flex items-start gap-4 shadow-sm"
                     >
                       <div className="p-2.5 bg-black border border-zinc-800 text-white shrink-0">
                         <Icon className="w-4 h-4" />
                       </div>
                       <div>
                         <h5 className="text-sm font-bold text-white mb-1">{item.title}</h5>
-                        <p className="text-xs text-zinc-400 leading-relaxed">{item.description}</p>
+                        <p className="text-xs text-zinc-400 leading-relaxed font-normal">{item.description}</p>
                       </div>
                     </motion.div>
                   );

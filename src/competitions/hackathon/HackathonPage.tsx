@@ -533,7 +533,7 @@ export const HackathonPage: React.FC<HackathonPageProps> = ({
             className="inline-flex items-center gap-2 text-xs font-mono-code uppercase tracking-wider text-zinc-400 hover:text-white transition-colors cursor-pointer group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>← RETURN TO 360° ORBIT LANDING</span>
+            <span>RETURN TO 360° ORBIT LANDING</span>
           </button>
 
           <div className="text-xs font-mono-code text-zinc-500 uppercase tracking-widest hidden sm:block">

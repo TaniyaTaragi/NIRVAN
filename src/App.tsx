@@ -10,7 +10,6 @@ import { SponsorsStrip } from './components/SponsorsStrip';
 import { TestimonialsGallery } from './components/TestimonialsGallery';
 import { FAQSection } from './components/FAQSection';
 import { Footer } from './components/Footer';
-import { NewspaperEventPage } from './components/NewspaperEventPage';
 import { AIAssistantDrawer } from './components/AIAssistantDrawer';
 import { RegistrationModal } from './components/RegistrationModal';
 import { DemoModal } from './components/DemoModal';
@@ -26,7 +25,6 @@ import { EventTrack } from './types';
 
 export type ViewType =
   | 'landing'
-  | 'newspaper'
   | 'hackathon'
   | 'esports'
   | 'ctf'
@@ -45,7 +43,7 @@ const pathToViewMap: Record<string, ViewType> = {
   '/quest': 'treasure-hunt',
   '/workshop': 'workshop',
   '/workshops': 'workshop',
-  '/newspaper': 'newspaper',
+  '/newspaper': 'hackathon',
 };
 
 const viewToPathMap: Record<ViewType, string> = {
@@ -55,7 +53,6 @@ const viewToPathMap: Record<ViewType, string> = {
   ctf: '/ctf',
   'treasure-hunt': '/treasure-hunt',
   workshop: '/workshop',
-  newspaper: '/newspaper',
 };
 
 export function App() {
@@ -69,7 +66,6 @@ export function App() {
   };
 
   const [currentView, setCurrentView] = useState<ViewType>(getInitialView);
-  const [selectedTrackForNewspaper, setSelectedTrackForNewspaper] = useState<EventTrack | null>(null);
 
   const [isAIOpen, setIsAIOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -127,8 +123,7 @@ export function App() {
     }
   }, []);
 
-  const handleSelectTrackForNewspaper = (track: EventTrack) => {
-    setSelectedTrackForNewspaper(track);
+  const handleSelectTrack = (track: EventTrack) => {
     if (track.category === 'Hackathon') {
       handleNavigate('hackathon');
     } else if (track.category === 'Esports') {
@@ -140,7 +135,7 @@ export function App() {
     } else if (track.category === 'Workshop') {
       handleNavigate('workshop');
     } else {
-      handleNavigate('newspaper');
+      handleNavigate('hackathon');
     }
   };
 
@@ -150,21 +145,13 @@ export function App() {
     else if (arena === 'CTF') handleNavigate('ctf');
     else if (arena === 'Treasure Hunt') handleNavigate('treasure-hunt');
     else if (arena === 'Workshop') handleNavigate('workshop');
-    else handleNavigate('newspaper');
+    else handleNavigate('hackathon');
   };
 
   const handleOpenRegister = (trackId?: string) => {
     setRegisterDefaultTrack(trackId);
     setIsRegisterOpen(true);
   };
-
-  const isNavActiveNewspaper =
-    currentView === 'newspaper' ||
-    currentView === 'hackathon' ||
-    currentView === 'esports' ||
-    currentView === 'ctf' ||
-    currentView === 'treasure-hunt' ||
-    currentView === 'workshop';
 
   return (
     <div className="relative min-h-screen bg-black text-white selection:bg-white selection:text-black">
@@ -173,7 +160,6 @@ export function App() {
 
       {/* Top Navbar */}
       <Navbar
-        currentView={isNavActiveNewspaper ? 'newspaper' : 'landing'}
         onNavigate={(view, sectionId) => handleNavigate(view as ViewType, sectionId)}
         onOpenAI={() => setIsAIOpen(true)}
         onOpenRegister={() => handleOpenRegister()}
@@ -196,7 +182,7 @@ export function App() {
             <HeroCarousel />
 
             <CircularFeaturesGallery
-              onSelectTrackForNewspaper={handleSelectTrackForNewspaper}
+              onSelectTrackForNewspaper={handleSelectTrack}
               onOpenRegister={handleOpenRegister}
             />
 
@@ -258,14 +244,6 @@ export function App() {
             onBackToLanding={() => handleNavigate('landing', 'features')}
             onOpenRegister={handleOpenRegister}
             onSelectOtherCompetition={handleSelectCompetitionByName}
-          />
-        )}
-
-        {currentView === 'newspaper' && (
-          <NewspaperEventPage
-            initialTrack={selectedTrackForNewspaper}
-            onBackToLanding={() => handleNavigate('landing', 'features')}
-            onOpenRegister={handleOpenRegister}
           />
         )}
       </main>

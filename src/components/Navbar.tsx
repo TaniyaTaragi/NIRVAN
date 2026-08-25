@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Bot, Newspaper, ArrowRight, Menu, X } from 'lucide-react';
+import { Bot, ArrowRight, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
-  currentView: 'landing' | 'newspaper';
-  onNavigate: (view: 'landing' | 'newspaper', sectionId?: string) => void;
+  onNavigate: (view: 'landing', sectionId?: string) => void;
   onOpenAI: () => void;
   onOpenRegister: () => void;
   onOpenDemo: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  currentView,
   onNavigate,
   onOpenAI,
   onOpenRegister,
@@ -27,7 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isLightHero = currentView === 'landing' && !scrolled;
+  const isLightHero = !scrolled;
 
   return (
     <header
@@ -62,9 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <nav className="hidden xl:flex items-center gap-4 xl:gap-5 whitespace-nowrap text-xs font-mono-code uppercase tracking-wider text-zinc-300">
           <button
             onClick={() => onNavigate('landing', 'home')}
-            className={`hover:text-white transition-colors cursor-pointer ${
-              currentView === 'landing' ? 'text-white font-bold' : ''
-            }`}
+            className="hover:text-white transition-colors cursor-pointer"
           >
             HOME
           </button>
@@ -106,19 +102,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Bot className="w-3.5 h-3.5 text-white" />
             <span>AI ASSISTANT</span>
-          </button>
-
-          {/* Newspaper View Switcher */}
-          <button
-            onClick={() => onNavigate(currentView === 'landing' ? 'newspaper' : 'landing')}
-            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full transition-all cursor-pointer border whitespace-nowrap ${
-              currentView === 'newspaper'
-                ? 'bg-white text-black border-white font-bold'
-                : 'bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 border-zinc-700'
-            }`}
-          >
-            <Newspaper className="w-3.5 h-3.5" />
-            <span>{currentView === 'newspaper' ? 'LANDING VIEW' : 'NEWSPAPER EDITORIAL'}</span>
           </button>
         </nav>
 
@@ -215,16 +198,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Bot className="w-4 h-4" />
             AI Assistant
-          </button>
-          <button
-            onClick={() => {
-              onNavigate(currentView === 'landing' ? 'newspaper' : 'landing');
-              setMobileMenuOpen(false);
-            }}
-            className="text-left py-2 text-white font-bold flex items-center gap-2"
-          >
-            <Newspaper className="w-4 h-4" />
-            {currentView === 'newspaper' ? 'Switch to Landing' : 'Newspaper Edition'}
           </button>
           <button
             onClick={() => {

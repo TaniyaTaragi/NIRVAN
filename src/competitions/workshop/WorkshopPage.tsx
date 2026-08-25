@@ -1,17 +1,25 @@
-import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
+  Calendar,
+  Clock,
   Users,
   Shield,
   CheckCircle,
   Flame,
   ArrowRight,
   Trophy,
+  ChevronLeft,
+  ChevronRight,
   Code2,
   Terminal,
   Sparkles,
+  Zap,
+  Globe,
+  ExternalLink,
 } from 'lucide-react';
+import { TeamMember, ScheduleItem } from '../../types';
 
 interface FoamBubble {
   x: number;
@@ -34,6 +42,113 @@ interface WorkshopPageProps {
   onSelectOtherCompetition: (compId: string) => void;
 }
 
+const WORKSHOP_CAROUSEL_SLIDES = [
+  {
+    id: 'workshop-overview',
+    badge: '01 // HANDS-ON MASTERCLASSES',
+    title: 'Tech Workshops & Deep-Dives',
+    subtitle: 'GenAI Agents, ZK-Rollups & Spatial Three.js Systems',
+    description:
+      'Learn directly from staff researchers and engineering leads. Every attendee receives live cloud compute credits, pre-configured starter repositories, and verified verifiable credentials upon completion.',
+    highlights: [
+      {
+        icon: Terminal,
+        title: 'Autonomous Agent Swarms',
+        description: 'Building multi-agent reasoning loops with LangChain, LlamaIndex & Claude 3.5.',
+      },
+      {
+        icon: Code2,
+        title: 'Zero-Knowledge Proofs',
+        description: 'Writing Circom circuits, Groth16 provers, and verifiable compute proofs on EVM.',
+      },
+      {
+        icon: Sparkles,
+        title: 'Spatial 3D & GSAP Web',
+        description: 'Architecting high-performance WebGL, Shaders, and silky 60fps microinteractions.',
+      },
+    ],
+  },
+  {
+    id: 'workshop-mentors',
+    badge: '02 // INDUSTRY SPEAKERS',
+    title: 'Staff Leads from Google & Polygon',
+    subtitle: 'Interactive Live Coding Sessions & Direct Q&A',
+    description:
+      'No theoretical slide lectures. Every masterclass is a hands-on coding sprint where you write code in sandbox environments alongside senior staff engineers.',
+    highlights: [
+      {
+        icon: Zap,
+        title: 'Sandbox Cloud Credits',
+        description: 'Free Google Cloud Vertex AI & AWS compute tokens for all attendees.',
+      },
+      {
+        icon: Shield,
+        title: 'Verified Badges',
+        description: 'Digital verifiable completion certificate issued to your developer portfolio.',
+      },
+      {
+        icon: Flame,
+        title: 'Free Workshop Access (₹0)',
+        description: 'Open to all registered developers, students, and product designers.',
+      },
+    ],
+  },
+];
+
+const SCHEDULE_ITEMS: ScheduleItem[] = [
+  {
+    id: 'w1',
+    time: '02:00 PM',
+    title: 'Masterclass 1: Autonomous AI Agent Swarms',
+    subtitle: 'SEMINAR HALL A // MULTI-AGENT ORCHESTRATION',
+    stage: 'AI AGENTS',
+    status: 'completed',
+  },
+  {
+    id: 'w2',
+    time: '04:30 PM',
+    title: 'Masterclass 2: Zero-Knowledge Circuits & Rollups',
+    subtitle: 'SEMINAR HALL B // CIRCOM & EVM VERIFIERS',
+    stage: 'ZK-PROOFS',
+    status: 'live',
+  },
+  {
+    id: 'w3',
+    time: '07:00 PM',
+    title: 'Masterclass 3: 3D Spatial Interfaces with Three.js',
+    subtitle: 'SEMINAR HALL A // SHADERS & GSAP ANIMATION',
+    stage: 'SPATIAL 3D',
+    status: 'upcoming',
+  },
+];
+
+const ORGANIZERS: TeamMember[] = [
+  {
+    id: 't2',
+    name: 'Vikram Malhotra',
+    role: 'Lead Workshop Instructor',
+    organization: 'Google Cloud Developer Expert',
+    bio: 'Specializing in neural agent workflows and high-scale Kubernetes clusters.',
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop&q=80',
+    socials: {
+      github: 'https://github.com',
+      linkedin: 'https://linkedin.com',
+    },
+  },
+  {
+    id: 't3',
+    name: 'Ananya Roy',
+    role: 'Web3 Masterclass Lead',
+    organization: 'Polygon Core Contributor',
+    bio: 'Mentoring builders on smart contract security and ZK rollups.',
+    photo: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&h=500&fit=crop&q=80',
+    socials: {
+      github: 'https://github.com',
+      twitter: 'https://twitter.com',
+    },
+  },
+];
+
 export const WorkshopPage: React.FC<WorkshopPageProps> = ({
   onBackToLanding,
   onOpenRegister,
@@ -42,6 +157,36 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const bubblesRef = useRef<FoamBubble[]>([]);
   const lastMousePos = useRef<{ x: number; y: number } | null>(null);
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [timeLeft, setTimeLeft] = useState({
+    days: '04',
+    hours: '18',
+    minutes: '42',
+    seconds: '30',
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const target = now + 4 * 24 * 3600 * 1000 + 18 * 3600 * 1000 + 42 * 60 * 1000;
+      const diff = target - now;
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setTimeLeft({
+        days: d.toString().padStart(2, '0'),
+        hours: h.toString().padStart(2, '0'),
+        minutes: m.toString().padStart(2, '0'),
+        seconds: s.toString().padStart(2, '0'),
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -157,6 +302,8 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
     };
   }, []);
 
+  const slide = WORKSHOP_CAROUSEL_SLIDES[currentSlide];
+
   return (
     <div className="w-full min-h-screen bg-[#070709] text-white selection:bg-white selection:text-black select-none">
       <div className="pt-24 px-6 sm:px-12 max-w-7xl mx-auto">
@@ -175,7 +322,7 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
         </div>
       </div>
 
-      {/* Dedicated WORKSHOP Hero */}
+      {/* 1. Dedicated WORKSHOP Hero */}
       <section className="relative min-h-[92vh] w-full flex flex-col justify-between p-6 sm:p-12 pt-16 overflow-hidden bg-[#f0f0f2] text-[#121212] my-6 select-none border-y border-zinc-300">
         <div className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none overflow-hidden">
           <motion.img
@@ -231,6 +378,12 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
               <span>REGISTER FOR WORKSHOPS</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
+            <a
+              href="#workshop-broadsheet"
+              className="px-6 py-3.5 rounded-full border border-black/20 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-black/5 active:scale-95 transition-all cursor-pointer font-semibold"
+            >
+              READ BROADSHEET &amp; RULES ↓
+            </a>
           </div>
         </div>
 
@@ -260,7 +413,7 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
               FREE ACCESS &bull; VERIFIED CERTIFICATES
             </span>
             <span>&bull;</span>
-            <span>OPEN TO ALL</span>
+            <span>OPEN TO ALL BUILDERS</span>
           </div>
           <span className="px-2.5 py-0.5 rounded bg-black text-white font-bold text-[10px]">
             OCTOBER 2026 // MASTERCLASS
@@ -268,35 +421,130 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
         </div>
       </section>
 
-      {/* Workshop Tracks */}
-      <section className="relative w-full py-20 px-6 sm:px-12 bg-black text-white border-t border-zinc-900 select-none">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-8 border border-zinc-800 bg-zinc-900/40">
-            <Terminal className="w-5 h-5 text-white mb-4" />
-            <h3 className="text-base font-bold text-white mb-2">Autonomous Agent Swarms</h3>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Multi-agent reasoning loops with LangChain, LlamaIndex, and Claude 3.5 Sonnet.
-            </p>
+      {/* 2. Narrative 3-Pillar Carousel */}
+      <section className="relative w-full py-24 px-6 sm:px-12 bg-black text-white border-t border-zinc-900 select-none">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+            <div>
+              <div className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
+                MASTERCLASS DEEP-DIVE // PERSPECTIVE &bull; 02 TRACKS
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+                Curriculum &amp; Mentorship
+              </h2>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 mr-2">
+                {WORKSHOP_CAROUSEL_SLIDES.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentSlide(idx)}
+                    className={`h-2 transition-all duration-300 rounded-full cursor-pointer flex items-center justify-center text-[10px] font-mono-code font-bold ${
+                      currentSlide === idx ? 'w-10 bg-white text-black' : 'w-6 bg-zinc-800 text-zinc-500'
+                    }`}
+                  >
+                    0{idx + 1}
+                  </button>
+                ))}
+              </div>
+              <button
+                onClick={() =>
+                  setCurrentSlide((prev) =>
+                    prev === 0 ? WORKSHOP_CAROUSEL_SLIDES.length - 1 : prev - 1
+                  )
+                }
+                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() =>
+                  setCurrentSlide((prev) => (prev + 1) % WORKSHOP_CAROUSEL_SLIDES.length)
+                }
+                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
-          <div className="p-8 border border-zinc-800 bg-zinc-900/40">
-            <Code2 className="w-5 h-5 text-white mb-4" />
-            <h3 className="text-base font-bold text-white mb-2">Zero-Knowledge Circuits</h3>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Writing Circom circuits, Groth16 provers, and verifiable compute proofs on EVM.
-            </p>
-          </div>
-          <div className="p-8 border border-zinc-800 bg-zinc-900/40">
-            <Sparkles className="w-5 h-5 text-white mb-4" />
-            <h3 className="text-base font-bold text-white mb-2">Spatial 3D &amp; WebGL</h3>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              High-performance WebGL shaders, Three.js physics, and GSAP microinteractions.
-            </p>
+
+          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-14 overflow-hidden shadow-2xl">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={slide.id}
+                initial={{ opacity: 0, x: 25 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -25 }}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+              >
+                <div className="lg:col-span-7">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-[11px] font-mono-code text-zinc-400 uppercase tracking-widest mb-6">
+                    <Sparkles className="w-3 h-3 text-white" />
+                    <span>{slide.badge}</span>
+                  </div>
+                  <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
+                    {slide.title}
+                  </h3>
+                  <h4 className="text-base sm:text-lg font-semibold text-zinc-300 mb-6">
+                    {slide.subtitle}
+                  </h4>
+                  <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8 max-w-xl">
+                    {slide.description}
+                  </p>
+                  <button
+                    onClick={() => onOpenRegister('event-05')}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors shadow-lg cursor-pointer"
+                  >
+                    <span>CLAIM WORKSHOP PASS</span>
+                    <span>↗</span>
+                  </button>
+                </div>
+
+                <div className="lg:col-span-5 flex flex-col gap-4">
+                  {slide.highlights.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={index}
+                        className="p-5 border border-zinc-800/80 bg-zinc-900/40 flex items-start gap-4"
+                      >
+                        <div className="p-2.5 bg-black border border-zinc-800 text-white shrink-0">
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h5 className="text-sm font-bold text-white mb-1">{item.title}</h5>
+                          <p className="text-xs text-zinc-400 leading-relaxed">{item.description}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </section>
 
-      {/* Switcher & Rules */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 py-16">
+      {/* 3. Broadsheet & Rules */}
+      <div id="workshop-broadsheet" className="max-w-7xl mx-auto px-6 sm:px-12 py-16">
+        <div className="text-center pb-8 mb-10 border-b-2 border-white/20">
+          <div className="flex items-center justify-between text-[10px] font-mono-code uppercase tracking-widest text-zinc-400 pb-2 border-b border-zinc-800 mb-6">
+            <span>VOL. XXVI // NO. 05</span>
+            <span className="font-bold text-white">THE NIRVAN HACKATHON GAZETTE</span>
+            <span>OCTOBER 2026 // WORKSHOPS EDITION</span>
+          </div>
+
+          <h2 className="font-newspaper-serif text-5xl sm:text-7xl md:text-8xl font-black tracking-tight text-white uppercase mb-3">
+            The Masterclass Journal
+          </h2>
+
+          <p className="text-xs sm:text-sm font-mono-code uppercase tracking-widest text-zinc-400 max-w-2xl mx-auto">
+            OFFICIAL WORKSHOPS &bull; GENAI AGENTS &bull; ZK-ROLLUPS &bull; THREE.JS SPATIAL &bull; FREE CERTIFICATES
+          </p>
+        </div>
+
+        {/* Competition Switcher */}
         <div className="flex flex-wrap items-center gap-2 mb-12 pb-4 border-b border-zinc-800/80">
           <span className="text-xs font-mono-code uppercase tracking-wider text-zinc-500 mr-2">
             SWITCH ARENA:
@@ -316,35 +564,210 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
-          <div className="p-8 bg-[#0a0a0c] border border-zinc-800">
-            <div className="flex items-center gap-2 text-xs font-mono-code text-zinc-400 uppercase tracking-wider mb-4 pb-2 border-b border-zinc-800">
-              <Shield className="w-4 h-4 text-white" />
-              <span>WORKSHOP PREREQUISITES</span>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-24">
+          <div className="lg:col-span-8 space-y-10">
+            <div className="bg-[#0c0c0e] border border-zinc-800 p-8 sm:p-10 relative">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="px-2 py-0.5 bg-white text-black text-xs font-mono-code font-bold uppercase">
+                  005 // WORKSHOP
+                </span>
+                <span className="text-xs font-mono-code text-zinc-500 uppercase tracking-widest">
+                  DEEP-DIVE SESSIONS
+                </span>
+              </div>
+
+              <h3 className="font-newspaper-serif text-3xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
+                GenAI &amp; Web3 Masterclasses
+              </h3>
+
+              <div className="aspect-[16/9] w-full bg-zinc-900 border border-zinc-800 overflow-hidden mb-8 shadow-2xl">
+                <img
+                  src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=900&h=650&fit=crop&q=80"
+                  alt="Tech Workshop"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <p className="text-zinc-300 leading-relaxed text-sm sm:text-base border-t border-zinc-800 pt-6">
+                Interactive 3-hour code-along masterclasses with starter kits, cloud compute tokens, and verified verifiable certificates for all attending developers.
+              </p>
             </div>
-            <ul className="space-y-3 text-sm text-zinc-300">
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                <span>Laptop with Node.js 20+ and Python 3.11+ installed.</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                <span>Sandbox API keys and GitHub starter templates provided at kickoff.</span>
-              </li>
-            </ul>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-8 bg-[#0a0a0c] border border-zinc-800">
+                <div className="flex items-center gap-2 text-xs font-mono-code text-zinc-400 uppercase tracking-wider mb-4 pb-2 border-b border-zinc-800">
+                  <Shield className="w-4 h-4 text-white" />
+                  <span>PREREQUISITES</span>
+                </div>
+                <ul className="space-y-3 text-sm text-zinc-300">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
+                    <span>Bring laptop with Node.js 20+ and Python 3.11+ installed.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
+                    <span>Sandbox tokens provided at kickoff.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="p-8 bg-[#0a0a0c] border border-zinc-800">
+                <div className="flex items-center gap-2 text-xs font-mono-code text-zinc-400 uppercase tracking-wider mb-4 pb-2 border-b border-zinc-800">
+                  <Users className="w-4 h-4 text-white" />
+                  <span>CAPACITY</span>
+                </div>
+                <ul className="space-y-3 text-sm text-zinc-300">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
+                    <span>Individual registration &bull; Open to all students &amp; engineers.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
 
-          <div className="p-8 bg-[#0a0a0c] border border-zinc-800">
-            <div className="flex items-center gap-2 text-xs font-mono-code text-zinc-400 uppercase tracking-wider mb-4 pb-2 border-b border-zinc-800">
-              <Users className="w-4 h-4 text-white" />
-              <span>CAPACITY</span>
+          <div className="lg:col-span-4 space-y-6">
+            <div className="sticky top-28 bg-[#0a0a0c] border-2 border-white/20 p-6 sm:p-8 space-y-6 shadow-2xl">
+              <div className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 pb-3 border-b border-zinc-800">
+                WORKSHOP // SUMMARY
+              </div>
+
+              <div>
+                <div className="flex items-center gap-2 text-[10px] font-mono-code text-zinc-400 uppercase tracking-widest mb-2">
+                  <Clock className="w-3 h-3 text-white" />
+                  <span>COUNTDOWN TO SESSIONS</span>
+                </div>
+                <div className="grid grid-cols-4 gap-2 text-center">
+                  <div className="p-2.5 bg-black border border-zinc-800">
+                    <div className="text-xl sm:text-2xl font-black font-mono-code text-white">
+                      {timeLeft.days}
+                    </div>
+                    <div className="text-[9px] font-mono-code text-zinc-500 uppercase">DAYS</div>
+                  </div>
+                  <div className="p-2.5 bg-black border border-zinc-800">
+                    <div className="text-xl sm:text-2xl font-black font-mono-code text-white">
+                      {timeLeft.hours}
+                    </div>
+                    <div className="text-[9px] font-mono-code text-zinc-500 uppercase">HRS</div>
+                  </div>
+                  <div className="p-2.5 bg-black border border-zinc-800">
+                    <div className="text-xl sm:text-2xl font-black font-mono-code text-white">
+                      {timeLeft.minutes}
+                    </div>
+                    <div className="text-[9px] font-mono-code text-zinc-500 uppercase">MIN</div>
+                  </div>
+                  <div className="p-2.5 bg-black border border-zinc-800">
+                    <div className="text-xl sm:text-2xl font-black font-mono-code text-white">
+                      {timeLeft.seconds}
+                    </div>
+                    <div className="text-[9px] font-mono-code text-zinc-500 uppercase">SEC</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3 pt-2">
+                <div className="p-3.5 bg-black border border-zinc-800 flex items-center justify-between">
+                  <span className="text-xs font-mono-code text-zinc-400">ENTRY FEE</span>
+                  <span className="text-sm font-bold text-white font-mono-code">₹0 (Free)</span>
+                </div>
+                <div className="p-3.5 bg-black border border-zinc-800 flex items-center justify-between">
+                  <span className="text-xs font-mono-code text-zinc-400">CERTIFICATE</span>
+                  <span className="text-sm font-bold text-white font-mono-code">Verified Credential</span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => onOpenRegister('event-05')}
+                className="w-full py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
+              >
+                CLAIM WORKSHOP PASS ↗
+              </button>
             </div>
-            <ul className="space-y-3 text-sm text-zinc-300">
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                <span>Individual participation &bull; First-come 200 seats per masterclass.</span>
-              </li>
-            </ul>
+          </div>
+        </div>
+
+        {/* 4. Schedule Flowchart */}
+        <div className="mb-24 pt-12 border-t-2 border-zinc-800">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
+              <Calendar className="w-3.5 h-3.5 text-zinc-400" />
+              <span>CHRONOLOGY // MASTERCLASS SESSIONS</span>
+            </div>
+            <h3 className="font-newspaper-serif text-4xl sm:text-6xl font-bold text-white uppercase">
+              Schedule of Masterclasses
+            </h3>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-6">
+            {SCHEDULE_ITEMS.map((item) => (
+              <div
+                key={item.id}
+                className="p-6 bg-[#0c0c0e] border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+              >
+                <div>
+                  <div className="text-[10px] font-mono-code text-zinc-500 uppercase tracking-widest mb-1">
+                    <span className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-white font-bold mr-2">
+                      {item.time}
+                    </span>
+                    <span>{item.stage}</span>
+                  </div>
+                  <h4 className="text-base font-bold text-white">{item.title}</h4>
+                  <p className="text-xs font-mono-code text-zinc-400 uppercase">{item.subtitle}</p>
+                </div>
+                <span className="px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs font-mono-code text-zinc-300">
+                  {item.status.toUpperCase()}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 5. Organizers Spotlight */}
+        <div className="pt-12 border-t-2 border-zinc-800">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
+              <Users className="w-3.5 h-3.5 text-zinc-400" />
+              <span>LEADERSHIP // INSTRUCTORS</span>
+            </div>
+            <h3 className="font-newspaper-serif text-4xl sm:text-6xl font-bold text-white uppercase">
+              Meet The Instructors
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            {ORGANIZERS.map((org) => (
+              <div
+                key={org.id}
+                className="bg-[#09090b] border border-zinc-800 p-6 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="aspect-square w-full bg-zinc-900 border border-zinc-800 overflow-hidden mb-4">
+                    <img
+                      src={org.photo}
+                      alt={org.name}
+                      className="w-full h-full object-cover grayscale contrast-125"
+                    />
+                  </div>
+                  <h4 className="text-lg font-bold text-white mb-1">{org.name}</h4>
+                  <div className="text-xs font-mono-code text-zinc-400 uppercase mb-2">
+                    {org.role}
+                  </div>
+                  <p className="text-xs text-zinc-400 leading-relaxed font-normal">{org.bio}</p>
+                </div>
+                <div className="flex items-center gap-3 pt-4 border-t border-zinc-800 text-zinc-400">
+                  {org.socials.github && (
+                    <a href={org.socials.github} target="_blank" rel="noreferrer">
+                      <Globe className="w-4 h-4 hover:text-white" />
+                    </a>
+                  )}
+                  {org.socials.linkedin && (
+                    <a href={org.socials.linkedin} target="_blank" rel="noreferrer">
+                      <ExternalLink className="w-4 h-4 hover:text-white" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

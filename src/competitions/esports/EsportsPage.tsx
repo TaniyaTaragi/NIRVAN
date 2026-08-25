@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
+  Calendar,
+  Clock,
   Users,
   Shield,
   CheckCircle,
@@ -14,7 +16,10 @@ import {
   Tv,
   Sparkles,
   Zap,
+  Globe,
+  ExternalLink,
 } from 'lucide-react';
+import { TeamMember, ScheduleItem } from '../../types';
 
 interface FoamBubble {
   x: number;
@@ -42,7 +47,7 @@ const ESPORTS_CAROUSEL_SLIDES = [
     id: 'esports-tournaments',
     badge: '01 // THE LAN TOURNAMENT',
     title: 'Esports Championship Arena',
-    subtitle: 'Valorant, BGMI & EA FC 26 on 240Hz LAN Rig',
+    subtitle: 'Valorant, BGMI & EA FC 26 on 240Hz LAN Rigs',
     description:
       'Compete in India’s most intense collegiate esports showdown. Play on dedicated low-latency tournament fiber servers with official refereeing, spectator stages, and live YouTube/Twitch casting.',
     highlights: [
@@ -92,7 +97,7 @@ const ESPORTS_CAROUSEL_SLIDES = [
     id: 'esports-casting',
     badge: '03 // COMMUNITY & AWARDS',
     title: 'Grand Finale Showcase',
-    subtitle: 'Live Audience Finals in Front of 1,00,0+ Cheering Fans',
+    subtitle: 'Live Audience Finals in Front of 1,000+ Cheering Fans',
     description:
       'The championship culminates on the grand auditorium stage on Sunday evening with live pyrotechnics, trophy presentation, and pro esports scout matchmaking.',
     highlights: [
@@ -115,6 +120,76 @@ const ESPORTS_CAROUSEL_SLIDES = [
   },
 ];
 
+const SCHEDULE_ITEMS: ScheduleItem[] = [
+  {
+    id: 'e1',
+    time: '10:00 AM',
+    title: 'Esports Check-in & Hardware Warm-up',
+    subtitle: 'LAN ARENA // SQUAD DEVICE AUDITS',
+    stage: 'WARM-UP',
+    status: 'completed',
+  },
+  {
+    id: 'e2',
+    time: '12:00 PM',
+    title: 'Valorant & BGMI Group Stage Brackets',
+    subtitle: 'SIMULTANEOUS ROUND OF 32 KNOCKOUTS',
+    stage: 'GROUPS',
+    status: 'live',
+  },
+  {
+    id: 'e3',
+    time: '04:30 PM',
+    title: 'Quarterfinals & EA FC 26 Semifinals',
+    subtitle: 'SPECTATOR LOUNGE // LIVE STREAM CASTING',
+    stage: 'PLAYOFFS',
+    status: 'upcoming',
+  },
+  {
+    id: 'e4',
+    time: '08:00 PM',
+    title: 'BGMI Grand Finals: 6 Match Showdown',
+    subtitle: 'ERANGEL & MIRAMAR TACTICAL MAPS',
+    stage: 'FINALS',
+    status: 'upcoming',
+  },
+  {
+    id: 'e5',
+    time: '11:00 PM',
+    title: 'Valorant Grand Finals (BO3 Series)',
+    subtitle: 'MAIN AUDITORIUM STAGE // TROPHY CEREMONY',
+    stage: 'CHAMPIONSHIP',
+    status: 'upcoming',
+  },
+];
+
+const ORGANIZERS: TeamMember[] = [
+  {
+    id: 't4',
+    name: 'Devansh Mehta',
+    role: 'Director of Esports Operations',
+    organization: 'Collegiate Esports League & Devfolio',
+    bio: 'Organized 20+ national LAN tournaments with Tier-1 broadcast streaming and competitive anti-cheat.',
+    photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&h=500&fit=crop&q=80',
+    socials: {
+      linkedin: 'https://linkedin.com',
+      twitter: 'https://twitter.com',
+    },
+  },
+  {
+    id: 't1',
+    name: 'Tanya Taragi',
+    role: 'Lead Convener & Infrastructure Lead',
+    organization: 'NIRVAN Core',
+    bio: 'Managing 10Gbps dedicated fiber routing and low-latency tournament server mesh.',
+    photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&h=500&fit=crop&q=80',
+    socials: {
+      github: 'https://github.com/TaniyaTaragi',
+      linkedin: 'https://linkedin.com',
+    },
+  },
+];
+
 export const EsportsPage: React.FC<EsportsPageProps> = ({
   onBackToLanding,
   onOpenRegister,
@@ -125,6 +200,34 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
   const lastMousePos = useRef<{ x: number; y: number } | null>(null);
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [timeLeft, setTimeLeft] = useState({
+    days: '04',
+    hours: '18',
+    minutes: '42',
+    seconds: '30',
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const target = now + 4 * 24 * 3600 * 1000 + 18 * 3600 * 1000 + 42 * 60 * 1000;
+      const diff = target - now;
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setTimeLeft({
+        days: d.toString().padStart(2, '0'),
+        hours: h.toString().padStart(2, '0'),
+        minutes: m.toString().padStart(2, '0'),
+        seconds: s.toString().padStart(2, '0'),
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -260,7 +363,7 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
         </div>
       </div>
 
-      {/* Dedicated ESPORTS Hero */}
+      {/* 1. Dedicated ESPORTS Hero */}
       <section className="relative min-h-[92vh] w-full flex flex-col justify-between p-6 sm:p-12 pt-16 overflow-hidden bg-[#f0f0f2] text-[#121212] my-6 select-none border-y border-zinc-300">
         <div className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none overflow-hidden">
           <motion.img
@@ -316,6 +419,12 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
               <span>REGISTER SQUAD FOR ESPORTS</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
+            <a
+              href="#esports-broadsheet"
+              className="px-6 py-3.5 rounded-full border border-black/20 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-black/5 active:scale-95 transition-all cursor-pointer font-semibold"
+            >
+              READ BROADSHEET &amp; RULES ↓
+            </a>
           </div>
         </div>
 
@@ -345,6 +454,8 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
             </span>
             <span>&bull;</span>
             <span>ENTRY FEE: ₹0 (FREE)</span>
+            <span>&bull;</span>
+            <span>ROSTER: 4-5 PLAYERS</span>
           </div>
           <span className="px-2.5 py-0.5 rounded bg-black text-white font-bold text-[10px]">
             OCTOBER 2026 // LAN ARENA
@@ -352,7 +463,7 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
         </div>
       </section>
 
-      {/* Narrative Carousel */}
+      {/* 2. Narrative 3-Pillar Carousel */}
       <section className="relative w-full py-24 px-6 sm:px-12 bg-black text-white border-t border-zinc-900 select-none">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
@@ -457,8 +568,25 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
         </div>
       </section>
 
-      {/* Broadsheet & Rules */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 py-16">
+      {/* 3. Broadsheet & Rules */}
+      <div id="esports-broadsheet" className="max-w-7xl mx-auto px-6 sm:px-12 py-16">
+        <div className="text-center pb-8 mb-10 border-b-2 border-white/20">
+          <div className="flex items-center justify-between text-[10px] font-mono-code uppercase tracking-widest text-zinc-400 pb-2 border-b border-zinc-800 mb-6">
+            <span>VOL. XXVI // NO. 02</span>
+            <span className="font-bold text-white">THE NIRVAN HACKATHON GAZETTE</span>
+            <span>OCTOBER 2026 // ESPORTS EDITION</span>
+          </div>
+
+          <h2 className="font-newspaper-serif text-5xl sm:text-7xl md:text-8xl font-black tracking-tight text-white uppercase mb-3">
+            The Esports Chronicle
+          </h2>
+
+          <p className="text-xs sm:text-sm font-mono-code uppercase tracking-widest text-zinc-400 max-w-2xl mx-auto">
+            OFFICIAL TOURNAMENT DISPATCH &bull; VALORANT &bull; BGMI &bull; EA FC 26 &bull; ₹1,00,000+ IN BOUNTIES
+          </p>
+        </div>
+
+        {/* Competition Switcher */}
         <div className="flex flex-wrap items-center gap-2 mb-12 pb-4 border-b border-zinc-800/80">
           <span className="text-xs font-mono-code uppercase tracking-wider text-zinc-500 mr-2">
             SWITCH ARENA:
@@ -478,43 +606,219 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
-          <div className="p-8 bg-[#0a0a0c] border border-zinc-800">
-            <div className="flex items-center gap-2 text-xs font-mono-code text-zinc-400 uppercase tracking-wider mb-4 pb-2 border-b border-zinc-800">
-              <Shield className="w-4 h-4 text-white" />
-              <span>RULES &amp; CODE OF CONDUCT</span>
+        {/* 2-Column Broadsheet Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-24">
+          <div className="lg:col-span-8 space-y-10">
+            <div className="bg-[#0c0c0e] border border-zinc-800 p-8 sm:p-10 relative">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="px-2 py-0.5 bg-white text-black text-xs font-mono-code font-bold uppercase">
+                  002 // ESPORTS
+                </span>
+                <span className="text-xs font-mono-code text-zinc-500 uppercase tracking-widest">
+                  LIVE BROADCAST ARENA
+                </span>
+              </div>
+
+              <h3 className="font-newspaper-serif text-3xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
+                Tactical LAN Gaming Tournament
+              </h3>
+
+              <div className="aspect-[16/9] w-full bg-zinc-900 border border-zinc-800 overflow-hidden mb-8 shadow-2xl">
+                <img
+                  src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=900&h=650&fit=crop&q=80"
+                  alt="Esports Arena"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <p className="text-zinc-300 leading-relaxed text-sm sm:text-base border-t border-zinc-800 pt-6">
+                An adrenaline-fueled competitive gaming showdown featuring multi-bracket knockout rounds, custom spectator stages, and top gaming gear prizes for winning squads.
+              </p>
             </div>
-            <ul className="space-y-3 text-sm text-zinc-300">
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                <span>Standard anti-cheat and tournament fair-play regulations apply.</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                <span>Squad captains must check-in 30 minutes prior to match schedule.</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                <span>Personal peripherals permitted after referee hardware verification.</span>
-              </li>
-            </ul>
+
+            {/* Rules & Eligibility */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-8 bg-[#0a0a0c] border border-zinc-800">
+                <div className="flex items-center gap-2 text-xs font-mono-code text-zinc-400 uppercase tracking-wider mb-4 pb-2 border-b border-zinc-800">
+                  <Shield className="w-4 h-4 text-white" />
+                  <span>RULES &amp; ANTI-CHEAT</span>
+                </div>
+                <ul className="space-y-3 text-sm text-zinc-300">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
+                    <span>Hardware audits and Riot Vanguard / Krafton anti-cheat active.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
+                    <span>Captains check-in 30 mins prior to bracket matches.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="p-8 bg-[#0a0a0c] border border-zinc-800">
+                <div className="flex items-center gap-2 text-xs font-mono-code text-zinc-400 uppercase tracking-wider mb-4 pb-2 border-b border-zinc-800">
+                  <Users className="w-4 h-4 text-white" />
+                  <span>ELIGIBILITY</span>
+                </div>
+                <ul className="space-y-3 text-sm text-zinc-300">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
+                    <span>Open to all collegiate students and verified esports clubs.</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
+                    <span>Valorant (5v5), BGMI (4 squad), EA FC 26 (1v1).</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
 
-          <div className="p-8 bg-[#0a0a0c] border border-zinc-800">
-            <div className="flex items-center gap-2 text-xs font-mono-code text-zinc-400 uppercase tracking-wider mb-4 pb-2 border-b border-zinc-800">
-              <Users className="w-4 h-4 text-white" />
-              <span>ELIGIBILITY &amp; ROSTER</span>
+          {/* Right Sticky Summary Box */}
+          <div className="lg:col-span-4 space-y-6">
+            <div className="sticky top-28 bg-[#0a0a0c] border-2 border-white/20 p-6 sm:p-8 space-y-6 shadow-2xl">
+              <div className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 pb-3 border-b border-zinc-800">
+                ESPORTS DISPATCH // SUMMARY
+              </div>
+
+              <div>
+                <div className="flex items-center gap-2 text-[10px] font-mono-code text-zinc-400 uppercase tracking-widest mb-2">
+                  <Clock className="w-3 h-3 text-white" />
+                  <span>TOURNAMENT COUNTDOWN</span>
+                </div>
+                <div className="grid grid-cols-4 gap-2 text-center">
+                  <div className="p-2.5 bg-black border border-zinc-800">
+                    <div className="text-xl sm:text-2xl font-black font-mono-code text-white">
+                      {timeLeft.days}
+                    </div>
+                    <div className="text-[9px] font-mono-code text-zinc-500 uppercase">DAYS</div>
+                  </div>
+                  <div className="p-2.5 bg-black border border-zinc-800">
+                    <div className="text-xl sm:text-2xl font-black font-mono-code text-white">
+                      {timeLeft.hours}
+                    </div>
+                    <div className="text-[9px] font-mono-code text-zinc-500 uppercase">HRS</div>
+                  </div>
+                  <div className="p-2.5 bg-black border border-zinc-800">
+                    <div className="text-xl sm:text-2xl font-black font-mono-code text-white">
+                      {timeLeft.minutes}
+                    </div>
+                    <div className="text-[9px] font-mono-code text-zinc-500 uppercase">MIN</div>
+                  </div>
+                  <div className="p-2.5 bg-black border border-zinc-800">
+                    <div className="text-xl sm:text-2xl font-black font-mono-code text-white">
+                      {timeLeft.seconds}
+                    </div>
+                    <div className="text-[9px] font-mono-code text-zinc-500 uppercase">SEC</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3 pt-2">
+                <div className="p-3.5 bg-black border border-zinc-800 flex items-center justify-between">
+                  <span className="text-xs font-mono-code text-zinc-400">ENTRY FEE</span>
+                  <span className="text-sm font-bold text-white font-mono-code">₹0 (Free)</span>
+                </div>
+                <div className="p-3.5 bg-black border border-zinc-800 flex items-center justify-between">
+                  <span className="text-xs font-mono-code text-zinc-400">ARENA PRIZE</span>
+                  <span className="text-sm font-bold text-white font-mono-code">
+                    ₹1,00,000 + Gear
+                  </span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => onOpenRegister('event-02')}
+                className="w-full py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
+              >
+                REGISTER SQUAD FOR ESPORTS ↗
+              </button>
             </div>
-            <ul className="space-y-3 text-sm text-zinc-300">
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                <span>Open to all registered college students &amp; collegiate esports rosters.</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                <span>Valorant (5v5), BGMI (4-player squad), EA FC 26 (1v1 Solo).</span>
-              </li>
-            </ul>
+          </div>
+        </div>
+
+        {/* 4. Schedule Flowchart */}
+        <div className="mb-24 pt-12 border-t-2 border-zinc-800">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
+              <Calendar className="w-3.5 h-3.5 text-zinc-400" />
+              <span>CHRONOLOGY // MATCH TIMELINE</span>
+            </div>
+            <h3 className="font-newspaper-serif text-4xl sm:text-6xl font-bold text-white uppercase">
+              Schedule of Matches
+            </h3>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-6">
+            {SCHEDULE_ITEMS.map((item) => (
+              <div
+                key={item.id}
+                className="p-6 bg-[#0c0c0e] border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+              >
+                <div>
+                  <div className="text-[10px] font-mono-code text-zinc-500 uppercase tracking-widest mb-1">
+                    <span className="px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-white font-bold mr-2">
+                      {item.time}
+                    </span>
+                    <span>{item.stage}</span>
+                  </div>
+                  <h4 className="text-base font-bold text-white">{item.title}</h4>
+                  <p className="text-xs font-mono-code text-zinc-400 uppercase">{item.subtitle}</p>
+                </div>
+                <span className="px-3 py-1 bg-zinc-900 border border-zinc-800 text-xs font-mono-code text-zinc-300">
+                  {item.status.toUpperCase()}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 5. Organizers Spotlight */}
+        <div className="pt-12 border-t-2 border-zinc-800">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
+              <Users className="w-3.5 h-3.5 text-zinc-400" />
+              <span>LEADERSHIP // ESPORTS DIRECTORS</span>
+            </div>
+            <h3 className="font-newspaper-serif text-4xl sm:text-6xl font-bold text-white uppercase">
+              Meet The Organizers
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            {ORGANIZERS.map((org) => (
+              <div
+                key={org.id}
+                className="bg-[#09090b] border border-zinc-800 p-6 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="aspect-square w-full bg-zinc-900 border border-zinc-800 overflow-hidden mb-4">
+                    <img
+                      src={org.photo}
+                      alt={org.name}
+                      className="w-full h-full object-cover grayscale contrast-125"
+                    />
+                  </div>
+                  <h4 className="text-lg font-bold text-white mb-1">{org.name}</h4>
+                  <div className="text-xs font-mono-code text-zinc-400 uppercase mb-2">
+                    {org.role}
+                  </div>
+                  <p className="text-xs text-zinc-400 leading-relaxed font-normal">{org.bio}</p>
+                </div>
+                <div className="flex items-center gap-3 pt-4 border-t border-zinc-800 text-zinc-400">
+                  {org.socials.github && (
+                    <a href={org.socials.github} target="_blank" rel="noreferrer">
+                      <Globe className="w-4 h-4 hover:text-white" />
+                    </a>
+                  )}
+                  {org.socials.linkedin && (
+                    <a href={org.socials.linkedin} target="_blank" rel="noreferrer">
+                      <ExternalLink className="w-4 h-4 hover:text-white" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

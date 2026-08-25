@@ -7,19 +7,89 @@ import {
   Users,
   Shield,
   CheckCircle,
-  Flame,
   ArrowRight,
-  Trophy,
   ChevronLeft,
   ChevronRight,
-  Gamepad2,
-  Tv,
-  Sparkles,
-  Zap,
   Globe,
   ExternalLink,
 } from 'lucide-react';
+import { ConstellationOrbitalGallery, ConstellationItem } from '../../components/ConstellationOrbitalGallery';
 import { TeamMember, ScheduleItem } from '../../types';
+
+export const ESPORTS_CONSTELLATION_ITEMS: ConstellationItem[] = [
+  {
+    id: 'esport-track-1',
+    title: 'Valorant Tactical Showdown',
+    brand: '5V5 SPIKE DEFUSAL',
+    category: 'Valorant',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=900&h=650&fit=crop&q=80',
+    description: 'Double elimination 5v5 tactical tournament on dedicated 128-tick private tournament servers.',
+    fullOverview: 'Teams battle across official competitive map pools with custom spectator overlays and live caster analysis.',
+    prizePool: '₹45,000 Bounty',
+    tags: ['VALORANT', '5V5', 'TACTICAL', 'LAN'],
+  },
+  {
+    id: 'esport-track-2',
+    title: 'BGMI Squad Warfare',
+    brand: 'BATTLE ROYALE ARENA',
+    category: 'BGMI',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=900&h=650&fit=crop&q=80',
+    description: '16 collegiate squads drop into Erangel & Miramar across 6 high-stakes point-multiplier matches.',
+    fullOverview: 'Features official point systems, dynamic zone calculations, device performance locks, and aerial replay cams.',
+    prizePool: '₹35,000 Bounty',
+    tags: ['BGMI', 'SQUAD', 'ESPORTS', 'BATTLE-ROYALE'],
+  },
+  {
+    id: 'esport-track-3',
+    title: 'EA FC 26 Championship',
+    brand: '1V1 FOOTBALL ARENA',
+    category: 'EA FC',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=900&h=650&fit=crop&q=80',
+    description: '1v1 Ultimate Team knockout tournament on calibrated PS5 stage rigs with official controller locks.',
+    fullOverview: 'Fast-paced direct knockout matches on giant auditorium LED screens with live play-by-play commentary.',
+    prizePool: '₹20,000 Bounty',
+    tags: ['EA-FC', '1V1', 'PS5', 'CHAMPIONSHIP'],
+  },
+  {
+    id: 'esport-track-4',
+    title: 'Broadcast Stage & Live Casting',
+    brand: 'SHOUTCASTING DESK',
+    category: 'Broadcast',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=900&h=650&fit=crop&q=80',
+    description: 'Professional shoutcasting desk with multi-cam stage feeds, instant slow-mo replays, and crowd audio.',
+    fullOverview: 'Live broadcast streamed to thousands across YouTube and Twitch with collegiate esports scouting partners.',
+    prizePool: 'Live Stream Showcase',
+    tags: ['BROADCAST', 'CASTING', 'TWITCH', 'OBS'],
+  },
+  {
+    id: 'esport-track-5',
+    title: '240Hz Calibrated LAN Rigs',
+    brand: 'PRO HARDWARE',
+    category: 'LAN Arena',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=900&h=650&fit=crop&q=80',
+    description: 'Zero-latency tournament fiber network with custom mechanical switches and audio isolation headsets.',
+    fullOverview: 'All tournament rigs undergo hardware anti-cheat audits and peripheral firmware calibrations.',
+    prizePool: 'Pro Spec Arena',
+    tags: ['240HZ', 'LAN', 'ZERO-LATENCY', 'RIGS'],
+  },
+  {
+    id: 'esport-track-6',
+    title: 'Grand Finale Auditorium Stage',
+    brand: 'CHAMPIONSHIP ARENA',
+    category: 'Grand Finals',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=900&h=650&fit=crop&q=80',
+    description: 'The final showdown before 1,000+ live spectators with custom championship trophies and MVP gear.',
+    fullOverview: 'Culminating in the trophy lift ceremony with direct pro gaming contract referrals for top performers.',
+    prizePool: 'Trophy + Hardware',
+    tags: ['AUDITORIUM', 'TROPHY', 'MVP', 'STAGE'],
+  },
+];
 
 interface FoamBubble {
   x: number;
@@ -45,78 +115,24 @@ interface EsportsPageProps {
 const ESPORTS_CAROUSEL_SLIDES = [
   {
     id: 'esports-tournaments',
-    badge: '01 // THE LAN TOURNAMENT',
     title: 'Esports Championship Arena',
     subtitle: 'Valorant, BGMI & EA FC 26 on 240Hz LAN Rigs',
     description:
       'Compete in India’s most intense collegiate esports showdown. Play on dedicated low-latency tournament fiber servers with official refereeing, spectator stages, and live YouTube/Twitch casting.',
-    highlights: [
-      {
-        icon: Gamepad2,
-        title: 'Title Lineup',
-        description: '5v5 Valorant Tactical, 4-Man Squad BGMI Battle Royale, and 1v1 EA FC 26.',
-      },
-      {
-        icon: Tv,
-        title: 'Broadcast Stage & Casting',
-        description: 'Main auditorium stage with dual caster desks, replay analysis, and spectator audio.',
-      },
-      {
-        icon: Trophy,
-        title: '₹1,00,000+ Prize Pool',
-        description: 'Instant cash trophies, official mechanical gaming keyboards, headsets, and MVP awards.',
-      },
-    ],
   },
   {
     id: 'esports-rules',
-    badge: '02 // FAIR PLAY & FORMAT',
     title: 'Double-Elimination Bracket',
     subtitle: 'Zero Tolerance Anti-Cheat & Certified LAN Hardware',
     description:
       'All tournament rigs are pre-configured and audited with hardware locks. Teams battle through double-elimination brackets ensuring only the most tactical squads reach the grand finals.',
-    highlights: [
-      {
-        icon: Shield,
-        title: 'Vanguard & Anti-Cheat Audits',
-        description: 'Hardware inspection and account verification for all qualified players.',
-      },
-      {
-        icon: Zap,
-        title: 'Red Bull Players Lounge',
-        description: 'Dedicated warm-up stations, high-refresh monitors, and refreshments for all players.',
-      },
-      {
-        icon: Flame,
-        title: 'Free Squad Entry (₹0)',
-        description: 'Zero registration fee for all collegiate and student esports rosters.',
-      },
-    ],
   },
   {
     id: 'esports-casting',
-    badge: '03 // COMMUNITY & AWARDS',
     title: 'Grand Finale Showcase',
     subtitle: 'Live Audience Finals in Front of 1,000+ Cheering Fans',
     description:
       'The championship culminates on the grand auditorium stage on Sunday evening with live pyrotechnics, trophy presentation, and pro esports scout matchmaking.',
-    highlights: [
-      {
-        icon: Trophy,
-        title: 'MVP Custom Trophy',
-        description: 'Individual MVP honors with sponsored flagship peripherals and streaming contracts.',
-      },
-      {
-        icon: Users,
-        title: 'Inter-College Pride',
-        description: 'Represent your university roster on the national collegiate leaderboard.',
-      },
-      {
-        icon: Sparkles,
-        title: 'Showmatches & Cosplay',
-        description: 'Creator exhibition showmatches and community gaming challenges between brackets.',
-      },
-    ],
   },
 ];
 
@@ -386,15 +402,6 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
         </div>
 
         <div className="relative z-10 max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 border border-black/10 text-xs font-mono-code text-zinc-800 mb-4 shadow-sm backdrop-blur-sm"
-          >
-            <Flame className="w-3.5 h-3.5 text-black animate-pulse" />
-            <span>002 // ESPORTS CHAMPIONSHIP &bull; ₹1,00,000+ BOUNTIES</span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -445,34 +452,15 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
             />
           </div>
         </div>
-
-        <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 text-xs font-mono-code text-zinc-600 uppercase tracking-widest pt-6 border-t border-zinc-300">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5 text-black font-bold">
-              <Trophy className="w-3.5 h-3.5 text-black" />
-              ₹1,00,000 + GAMING GEAR
-            </span>
-            <span>&bull;</span>
-            <span>ENTRY FEE: ₹0 (FREE)</span>
-            <span>&bull;</span>
-            <span>ROSTER: 4-5 PLAYERS</span>
-          </div>
-          <span className="px-2.5 py-0.5 rounded bg-black text-white font-bold text-[10px]">
-            OCTOBER 2026 // LAN ARENA
-          </span>
-        </div>
       </section>
 
       {/* 2. Narrative 3-Pillar Carousel */}
       <section className="relative w-full py-24 px-6 sm:px-12 bg-black text-white border-t border-zinc-900 select-none">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 pb-6 border-b border-zinc-800/80">
             <div>
-              <div className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
-                ESPORTS DEEP-DIVE // PERSPECTIVE &bull; 03 PILLARS
-              </div>
               <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-                Tournament Architecture
+                About Esports Arena
               </h2>
             </div>
 
@@ -482,7 +470,7 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
                   <button
                     key={idx}
                     onClick={() => setCurrentSlide(idx)}
-                    className={`h-2 transition-all duration-300 rounded-full cursor-pointer flex items-center justify-center text-[10px] font-mono-code font-bold ${
+                    className={`h-2.5 transition-all duration-300 rounded-full cursor-pointer flex items-center justify-center text-[10px] font-mono-code font-bold ${
                       currentSlide === idx ? 'w-10 bg-white text-black' : 'w-6 bg-zinc-800 text-zinc-500'
                     }`}
                   >
@@ -496,7 +484,7 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
                     prev === 0 ? ESPORTS_CAROUSEL_SLIDES.length - 1 : prev - 1
                   )
                 }
-                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white"
+                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -504,69 +492,55 @@ export const EsportsPage: React.FC<EsportsPageProps> = ({
                 onClick={() =>
                   setCurrentSlide((prev) => (prev + 1) % ESPORTS_CAROUSEL_SLIDES.length)
                 }
-                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white"
+                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
 
-          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-14 overflow-hidden shadow-2xl">
+          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-16 md:p-20 overflow-hidden shadow-2xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={slide.id}
                 initial={{ opacity: 0, x: 25 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -25 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                className="max-w-4xl"
               >
-                <div className="lg:col-span-7">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-[11px] font-mono-code text-zinc-400 uppercase tracking-widest mb-6">
-                    <Sparkles className="w-3 h-3 text-white" />
-                    <span>{slide.badge}</span>
-                  </div>
-                  <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-                    {slide.title}
-                  </h3>
-                  <h4 className="text-base sm:text-lg font-semibold text-zinc-300 mb-6">
-                    {slide.subtitle}
-                  </h4>
-                  <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8 max-w-xl">
-                    {slide.description}
-                  </p>
-                  <button
-                    onClick={() => onOpenRegister('event-02')}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors shadow-lg cursor-pointer"
-                  >
-                    <span>JOIN ESPORTS BRACKET</span>
-                    <span>↗</span>
-                  </button>
-                </div>
-
-                <div className="lg:col-span-5 flex flex-col gap-4">
-                  {slide.highlights.map((item, index) => {
-                    const Icon = item.icon;
-                    return (
-                      <div
-                        key={index}
-                        className="p-5 border border-zinc-800/80 bg-zinc-900/40 flex items-start gap-4"
-                      >
-                        <div className="p-2.5 bg-black border border-zinc-800 text-white shrink-0">
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <h5 className="text-sm font-bold text-white mb-1">{item.title}</h5>
-                          <p className="text-xs text-zinc-400 leading-relaxed">{item.description}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                <h3 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                  {slide.title}
+                </h3>
+                <h4 className="text-lg sm:text-2xl font-semibold text-zinc-300 mb-6 leading-snug">
+                  {slide.subtitle}
+                </h4>
+                <p className="text-base sm:text-lg text-zinc-400 leading-relaxed mb-10 max-w-3xl font-normal">
+                  {slide.description}
+                </p>
+                <button
+                  onClick={() => onOpenRegister('event-02')}
+                  className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
+                >
+                  <span>JOIN ESPORTS BRACKET</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
       </section>
+
+      {/* 2.5 3D Constellation Orbital Gallery of Esports Tournaments */}
+      <div id="esports-constellation">
+        <ConstellationOrbitalGallery
+          items={ESPORTS_CONSTELLATION_ITEMS}
+          title="ESPORTS TOURNAMENTS"
+          subtitle="06 LAN ARENAS & STAGES"
+          centerSymbol="E"
+          onOpenRegister={onOpenRegister}
+        />
+      </div>
 
       {/* 3. Broadsheet & Rules */}
       <div id="esports-broadsheet" className="max-w-7xl mx-auto px-6 sm:px-12 py-16">

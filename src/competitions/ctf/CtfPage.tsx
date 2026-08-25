@@ -7,19 +7,89 @@ import {
   Users,
   Shield,
   CheckCircle,
-  Flame,
   ArrowRight,
-  Trophy,
   ChevronLeft,
   ChevronRight,
-  Terminal,
-  Lock,
-  Sparkles,
-  Zap,
   Globe,
   ExternalLink,
 } from 'lucide-react';
+import { ConstellationOrbitalGallery, ConstellationItem } from '../../components/ConstellationOrbitalGallery';
 import { TeamMember, ScheduleItem } from '../../types';
+
+export const CTF_CONSTELLATION_ITEMS: ConstellationItem[] = [
+  {
+    id: 'ctf-track-1',
+    title: 'Binary Exploitation & Pwn',
+    brand: 'MEMORY CORRUPTION',
+    category: 'Pwn',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&h=650&fit=crop&q=80',
+    description: 'Stack buffer overflows, Return-Oriented Programming (ROP), and heap corruption exploits.',
+    fullOverview: 'Exploit live sandboxed binary services running on hardened Linux kernels to extract root flags.',
+    prizePool: '₹25,000 Bounty',
+    tags: ['PWN', 'ROP', 'HEAP', 'EXPLOIT'],
+  },
+  {
+    id: 'ctf-track-2',
+    title: 'Web Application Security',
+    brand: '0-DAY WEB CHAINS',
+    category: 'Web Sec',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=900&h=650&fit=crop&q=80',
+    description: 'Server-Side Template Injection, GraphQL bypasses, JWT forge attacks, and prototype pollution.',
+    fullOverview: 'Target realistic cloud-native web architectures to achieve remote code execution (RCE).',
+    prizePool: '₹20,000 Bounty',
+    tags: ['WEB', 'SSRF', 'GRAPHQL', 'RCE'],
+  },
+  {
+    id: 'ctf-track-3',
+    title: 'Lattice Cryptography & Ciphers',
+    brand: 'CRYPTOGRAPHIC BREAKS',
+    category: 'Crypto',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=900&h=650&fit=crop&q=80',
+    description: 'Break broken RSA key generations, elliptic curve discrete logs, and custom stream ciphers.',
+    fullOverview: 'Apply advanced linear algebra and mathematical cryptanalysis to decipher encrypted payloads.',
+    prizePool: '₹15,000 Bounty',
+    tags: ['CRYPTO', 'ECC', 'RSA', 'LATTICE'],
+  },
+  {
+    id: 'ctf-track-4',
+    title: 'Reverse Engineering (Ghidra/IDA)',
+    brand: 'MALWARE DISASSEMBLY',
+    category: 'Reversing',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1510511459019-5dda7724fd87?w=900&h=650&fit=crop&q=80',
+    description: 'Decompile stripped x86_64, ARM, and WebAssembly binaries to uncover obfuscated key validation logic.',
+    fullOverview: 'Analyze anti-debugging techniques, polymorphic packers, and symbolic execution constraints.',
+    prizePool: '₹15,000 Bounty',
+    tags: ['REVERSING', 'GHIDRA', 'DISASSEMBLY', 'WASM'],
+  },
+  {
+    id: 'ctf-track-5',
+    title: 'Digital Forensics & Incident Response',
+    brand: 'MEMORY & PCAP TRIAGE',
+    category: 'Forensics',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=900&h=650&fit=crop&q=80',
+    description: 'Inspect Volatility memory dumps, carve corrupted filesystem images, and trace covert network exfiltration.',
+    fullOverview: 'Reconstruct attacker timelines from packet captures and raw volatile memory snapshots.',
+    prizePool: '₹10,000 Bounty',
+    tags: ['FORENSICS', 'VOLATILITY', 'WIRESHARK', 'PCAP'],
+  },
+  {
+    id: 'ctf-track-6',
+    title: 'Hardware Hacking & IoT Firmware',
+    brand: 'HARDWARE SIGNALS',
+    category: 'Hardware',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&h=650&fit=crop&q=80',
+    description: 'Analyze SPI flash dumps, logic analyzer traces, and UART debug interfaces on IoT hardware.',
+    fullOverview: 'Extract encrypted firmware keys from hardware traces and unlock device execution states.',
+    prizePool: '₹10,000 Bounty',
+    tags: ['HARDWARE', 'UART', 'FIRMWARE', 'LOGIC'],
+  },
+];
 
 interface FoamBubble {
   x: number;
@@ -45,78 +115,24 @@ interface CtfPageProps {
 const CTF_CAROUSEL_SLIDES = [
   {
     id: 'ctf-overview',
-    badge: '01 // THE CYBER SIEGE',
     title: 'Capture The Flag (CTF)',
     subtitle: 'Jeopardy-Style Offensive & Defensive Cyber Arena',
     description:
       'Engage in a 24-hour non-stop security siege. Exploit zero-day web vulnerabilities, reverse engineer binary payloads, break custom cryptographic ciphers, and extract hidden root flags.',
-    highlights: [
-      {
-        icon: Terminal,
-        title: 'Binary Exploitation & Pwn',
-        description: 'Buffer overflows, ROP chains, heap corruption on live isolated targets.',
-      },
-      {
-        icon: Lock,
-        title: 'Zero-Knowledge & Crypto',
-        description: 'Lattice cryptography, ECC weakness attacks, and zero-knowledge proofs.',
-      },
-      {
-        icon: Trophy,
-        title: '₹75,000 Prize Pool',
-        description: 'Instant bounty payouts, OSCP training vouchers, and partner security interviews.',
-      },
-    ],
   },
   {
-    id: 'ctf-rules',
-    badge: '02 // INFRASTRUCTURE & SCORING',
-    title: 'Dynamic Score Decay & First Bloods',
-    subtitle: 'Real-Time Telemetry & Live Public Cyber Matrix',
+    id: 'ctf-infra',
+    title: 'Live Dynamic Scoreboard',
+    subtitle: 'Automated Flag Verification & Attack Infrastructure',
     description:
-      'Points automatically adjust based on difficulty and solver count. First Blood bonuses awarded to the fastest hackers for each challenge level.',
-    highlights: [
-      {
-        icon: Zap,
-        title: 'First Blood Bounties',
-        description: 'Extra points and swag packs for the first team to solve any category challenge.',
-      },
-      {
-        icon: Shield,
-        title: 'Strict Fair Play Code',
-        description: 'Attacking scoring servers or flag sharing results in immediate ban.',
-      },
-      {
-        icon: Flame,
-        title: 'Solo or 3-Person Team',
-        description: 'Compete individually or assemble a 3-member offensive squad.',
-      },
-    ],
+      'Compete on dedicated containerized challenge nodes with real-time first-blood scoring bonuses, live dynamic hint unlocks, and anti-tamper challenge networks.',
   },
   {
-    id: 'ctf-careers',
-    badge: '03 // RECRUITMENT & BOUNTIES',
-    title: 'Security Partner Retainers',
-    subtitle: 'Fast-Track Pentesting & Security Analyst Hiring',
+    id: 'ctf-rewards',
+    title: 'Security Certifications & Bounties',
+    subtitle: 'Cash Prizes, OSCP Vouchers & Red-Team Hiring Fast-Tracks',
     description:
-      'Top solvers receive direct interviews with cybersecurity sponsors and access to private bug bounty programs.',
-    highlights: [
-      {
-        icon: Trophy,
-        title: 'Champion Bounty: ₹40,000',
-        description: 'Top overall CTF team + exclusive physical badge.',
-      },
-      {
-        icon: Users,
-        title: 'Industry Mentorship',
-        description: '1-on-1 career guidance with offensive security researchers.',
-      },
-      {
-        icon: Sparkles,
-        title: 'Hardware Bounties',
-        description: 'Flipper Zero and Wi-Fi Pineapple kits for category winners.',
-      },
-    ],
+      'Top offensive researchers receive direct cash bounties, certified security training vouchers, and priority interview referrals with leading cyber security firms.',
   },
 ];
 
@@ -386,15 +402,6 @@ export const CtfPage: React.FC<CtfPageProps> = ({
         </div>
 
         <div className="relative z-10 max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 border border-black/10 text-xs font-mono-code text-zinc-800 mb-4 shadow-sm backdrop-blur-sm"
-          >
-            <Flame className="w-3.5 h-3.5 text-black animate-pulse" />
-            <span>003 // CYBER SIEGE &bull; ₹75,000+ BOUNTIES &bull; ZERO-DAY ARENA</span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -441,34 +448,15 @@ export const CtfPage: React.FC<CtfPageProps> = ({
             />
           </div>
         </div>
-
-        <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 text-xs font-mono-code text-zinc-600 uppercase tracking-widest pt-6 border-t border-zinc-300">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5 text-black font-bold">
-              <Trophy className="w-3.5 h-3.5 text-black" />
-              ₹75,000 + CERTIFICATIONS
-            </span>
-            <span>&bull;</span>
-            <span>ENTRY FEE: ₹0 (FREE)</span>
-            <span>&bull;</span>
-            <span>TEAM: 1 - 3 HACKERS</span>
-          </div>
-          <span className="px-2.5 py-0.5 rounded bg-black text-white font-bold text-[10px]">
-            OCTOBER 2026 // 24-HOUR CTF
-          </span>
-        </div>
       </section>
 
       {/* 2. Narrative 3-Pillar Carousel */}
       <section className="relative w-full py-24 px-6 sm:px-12 bg-black text-white border-t border-zinc-900 select-none">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 pb-6 border-b border-zinc-800/80">
             <div>
-              <div className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
-                CTF DEEP-DIVE // PERSPECTIVE &bull; 03 PILLARS
-              </div>
               <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-                Offensive &amp; Defensive Specs
+                About CTF Cyber Siege
               </h2>
             </div>
 
@@ -478,7 +466,7 @@ export const CtfPage: React.FC<CtfPageProps> = ({
                   <button
                     key={idx}
                     onClick={() => setCurrentSlide(idx)}
-                    className={`h-2 transition-all duration-300 rounded-full cursor-pointer flex items-center justify-center text-[10px] font-mono-code font-bold ${
+                    className={`h-2.5 transition-all duration-300 rounded-full cursor-pointer flex items-center justify-center text-[10px] font-mono-code font-bold ${
                       currentSlide === idx ? 'w-10 bg-white text-black' : 'w-6 bg-zinc-800 text-zinc-500'
                     }`}
                   >
@@ -492,7 +480,7 @@ export const CtfPage: React.FC<CtfPageProps> = ({
                     prev === 0 ? CTF_CAROUSEL_SLIDES.length - 1 : prev - 1
                   )
                 }
-                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white"
+                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -500,69 +488,55 @@ export const CtfPage: React.FC<CtfPageProps> = ({
                 onClick={() =>
                   setCurrentSlide((prev) => (prev + 1) % CTF_CAROUSEL_SLIDES.length)
                 }
-                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white"
+                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
 
-          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-14 overflow-hidden shadow-2xl">
+          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-16 md:p-20 overflow-hidden shadow-2xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={slide.id}
                 initial={{ opacity: 0, x: 25 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -25 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                className="max-w-4xl"
               >
-                <div className="lg:col-span-7">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-[11px] font-mono-code text-zinc-400 uppercase tracking-widest mb-6">
-                    <Sparkles className="w-3 h-3 text-white" />
-                    <span>{slide.badge}</span>
-                  </div>
-                  <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-                    {slide.title}
-                  </h3>
-                  <h4 className="text-base sm:text-lg font-semibold text-zinc-300 mb-6">
-                    {slide.subtitle}
-                  </h4>
-                  <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8 max-w-xl">
-                    {slide.description}
-                  </p>
-                  <button
-                    onClick={() => onOpenRegister('event-03')}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors shadow-lg cursor-pointer"
-                  >
-                    <span>ENTER CTF SIEGE</span>
-                    <span>↗</span>
-                  </button>
-                </div>
-
-                <div className="lg:col-span-5 flex flex-col gap-4">
-                  {slide.highlights.map((item, index) => {
-                    const Icon = item.icon;
-                    return (
-                      <div
-                        key={index}
-                        className="p-5 border border-zinc-800/80 bg-zinc-900/40 flex items-start gap-4"
-                      >
-                        <div className="p-2.5 bg-black border border-zinc-800 text-white shrink-0">
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <h5 className="text-sm font-bold text-white mb-1">{item.title}</h5>
-                          <p className="text-xs text-zinc-400 leading-relaxed">{item.description}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                <h3 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                  {slide.title}
+                </h3>
+                <h4 className="text-lg sm:text-2xl font-semibold text-zinc-300 mb-6 leading-snug">
+                  {slide.subtitle}
+                </h4>
+                <p className="text-base sm:text-lg text-zinc-400 leading-relaxed mb-10 max-w-3xl font-normal">
+                  {slide.description}
+                </p>
+                <button
+                  onClick={() => onOpenRegister('event-03')}
+                  className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
+                >
+                  <span>ENTER CTF SIEGE</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
       </section>
+
+      {/* 2.5 3D Constellation Orbital Gallery of CTF Arenas */}
+      <div id="ctf-constellation">
+        <ConstellationOrbitalGallery
+          items={CTF_CONSTELLATION_ITEMS}
+          title="CTF CHALLENGE MATRIX"
+          subtitle="06 OFFENSIVE EXPLOIT VECTORS"
+          centerSymbol="C"
+          onOpenRegister={onOpenRegister}
+        />
+      </div>
 
       {/* 3. Broadsheet & Rules */}
       <div id="ctf-broadsheet" className="max-w-7xl mx-auto px-6 sm:px-12 py-16">

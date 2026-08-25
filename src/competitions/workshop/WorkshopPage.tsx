@@ -7,19 +7,89 @@ import {
   Users,
   Shield,
   CheckCircle,
-  Flame,
   ArrowRight,
-  Trophy,
   ChevronLeft,
   ChevronRight,
-  Code2,
-  Terminal,
-  Sparkles,
-  Zap,
   Globe,
   ExternalLink,
 } from 'lucide-react';
+import { ConstellationOrbitalGallery, ConstellationItem } from '../../components/ConstellationOrbitalGallery';
 import { TeamMember, ScheduleItem } from '../../types';
+
+export const WORKSHOP_CONSTELLATION_ITEMS: ConstellationItem[] = [
+  {
+    id: 'workshop-track-1',
+    title: 'Autonomous AI Agent Swarms',
+    brand: 'LLM REASONING LAB',
+    category: 'Agent Swarms',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&h=650&fit=crop&q=80',
+    description: 'Hands-on live coding with LangGraph, CrewAI, Ollama, and autonomous reasoning loops.',
+    fullOverview: 'Build production multi-agent systems with persistent state, vector memory, and self-correcting code execution.',
+    prizePool: 'Verified Credential',
+    tags: ['AGENTS', 'LLM', 'LANGGRAPH', 'CREWAI'],
+  },
+  {
+    id: 'workshop-track-2',
+    title: 'Zero-Knowledge Proofs & Circom',
+    brand: 'ZK-SNARK SYSTEMS',
+    category: 'ZK Proofs',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=900&h=650&fit=crop&q=80',
+    description: 'Write arithmetic circuits with Circom and verify zk-SNARK proofs on EVM smart contracts.',
+    fullOverview: 'Learn privacy-preserving primitives and layer-2 state compression proofs with hands-on starter repos.',
+    prizePool: 'ZK Certificate',
+    tags: ['ZK-SNARKS', 'CIRCOM', 'SOLIDITY', 'PRIVACY'],
+  },
+  {
+    id: 'workshop-track-3',
+    title: 'Three.js & WebGPU Shaders',
+    brand: 'SPATIAL WEB CRAFT',
+    category: 'Three.js',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1633493763342-998f46ef581f?w=900&h=650&fit=crop&q=80',
+    description: 'Build silky 60fps 3D canvas physics, custom GLSL fragment shaders, and GSAP micro-interactions.',
+    fullOverview: 'Master modern creative engineering techniques used on top Awwwards-winning web projects.',
+    prizePool: 'Creative Tech Pass',
+    tags: ['THREE.JS', 'GLSL', 'SHADERS', 'GSAP'],
+  },
+  {
+    id: 'workshop-track-4',
+    title: 'Rust Concurrency & Performance',
+    brand: 'SYSTEMS ENGINEERING',
+    category: 'Rust Systems',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=900&h=650&fit=crop&q=80',
+    description: 'Zero-cost abstractions, fearless concurrency with Tokio, and WebAssembly compilation.',
+    fullOverview: 'Write ultra-low-latency backend microservices capable of processing millions of concurrent requests.',
+    prizePool: 'Systems Badge',
+    tags: ['RUST', 'TOKIO', 'WASM', 'CONCURRENCY'],
+  },
+  {
+    id: 'workshop-track-5',
+    title: 'AI Alignment & Prompt Injection',
+    brand: 'RED TEAMING LAB',
+    category: 'AI Security',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&h=650&fit=crop&q=80',
+    description: 'Jailbreak auditing, indirect prompt injection defenses, and semantic guardrail pipelines.',
+    fullOverview: 'Learn how to red-team enterprise LLM architectures and harden agentic applications against exploitation.',
+    prizePool: 'Security Audit Pass',
+    tags: ['RED-TEAM', 'PROMPT-INJECTION', 'GUARDRAILS', 'SECURITY'],
+  },
+  {
+    id: 'workshop-track-6',
+    title: 'Distributed Systems & Observability',
+    brand: 'CLOUD ARCHITECTURE',
+    category: 'Cloud Arch',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&h=650&fit=crop&q=80',
+    description: 'High-availability Kubernetes clustering, OpenTelemetry tracing, and event-driven architectures.',
+    fullOverview: 'Deploy distributed microservices with automated failovers and real-time distributed tracing.',
+    prizePool: 'Cloud Architect Badge',
+    tags: ['K8S', 'OPENTELEMETRY', 'KAFKA', 'DEVOPS'],
+  },
+];
 
 interface FoamBubble {
   x: number;
@@ -45,53 +115,17 @@ interface WorkshopPageProps {
 const WORKSHOP_CAROUSEL_SLIDES = [
   {
     id: 'workshop-overview',
-    badge: '01 // HANDS-ON MASTERCLASSES',
     title: 'Tech Workshops & Deep-Dives',
     subtitle: 'GenAI Agents, ZK-Rollups & Spatial Three.js Systems',
     description:
       'Learn directly from staff researchers and engineering leads. Every attendee receives live cloud compute credits, pre-configured starter repositories, and verified verifiable credentials upon completion.',
-    highlights: [
-      {
-        icon: Terminal,
-        title: 'Autonomous Agent Swarms',
-        description: 'Building multi-agent reasoning loops with LangChain, LlamaIndex & Claude 3.5.',
-      },
-      {
-        icon: Code2,
-        title: 'Zero-Knowledge Proofs',
-        description: 'Writing Circom circuits, Groth16 provers, and verifiable compute proofs on EVM.',
-      },
-      {
-        icon: Sparkles,
-        title: 'Spatial 3D & GSAP Web',
-        description: 'Architecting high-performance WebGL, Shaders, and silky 60fps microinteractions.',
-      },
-    ],
   },
   {
-    id: 'workshop-mentors',
-    badge: '02 // INDUSTRY SPEAKERS',
-    title: 'Staff Leads from Google & Polygon',
-    subtitle: 'Interactive Live Coding Sessions & Direct Q&A',
+    id: 'workshop-tracks',
+    title: 'Hands-On Code-Along Curriculum',
+    subtitle: 'Interactive 3-Hour Labs with Zero Corporate Slop',
     description:
-      'No theoretical slide lectures. Every masterclass is a hands-on coding sprint where you write code in sandbox environments alongside senior staff engineers.',
-    highlights: [
-      {
-        icon: Zap,
-        title: 'Sandbox Cloud Credits',
-        description: 'Free Google Cloud Vertex AI & AWS compute tokens for all attendees.',
-      },
-      {
-        icon: Shield,
-        title: 'Verified Badges',
-        description: 'Digital verifiable completion certificate issued to your developer portfolio.',
-      },
-      {
-        icon: Flame,
-        title: 'Free Workshop Access (₹0)',
-        description: 'Open to all registered developers, students, and product designers.',
-      },
-    ],
+      'Write real production code with 1-on-1 assistance from instructor mentors. All starter kits and cloud sandbox environments are provided.',
   },
 ];
 
@@ -345,15 +379,6 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
         </div>
 
         <div className="relative z-10 max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 border border-black/10 text-xs font-mono-code text-zinc-800 mb-4 shadow-sm backdrop-blur-sm"
-          >
-            <Flame className="w-3.5 h-3.5 text-black animate-pulse" />
-            <span>005 // MASTERCLASSES &bull; CERTIFICATIONS &bull; MENTORSHIP</span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -405,32 +430,15 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
             />
           </div>
         </div>
-
-        <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 text-xs font-mono-code text-zinc-600 uppercase tracking-widest pt-6 border-t border-zinc-300">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5 text-black font-bold">
-              <Trophy className="w-3.5 h-3.5 text-black" />
-              FREE ACCESS &bull; VERIFIED CERTIFICATES
-            </span>
-            <span>&bull;</span>
-            <span>OPEN TO ALL BUILDERS</span>
-          </div>
-          <span className="px-2.5 py-0.5 rounded bg-black text-white font-bold text-[10px]">
-            OCTOBER 2026 // MASTERCLASS
-          </span>
-        </div>
       </section>
 
       {/* 2. Narrative 3-Pillar Carousel */}
       <section className="relative w-full py-24 px-6 sm:px-12 bg-black text-white border-t border-zinc-900 select-none">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 pb-6 border-b border-zinc-800/80">
             <div>
-              <div className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
-                MASTERCLASS DEEP-DIVE // PERSPECTIVE &bull; 02 TRACKS
-              </div>
               <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-                Curriculum &amp; Mentorship
+                About Masterclasses
               </h2>
             </div>
 
@@ -440,7 +448,7 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
                   <button
                     key={idx}
                     onClick={() => setCurrentSlide(idx)}
-                    className={`h-2 transition-all duration-300 rounded-full cursor-pointer flex items-center justify-center text-[10px] font-mono-code font-bold ${
+                    className={`h-2.5 transition-all duration-300 rounded-full cursor-pointer flex items-center justify-center text-[10px] font-mono-code font-bold ${
                       currentSlide === idx ? 'w-10 bg-white text-black' : 'w-6 bg-zinc-800 text-zinc-500'
                     }`}
                   >
@@ -454,7 +462,7 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
                     prev === 0 ? WORKSHOP_CAROUSEL_SLIDES.length - 1 : prev - 1
                   )
                 }
-                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white"
+                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -462,69 +470,55 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
                 onClick={() =>
                   setCurrentSlide((prev) => (prev + 1) % WORKSHOP_CAROUSEL_SLIDES.length)
                 }
-                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white"
+                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
 
-          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-14 overflow-hidden shadow-2xl">
+          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-16 md:p-20 overflow-hidden shadow-2xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={slide.id}
                 initial={{ opacity: 0, x: 25 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -25 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                className="max-w-4xl"
               >
-                <div className="lg:col-span-7">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-[11px] font-mono-code text-zinc-400 uppercase tracking-widest mb-6">
-                    <Sparkles className="w-3 h-3 text-white" />
-                    <span>{slide.badge}</span>
-                  </div>
-                  <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-                    {slide.title}
-                  </h3>
-                  <h4 className="text-base sm:text-lg font-semibold text-zinc-300 mb-6">
-                    {slide.subtitle}
-                  </h4>
-                  <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8 max-w-xl">
-                    {slide.description}
-                  </p>
-                  <button
-                    onClick={() => onOpenRegister('event-05')}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors shadow-lg cursor-pointer"
-                  >
-                    <span>CLAIM WORKSHOP PASS</span>
-                    <span>↗</span>
-                  </button>
-                </div>
-
-                <div className="lg:col-span-5 flex flex-col gap-4">
-                  {slide.highlights.map((item, index) => {
-                    const Icon = item.icon;
-                    return (
-                      <div
-                        key={index}
-                        className="p-5 border border-zinc-800/80 bg-zinc-900/40 flex items-start gap-4"
-                      >
-                        <div className="p-2.5 bg-black border border-zinc-800 text-white shrink-0">
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <h5 className="text-sm font-bold text-white mb-1">{item.title}</h5>
-                          <p className="text-xs text-zinc-400 leading-relaxed">{item.description}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                <h3 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                  {slide.title}
+                </h3>
+                <h4 className="text-lg sm:text-2xl font-semibold text-zinc-300 mb-6 leading-snug">
+                  {slide.subtitle}
+                </h4>
+                <p className="text-base sm:text-lg text-zinc-400 leading-relaxed mb-10 max-w-3xl font-normal">
+                  {slide.description}
+                </p>
+                <button
+                  onClick={() => onOpenRegister('event-05')}
+                  className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
+                >
+                  <span>CLAIM WORKSHOP PASS</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
       </section>
+
+      {/* 2.5 3D Constellation Orbital Gallery of Workshop Masterclasses */}
+      <div id="workshop-constellation">
+        <ConstellationOrbitalGallery
+          items={WORKSHOP_CONSTELLATION_ITEMS}
+          title="WORKSHOP MASTERCLASSES"
+          subtitle="06 HANDS-ON LAB TRACKS"
+          centerSymbol="W"
+          onOpenRegister={onOpenRegister}
+        />
+      </div>
 
       {/* 3. Broadsheet & Rules */}
       <div id="workshop-broadsheet" className="max-w-7xl mx-auto px-6 sm:px-12 py-16">

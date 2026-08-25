@@ -13,7 +13,83 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
+import { ConstellationOrbitalGallery, ConstellationItem } from '../../components/ConstellationOrbitalGallery';
 import { TeamMember, ScheduleItem } from '../../types';
+
+export const HACKATHON_TRACK_ITEMS: ConstellationItem[] = [
+  {
+    id: 'hack-track-1',
+    title: 'Generative AI & Agent Swarms',
+    brand: 'AUTONOMOUS ARCHITECTURES',
+    category: 'GenAI',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&h=650&fit=crop&q=80',
+    description: 'Build multi-agent autonomous reasoning loops, memory graphs, and custom MCP tool bridges.',
+    fullOverview: 'Teams architect autonomous agent workflows using modern LLMs, vector memories, and deterministic code execution sandboxes.',
+    prizePool: '₹60,000 Bounty',
+    tags: ['AGENTS', 'LLM', 'MEMORY', 'MCP'],
+  },
+  {
+    id: 'hack-track-2',
+    title: 'Web3 Protocols & ZK Rollups',
+    brand: 'DECENTRALIZED SYSTEMS',
+    category: 'Web3',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=900&h=650&fit=crop&q=80',
+    description: 'Architect verifiable state transitions, zero-knowledge proofs, and account abstraction dApps.',
+    fullOverview: 'Build high-throughput decentralized protocols on Polygon and EVM-compatible rollups with seamless gasless UX.',
+    prizePool: '₹50,000 Bounty',
+    tags: ['ZK-PROOFS', 'POLYGON', 'SOLIDITY', 'DEFI'],
+  },
+  {
+    id: 'hack-track-3',
+    title: 'Autonomous Robotics & Sensor Fusion',
+    brand: 'HARDWARE & EDGE',
+    category: 'Robotics',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=900&h=650&fit=crop&q=80',
+    description: 'Hardware hacking with ESP32, Raspberry Pi, camera vision sensors, and drone flight controllers.',
+    fullOverview: 'Design embedded hardware MVPs with real-time sensor fusion, edge compute inferencing, and physical testing telemetry.',
+    prizePool: '₹40,000 Bounty',
+    tags: ['ESP32', 'ROS2', 'HARDWARE', 'SENSORS'],
+  },
+  {
+    id: 'hack-track-4',
+    title: 'Fullstack DevTools & Compilers',
+    brand: 'DEVELOPER EXPERIENCE',
+    category: 'DevTools',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=900&h=650&fit=crop&q=80',
+    description: 'Next-gen AST manipulation, instant hot-reloading tooling, CLI utilities, and runtime profilers.',
+    fullOverview: 'Create blazing-fast developer tooling in Rust, TypeScript, and Go that eliminates developer friction.',
+    prizePool: '₹35,000 Bounty',
+    tags: ['COMPILERS', 'RUST', 'TYPESCRIPT', 'CLI'],
+  },
+  {
+    id: 'hack-track-5',
+    title: 'Spatial 3D & WebGPU Canvas',
+    brand: 'CREATIVE TECH',
+    category: 'Spatial UI',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=900&h=650&fit=crop&q=80',
+    description: 'Fluid spatial interfaces, WebGPU fragment shaders, glassmorphism UI, and tactile 3D interactions.',
+    fullOverview: 'Push the boundaries of web UI/UX with smooth 60fps GPU-accelerated shaders and spatial physics.',
+    prizePool: '₹35,000 Bounty',
+    tags: ['WEBGPU', 'THREE.JS', 'SHADERS', 'GSAP'],
+  },
+  {
+    id: 'hack-track-6',
+    title: 'Cyber Defense & Zero-Trust',
+    brand: 'SECURITY CRUCIBLE',
+    category: 'Security',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=900&h=650&fit=crop&q=80',
+    description: 'Automated vulnerability patchers, sandboxed runtime monitors, and decentralized identity auth.',
+    fullOverview: 'Engineer resilient defense infrastructure capable of thwarting modern automated penetration tools.',
+    prizePool: '₹30,000 Bounty',
+    tags: ['SECURITY', 'ZERO-TRUST', 'PATCHING', 'AUTH'],
+  },
+];
 
 interface FoamBubble {
   x: number;
@@ -592,6 +668,17 @@ export const HackathonPage: React.FC<HackathonPageProps> = ({
           </div>
         </div>
       </section>
+
+      {/* 2.5 3D Constellation Orbital Gallery of Hackathon Tracks */}
+      <div id="hackathon-tracks">
+        <ConstellationOrbitalGallery
+          items={HACKATHON_TRACK_ITEMS}
+          title="HACKATHON TRACKS"
+          subtitle="06 INNOVATION DOMAINS"
+          centerSymbol="H"
+          onOpenRegister={onOpenRegister}
+        />
+      </div>
 
       {/* 3. Newspaper Broadsheet & Rules Breakdown Section */}
       <div id="hackathon-broadsheet" className="max-w-7xl mx-auto px-6 sm:px-12 py-16">

@@ -7,19 +7,89 @@ import {
   Users,
   Shield,
   CheckCircle,
-  Flame,
   ArrowRight,
-  Trophy,
   ChevronLeft,
   ChevronRight,
-  Compass,
-  MapPin,
-  Sparkles,
-  Zap,
   Globe,
   ExternalLink,
 } from 'lucide-react';
+import { ConstellationOrbitalGallery, ConstellationItem } from '../../components/ConstellationOrbitalGallery';
 import { TeamMember, ScheduleItem } from '../../types';
+
+export const QUEST_CONSTELLATION_ITEMS: ConstellationItem[] = [
+  {
+    id: 'quest-track-1',
+    title: 'Cryptographic Terminal Vault',
+    brand: 'CIPHER TERMINAL',
+    category: 'Terminal',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=900&h=650&fit=crop&q=80',
+    description: 'Solve interactive CLI riddle terminals, base conversions, and multi-layered puzzle scripts.',
+    fullOverview: 'Teams ssh into encrypted challenge bastions to decrypt clues unlocking the next geo-sector.',
+    prizePool: '₹15,000 Bounty',
+    tags: ['CIPHER', 'TERMINAL', 'CLI', 'VAULT'],
+  },
+  {
+    id: 'quest-track-2',
+    title: 'Radio Frequency Beacon Hunt',
+    brand: 'SDR SIGNAL DECODING',
+    category: 'Signals',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=900&h=650&fit=crop&q=80',
+    description: 'Use Software Defined Radios (SDR) and directional antennas to locate hidden RF transmitters.',
+    fullOverview: 'Sweep radio bands across campus to triangulate hidden signal nodes broadcasting audio coordinates.',
+    prizePool: '₹12,000 Bounty',
+    tags: ['SDR', 'RADIO', 'BEACON', 'ANTENNA'],
+  },
+  {
+    id: 'quest-track-3',
+    title: 'Campus Geolocation Waypoints',
+    brand: 'PHYSICAL ARG NODES',
+    category: 'Waypoints',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?w=900&h=650&fit=crop&q=80',
+    description: 'Physical hidden markers, laser reflectors, and encrypted micro-dots concealed in campus architecture.',
+    fullOverview: 'Traverse campus quadrants discovering physical checkpoint keys required for the final gate.',
+    prizePool: '₹10,000 Bounty',
+    tags: ['GEOLOCATION', 'PHYSICAL', 'CAMPUS', 'MAP'],
+  },
+  {
+    id: 'quest-track-4',
+    title: 'Steganographic Audio & Spectrograms',
+    brand: 'AUDIO WATERMARKS',
+    category: 'Audio Log',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=900&h=650&fit=crop&q=80',
+    description: 'Extract hidden images, QR payloads, and text strings embedded inside sound waveform spectrograms.',
+    fullOverview: 'Analyze audio streams broadcast during the event using Audacity and spectral visualizers.',
+    prizePool: '₹8,000 Bounty',
+    tags: ['STEGANOGRAPHY', 'AUDIO', 'SPECTROGRAM', 'WAVEFORM'],
+  },
+  {
+    id: 'quest-track-5',
+    title: 'Augmented Reality Visual Markers',
+    brand: 'AR LENS OVERLAYS',
+    category: 'AR Quest',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=900&h=650&fit=crop&q=80',
+    description: 'Scan physical campus landmarks with our custom WebAR portal to reveal floating 3D hints.',
+    fullOverview: 'Interact with spatial 3D puzzle dials projected in real-time onto physical festival buildings.',
+    prizePool: '₹8,000 Bounty',
+    tags: ['AR', 'WEBAR', 'CAMERA', '3D-PUZZLE'],
+  },
+  {
+    id: 'quest-track-6',
+    title: 'The Master Vault Finale',
+    brand: 'FINAL CRYPTIC LOCK',
+    category: 'Master Vault',
+    year: '2026',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&h=650&fit=crop&q=80',
+    description: 'The ultimate collaborative lock challenge requiring all 5 previous keys to unlock the grand bounty.',
+    fullOverview: 'A live race on stage where the top 3 speedrun squads battle head-to-head to crack the master combination.',
+    prizePool: 'Grand Trophy',
+    tags: ['FINALE', 'VAULT', 'SPEEDRUN', 'TROPHY'],
+  },
+];
 
 interface FoamBubble {
   x: number;
@@ -45,78 +115,24 @@ interface TreasureHuntPageProps {
 const QUEST_CAROUSEL_SLIDES = [
   {
     id: 'quest-overview',
-    badge: '01 // THE CAMPUS ARG QUEST',
     title: 'The Cryptic Treasure Hunt',
     subtitle: 'Cross-Campus Augmented Reality & Cryptographic Clues',
     description:
       'A thrilling race against time. Decode cryptographic riddles, terminal lockboxes, physical QR waypoints, and augmented-reality audio clues scattered across the campus and digital metaverse.',
-    highlights: [
-      {
-        icon: Compass,
-        title: 'Multi-Stage Puzzle Boxes',
-        description: 'Solve terminal ciphers, steganography images, and hardware lock relays.',
-      },
-      {
-        icon: MapPin,
-        title: 'Campus Geolocation Waypoints',
-        description: 'Physical clues hidden in secret coordinates across the festival venue.',
-      },
-      {
-        icon: Trophy,
-        title: '₹50,000 + Mystery Tech Bundles',
-        description: 'Instant bounty prizes and mystery hardware kits for the first 3 squads to escape.',
-      },
-    ],
   },
   {
     id: 'quest-mechanics',
-    badge: '02 // ARG PUZZLE MECHANICS',
-    title: 'Real-Time Bot Hints & Dynamic Locks',
-    subtitle: 'Discord Bot Oracle & Interactive Augmented Reality',
+    title: 'Progressive Lock & Gate System',
+    subtitle: 'Solve Sequential Checkpoints to Unlock GPS Coordinates',
     description:
-      'Squads scan GPS beacons and input encrypted codes into our live Discord Oracle bot to unlock the next campus waypoint sequence.',
-    highlights: [
-      {
-        icon: Zap,
-        title: 'Sequential Locks',
-        description: 'Every solved cipher unlocks physical coordinates for the next secret checkpoint.',
-      },
-      {
-        icon: Shield,
-        title: 'Anti-Brute Force Limits',
-        description: 'Cooldown timers on incorrect guesses to reward analytical thinking.',
-      },
-      {
-        icon: Flame,
-        title: 'Free Squad Entry (₹0)',
-        description: 'Open to all registered attendee squads of 2 to 4 members.',
-      },
-    ],
+      'Each solved riddle unlocks encrypted coordinates and digital tokens leading to physical campus checkpoints with live bot hints on Discord.',
   },
   {
     id: 'quest-rewards',
-    badge: '03 // FINALE & MYSTERY VAULT',
-    title: 'The Vault Opening Ceremony',
-    subtitle: 'First 3 Squads to Crack the Final Safe Claim the Grand Prize',
+    title: '₹50,000 Bounties & Mystery Hardware Kits',
+    subtitle: 'Hardware Bundles, Mystery Tech Gifts & Champion Trophies',
     description:
-      'The hunt finishes in front of the live audience with physical key handovers, mechanical puzzle trophies, and mystery tech gadgets.',
-    highlights: [
-      {
-        icon: Trophy,
-        title: 'First Place: ₹25,000 + Hardware',
-        description: 'Custom puzzle trophy and premium hardware dev boards.',
-      },
-      {
-        icon: Users,
-        title: 'Runner-ups: ₹15,000 & ₹10,000',
-        description: 'Tech backpacks, mechanical keyboards, and sponsor merchandise.',
-      },
-      {
-        icon: Sparkles,
-        title: 'Exclusive Badges',
-        description: 'Verified on-chain puzzle master badges for all finishers.',
-      },
-    ],
+      'The first squad to unlock the final vault wins the grand bounty and mystery flagship developer gear packages.',
   },
 ];
 
@@ -378,15 +394,6 @@ export const TreasureHuntPage: React.FC<TreasureHuntPageProps> = ({
         </div>
 
         <div className="relative z-10 max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 border border-black/10 text-xs font-mono-code text-zinc-800 mb-4 shadow-sm backdrop-blur-sm"
-          >
-            <Flame className="w-3.5 h-3.5 text-black animate-pulse" />
-            <span>004 // CRYPTIC TREASURE HUNT &bull; ₹50,000+ MYSTERY BOUNTIES</span>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -435,34 +442,15 @@ export const TreasureHuntPage: React.FC<TreasureHuntPageProps> = ({
             />
           </div>
         </div>
-
-        <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 text-xs font-mono-code text-zinc-600 uppercase tracking-widest pt-6 border-t border-zinc-300">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5 text-black font-bold">
-              <Trophy className="w-3.5 h-3.5 text-black" />
-              ₹50,000 + MYSTERY BUNDLES
-            </span>
-            <span>&bull;</span>
-            <span>ENTRY FEE: ₹0 (FREE)</span>
-            <span>&bull;</span>
-            <span>SQUAD: 2 - 4 MEMBERS</span>
-          </div>
-          <span className="px-2.5 py-0.5 rounded bg-black text-white font-bold text-[10px]">
-            OCTOBER 2026 // ARG QUEST
-          </span>
-        </div>
       </section>
 
       {/* 2. Narrative 3-Pillar Carousel */}
       <section className="relative w-full py-24 px-6 sm:px-12 bg-black text-white border-t border-zinc-900 select-none">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 pb-6 border-b border-zinc-800/80">
             <div>
-              <div className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
-                QUEST DEEP-DIVE // PERSPECTIVE &bull; 03 PILLARS
-              </div>
               <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-                ARG Quest Architecture
+                About Cryptic Quest
               </h2>
             </div>
 
@@ -472,7 +460,7 @@ export const TreasureHuntPage: React.FC<TreasureHuntPageProps> = ({
                   <button
                     key={idx}
                     onClick={() => setCurrentSlide(idx)}
-                    className={`h-2 transition-all duration-300 rounded-full cursor-pointer flex items-center justify-center text-[10px] font-mono-code font-bold ${
+                    className={`h-2.5 transition-all duration-300 rounded-full cursor-pointer flex items-center justify-center text-[10px] font-mono-code font-bold ${
                       currentSlide === idx ? 'w-10 bg-white text-black' : 'w-6 bg-zinc-800 text-zinc-500'
                     }`}
                   >
@@ -486,7 +474,7 @@ export const TreasureHuntPage: React.FC<TreasureHuntPageProps> = ({
                     prev === 0 ? QUEST_CAROUSEL_SLIDES.length - 1 : prev - 1
                   )
                 }
-                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white"
+                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -494,69 +482,55 @@ export const TreasureHuntPage: React.FC<TreasureHuntPageProps> = ({
                 onClick={() =>
                   setCurrentSlide((prev) => (prev + 1) % QUEST_CAROUSEL_SLIDES.length)
                 }
-                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white"
+                className="w-10 h-10 border border-zinc-800 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
 
-          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-14 overflow-hidden shadow-2xl">
+          <div className="relative border border-zinc-800 bg-[#080808] p-8 sm:p-16 md:p-20 overflow-hidden shadow-2xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={slide.id}
                 initial={{ opacity: 0, x: 25 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -25 }}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                className="max-w-4xl"
               >
-                <div className="lg:col-span-7">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-900 border border-zinc-800 text-[11px] font-mono-code text-zinc-400 uppercase tracking-widest mb-6">
-                    <Sparkles className="w-3 h-3 text-white" />
-                    <span>{slide.badge}</span>
-                  </div>
-                  <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-                    {slide.title}
-                  </h3>
-                  <h4 className="text-base sm:text-lg font-semibold text-zinc-300 mb-6">
-                    {slide.subtitle}
-                  </h4>
-                  <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8 max-w-xl">
-                    {slide.description}
-                  </p>
-                  <button
-                    onClick={() => onOpenRegister('event-04')}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 transition-colors shadow-lg cursor-pointer"
-                  >
-                    <span>ENTER TREASURE HUNT</span>
-                    <span>↗</span>
-                  </button>
-                </div>
-
-                <div className="lg:col-span-5 flex flex-col gap-4">
-                  {slide.highlights.map((item, index) => {
-                    const Icon = item.icon;
-                    return (
-                      <div
-                        key={index}
-                        className="p-5 border border-zinc-800/80 bg-zinc-900/40 flex items-start gap-4"
-                      >
-                        <div className="p-2.5 bg-black border border-zinc-800 text-white shrink-0">
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <h5 className="text-sm font-bold text-white mb-1">{item.title}</h5>
-                          <p className="text-xs text-zinc-400 leading-relaxed">{item.description}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                <h3 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
+                  {slide.title}
+                </h3>
+                <h4 className="text-lg sm:text-2xl font-semibold text-zinc-300 mb-6 leading-snug">
+                  {slide.subtitle}
+                </h4>
+                <p className="text-base sm:text-lg text-zinc-400 leading-relaxed mb-10 max-w-3xl font-normal">
+                  {slide.description}
+                </p>
+                <button
+                  onClick={() => onOpenRegister('event-04')}
+                  className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
+                >
+                  <span>ENTER TREASURE HUNT</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
       </section>
+
+      {/* 2.5 3D Constellation Orbital Gallery of Quest Stages */}
+      <div id="quest-constellation">
+        <ConstellationOrbitalGallery
+          items={QUEST_CONSTELLATION_ITEMS}
+          title="CRYPTIC QUEST WAYPOINTS"
+          subtitle="06 ARG PUZZLE VECTORS"
+          centerSymbol="Q"
+          onOpenRegister={onOpenRegister}
+        />
+      </div>
 
       {/* 3. Broadsheet & Rules */}
       <div id="quest-broadsheet" className="max-w-7xl mx-auto px-6 sm:px-12 py-16">

@@ -3,10 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
   Calendar,
-  Clock,
   Users,
-  Shield,
-  CheckCircle,
   ArrowRight,
   ChevronLeft,
   ChevronRight,
@@ -193,34 +190,6 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
   const lastMousePos = useRef<{ x: number; y: number } | null>(null);
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [timeLeft, setTimeLeft] = useState({
-    days: '04',
-    hours: '18',
-    minutes: '42',
-    seconds: '30',
-  });
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const target = now + 4 * 24 * 3600 * 1000 + 18 * 3600 * 1000 + 42 * 60 * 1000;
-      const diff = target - now;
-
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-      setTimeLeft({
-        days: d.toString().padStart(2, '0'),
-        hours: h.toString().padStart(2, '0'),
-        minutes: m.toString().padStart(2, '0'),
-        seconds: s.toString().padStart(2, '0'),
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -404,10 +373,10 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
             <a
-              href="#workshop-broadsheet"
+              href="#workshop-constellation"
               className="px-6 py-3.5 rounded-full border border-black/20 text-xs font-mono-code uppercase tracking-wider text-black hover:bg-black/5 active:scale-95 transition-all cursor-pointer font-semibold"
             >
-              READ BROADSHEET &amp; RULES ↓
+              EXPLORE MASTERCLASSES &amp; SCHEDULE ↓
             </a>
           </div>
         </div>
@@ -516,172 +485,15 @@ export const WorkshopPage: React.FC<WorkshopPageProps> = ({
           title="WORKSHOP MASTERCLASSES"
           subtitle="06 HANDS-ON LAB TRACKS"
           centerSymbol="W"
+          onSelectArena={onSelectOtherCompetition}
           onOpenRegister={onOpenRegister}
         />
       </div>
 
-      {/* 3. Broadsheet & Rules */}
-      <div id="workshop-broadsheet" className="max-w-7xl mx-auto px-6 sm:px-12 py-16">
-        <div className="text-center pb-8 mb-10 border-b-2 border-white/20">
-          <div className="flex items-center justify-between text-[10px] font-mono-code uppercase tracking-widest text-zinc-400 pb-2 border-b border-zinc-800 mb-6">
-            <span>VOL. XXVI // NO. 05</span>
-            <span className="font-bold text-white">THE NIRVAN HACKATHON GAZETTE</span>
-            <span>OCTOBER 2026 // WORKSHOPS EDITION</span>
-          </div>
-
-          <h2 className="font-newspaper-serif text-5xl sm:text-7xl md:text-8xl font-black tracking-tight text-white uppercase mb-3">
-            The Masterclass Journal
-          </h2>
-
-          <p className="text-xs sm:text-sm font-mono-code uppercase tracking-widest text-zinc-400 max-w-2xl mx-auto">
-            OFFICIAL WORKSHOPS &bull; GENAI AGENTS &bull; ZK-ROLLUPS &bull; THREE.JS SPATIAL &bull; FREE CERTIFICATES
-          </p>
-        </div>
-
-        {/* Competition Switcher */}
-        <div className="flex flex-wrap items-center gap-2 mb-12 pb-4 border-b border-zinc-800/80">
-          <span className="text-xs font-mono-code uppercase tracking-wider text-zinc-500 mr-2">
-            SWITCH ARENA:
-          </span>
-          {['Hackathon', 'Esports', 'CTF', 'Treasure Hunt', 'Workshop'].map((arena) => (
-            <button
-              key={arena}
-              onClick={() => onSelectOtherCompetition(arena)}
-              className={`px-4 py-1.5 text-xs font-mono-code uppercase tracking-wider transition-all cursor-pointer border ${
-                arena === 'Workshop'
-                  ? 'bg-white text-black border-white font-bold'
-                  : 'bg-zinc-900/90 text-zinc-400 border-zinc-800 hover:border-zinc-600 hover:text-white'
-              }`}
-            >
-              {arena}
-            </button>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-24">
-          <div className="lg:col-span-8 space-y-10">
-            <div className="bg-[#0c0c0e] border border-zinc-800 p-8 sm:p-10 relative">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="px-2 py-0.5 bg-white text-black text-xs font-mono-code font-bold uppercase">
-                  005 // WORKSHOP
-                </span>
-                <span className="text-xs font-mono-code text-zinc-500 uppercase tracking-widest">
-                  DEEP-DIVE SESSIONS
-                </span>
-              </div>
-
-              <h3 className="font-newspaper-serif text-3xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-                GenAI &amp; Web3 Masterclasses
-              </h3>
-
-              <div className="aspect-[16/9] w-full bg-zinc-900 border border-zinc-800 overflow-hidden mb-8 shadow-2xl">
-                <img
-                  src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=900&h=650&fit=crop&q=80"
-                  alt="Tech Workshop"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              <p className="text-zinc-300 leading-relaxed text-sm sm:text-base border-t border-zinc-800 pt-6">
-                Interactive 3-hour code-along masterclasses with starter kits, cloud compute tokens, and verified verifiable certificates for all attending developers.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-8 bg-[#0a0a0c] border border-zinc-800">
-                <div className="flex items-center gap-2 text-xs font-mono-code text-zinc-400 uppercase tracking-wider mb-4 pb-2 border-b border-zinc-800">
-                  <Shield className="w-4 h-4 text-white" />
-                  <span>PREREQUISITES</span>
-                </div>
-                <ul className="space-y-3 text-sm text-zinc-300">
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                    <span>Bring laptop with Node.js 20+ and Python 3.11+ installed.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                    <span>Sandbox tokens provided at kickoff.</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="p-8 bg-[#0a0a0c] border border-zinc-800">
-                <div className="flex items-center gap-2 text-xs font-mono-code text-zinc-400 uppercase tracking-wider mb-4 pb-2 border-b border-zinc-800">
-                  <Users className="w-4 h-4 text-white" />
-                  <span>CAPACITY</span>
-                </div>
-                <ul className="space-y-3 text-sm text-zinc-300">
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
-                    <span>Individual registration &bull; Open to all students &amp; engineers.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-4 space-y-6">
-            <div className="sticky top-28 bg-[#0a0a0c] border-2 border-white/20 p-6 sm:p-8 space-y-6 shadow-2xl">
-              <div className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 pb-3 border-b border-zinc-800">
-                WORKSHOP // SUMMARY
-              </div>
-
-              <div>
-                <div className="flex items-center gap-2 text-[10px] font-mono-code text-zinc-400 uppercase tracking-widest mb-2">
-                  <Clock className="w-3 h-3 text-white" />
-                  <span>COUNTDOWN TO SESSIONS</span>
-                </div>
-                <div className="grid grid-cols-4 gap-2 text-center">
-                  <div className="p-2.5 bg-black border border-zinc-800">
-                    <div className="text-xl sm:text-2xl font-black font-mono-code text-white">
-                      {timeLeft.days}
-                    </div>
-                    <div className="text-[9px] font-mono-code text-zinc-500 uppercase">DAYS</div>
-                  </div>
-                  <div className="p-2.5 bg-black border border-zinc-800">
-                    <div className="text-xl sm:text-2xl font-black font-mono-code text-white">
-                      {timeLeft.hours}
-                    </div>
-                    <div className="text-[9px] font-mono-code text-zinc-500 uppercase">HRS</div>
-                  </div>
-                  <div className="p-2.5 bg-black border border-zinc-800">
-                    <div className="text-xl sm:text-2xl font-black font-mono-code text-white">
-                      {timeLeft.minutes}
-                    </div>
-                    <div className="text-[9px] font-mono-code text-zinc-500 uppercase">MIN</div>
-                  </div>
-                  <div className="p-2.5 bg-black border border-zinc-800">
-                    <div className="text-xl sm:text-2xl font-black font-mono-code text-white">
-                      {timeLeft.seconds}
-                    </div>
-                    <div className="text-[9px] font-mono-code text-zinc-500 uppercase">SEC</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-3 pt-2">
-                <div className="p-3.5 bg-black border border-zinc-800 flex items-center justify-between">
-                  <span className="text-xs font-mono-code text-zinc-400">ENTRY FEE</span>
-                  <span className="text-sm font-bold text-white font-mono-code">₹0 (Free)</span>
-                </div>
-                <div className="p-3.5 bg-black border border-zinc-800 flex items-center justify-between">
-                  <span className="text-xs font-mono-code text-zinc-400">CERTIFICATE</span>
-                  <span className="text-sm font-bold text-white font-mono-code">Verified Credential</span>
-                </div>
-              </div>
-
-              <button
-                onClick={() => onOpenRegister('event-05')}
-                className="w-full py-4 bg-white text-black text-xs font-mono-code font-bold uppercase tracking-wider hover:bg-zinc-200 active:scale-95 transition-all shadow-xl cursor-pointer"
-              >
-                CLAIM WORKSHOP PASS ↗
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* 4. Schedule Flowchart */}
-        <div className="mb-24 pt-12 border-t-2 border-zinc-800">
+      {/* 3. Schedule & Organizers Section */}
+      <div id="workshop-schedule" className="max-w-7xl mx-auto px-6 sm:px-12 py-20">
+        {/* Schedule Flowchart */}
+        <div className="mb-24">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
               <Calendar className="w-3.5 h-3.5 text-zinc-400" />

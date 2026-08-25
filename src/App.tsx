@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Lenis from 'lenis';
 import { Preloader } from './components/Preloader';
 import { Navbar } from './components/Navbar';
@@ -30,15 +30,60 @@ export type ViewType =
   | 'treasure-hunt'
   | 'workshop';
 
+const pathToViewMap: Record<string, ViewType> = {
+  '': 'landing',
+  '/': 'landing',
+  '/landing': 'landing',
+  '/hackathon': 'hackathon',
+  '/esports': 'esports',
+  '/ctf': 'ctf',
+  '/treasure-hunt': 'treasure-hunt',
+  '/treasurehunt': 'treasure-hunt',
+  '/quest': 'treasure-hunt',
+  '/workshop': 'workshop',
+  '/workshops': 'workshop',
+  '/newspaper': 'newspaper',
+};
+
+const viewToPathMap: Record<ViewType, string> = {
+  landing: '/',
+  hackathon: '/hackathon',
+  esports: '/esports',
+  ctf: '/ctf',
+  'treasure-hunt': '/treasure-hunt',
+  workshop: '/workshop',
+  newspaper: '/newspaper',
+};
+
 export function App() {
   const [isPreloaderComplete, setIsPreloaderComplete] = useState(false);
-  const [currentView, setCurrentView] = useState<ViewType>('landing');
+  
+  // Read initial path on load
+  const getInitialView = (): ViewType => {
+    if (typeof window === 'undefined') return 'landing';
+    const cleanPath = window.location.pathname.toLowerCase().replace(/\/+$/, '') || '/';
+    return pathToViewMap[cleanPath] || 'landing';
+  };
+
+  const [currentView, setCurrentView] = useState<ViewType>(getInitialView);
   const [selectedTrackForNewspaper, setSelectedTrackForNewspaper] = useState<EventTrack | null>(null);
 
   const [isAIOpen, setIsAIOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [registerDefaultTrack, setRegisterDefaultTrack] = useState<string | undefined>(undefined);
   const [isDemoOpen, setIsDemoOpen] = useState(false);
+
+  // Synchronize browser history and popstate for back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const cleanPath = window.location.pathname.toLowerCase().replace(/\/+$/, '') || '/';
+      const matchedView = pathToViewMap[cleanPath] || 'landing';
+      setCurrentView(matchedView);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -59,8 +104,14 @@ export function App() {
     };
   }, []);
 
-  const handleNavigate = (view: ViewType, sectionId?: string) => {
+  const handleNavigate = useCallback((view: ViewType, sectionId?: string) => {
     setCurrentView(view);
+    const targetPath = viewToPathMap[view] || '/';
+    
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({ view }, '', targetPath);
+    }
+
     if (view === 'landing' && sectionId) {
       setTimeout(() => {
         const el = document.getElementById(sectionId);
@@ -71,34 +122,32 @@ export function App() {
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, []);
 
   const handleSelectTrackForNewspaper = (track: EventTrack) => {
     setSelectedTrackForNewspaper(track);
     if (track.category === 'Hackathon') {
-      setCurrentView('hackathon');
+      handleNavigate('hackathon');
     } else if (track.category === 'Esports') {
-      setCurrentView('esports');
+      handleNavigate('esports');
     } else if (track.category === 'CTF') {
-      setCurrentView('ctf');
+      handleNavigate('ctf');
     } else if (track.category === 'Treasure Hunt') {
-      setCurrentView('treasure-hunt');
+      handleNavigate('treasure-hunt');
     } else if (track.category === 'Workshop') {
-      setCurrentView('workshop');
+      handleNavigate('workshop');
     } else {
-      setCurrentView('newspaper');
+      handleNavigate('newspaper');
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSelectCompetitionByName = (arena: string) => {
-    if (arena === 'Hackathon') setCurrentView('hackathon');
-    else if (arena === 'Esports') setCurrentView('esports');
-    else if (arena === 'CTF') setCurrentView('ctf');
-    else if (arena === 'Treasure Hunt') setCurrentView('treasure-hunt');
-    else if (arena === 'Workshop') setCurrentView('workshop');
-    else setCurrentView('newspaper');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (arena === 'Hackathon') handleNavigate('hackathon');
+    else if (arena === 'Esports') handleNavigate('esports');
+    else if (arena === 'CTF') handleNavigate('ctf');
+    else if (arena === 'Treasure Hunt') handleNavigate('treasure-hunt');
+    else if (arena === 'Workshop') handleNavigate('workshop');
+    else handleNavigate('newspaper');
   };
 
   const handleOpenRegister = (trackId?: string) => {

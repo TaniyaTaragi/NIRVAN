@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Trophy, Flame } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface FoamBubble {
   x: number;
@@ -204,7 +204,7 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full flex flex-col justify-between p-6 sm:p-12 pt-28 sm:pt-32 overflow-hidden bg-[#f0f0f2] text-[#121212] select-none"
+      className="relative min-h-screen w-full flex flex-col justify-between p-6 sm:p-12 pt-28 sm:pt-32 pb-16 overflow-hidden bg-[#f0f0f2] text-[#121212] select-none"
     >
       {/* 3D Iridescent Inflatable Balloon "NIRVAN" Floating Background with Gentle Bobbing Physics */}
       <div className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none overflow-hidden">
@@ -229,21 +229,11 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
 
       {/* Top Narrative, Hinglish Tagline & Action Trigger */}
       <div className="relative z-10 max-w-2xl">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/5 border border-black/10 text-xs font-mono-code text-zinc-800 mb-4 shadow-sm backdrop-blur-sm"
-        >
-          <Flame className="w-3.5 h-3.5 text-black animate-pulse" />
-          <span>NATIONAL HACKATHON &bull; ₹5,00,000+ PRIZE CRUCIBLE</span>
-        </motion.div>
-
         {/* Hinglish Main Punchline */}
         <motion.h1
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.15 }}
           className="text-2xl sm:text-4xl md:text-[44px] font-extrabold tracking-tight leading-tight mb-4 text-[#121212]"
         >
           Code Karo, Innovate Karo, Sab Kuch Jeeto.
@@ -252,7 +242,7 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.25 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="text-base sm:text-lg text-zinc-700 font-medium leading-relaxed mb-8 max-w-xl"
         >
           Where India’s brightest developers, hackers, and creators build the next generation of autonomous intelligence and decentralized systems.
@@ -262,7 +252,7 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.25 }}
           className="flex flex-wrap items-center gap-4"
         >
           <button
@@ -299,41 +289,6 @@ export const NothinLandingHero: React.FC<NothinLandingHeroProps> = ({
             className="absolute inset-0 w-full h-full pointer-events-none z-20"
           />
         </motion.div>
-      </div>
-
-      {/* Bottom Coordinates & Live Stats Strip */}
-      <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 text-xs font-mono-code text-zinc-600 uppercase tracking-widest pt-6 border-t border-zinc-300">
-        <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1.5 text-black font-bold">
-            <Trophy className="w-3.5 h-3.5 text-black" />
-            ₹5,00,000+ PRIZE POOL
-          </span>
-          <span>&bull;</span>
-          <span>48-HOUR HYBRID CRUCIBLE</span>
-        </div>
-
-        <div className="flex items-center gap-6">
-          <a
-            href="https://github.com/TaniyaTaragi/NIRVAN"
-            target="_blank"
-            rel="noreferrer"
-            className="hover:text-black transition-colors cursor-pointer font-bold"
-          >
-            GITHUB // REPO
-          </a>
-          <span>/</span>
-          <a
-            href="https://discord.gg"
-            target="_blank"
-            rel="noreferrer"
-            className="hover:text-black transition-colors cursor-pointer font-bold"
-          >
-            DISCORD LOUNGE
-          </a>
-          <span className="px-2.5 py-0.5 rounded bg-black text-white font-bold text-[10px]">
-            OCT 2026
-          </span>
-        </div>
       </div>
     </section>
   );

@@ -135,11 +135,8 @@ export const HeroCarousel = () => {
         {/* Section Top Header & Navigation Controls */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="text-xs font-mono-code uppercase tracking-widest text-zinc-500 mb-2">
-              DISCOVER NIRVAN // PERSPECTIVE &bull; 03 PILLARS
-            </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-              Perspective &amp; Mission
+              Perspective &amp; Architecture
             </h2>
           </div>
 
